@@ -46,12 +46,6 @@ public class Game
 // - GameStats
 //   - Store Players, roundNumber, bools, etc
 //
-// - Player
-//   - Team Boundary
-//
-// - Players
-//   - Métodos de player como boundary
-//
 // View usa Modelos, Controlador usa view y modelos!!!!!
 // GameStat: clase editable que guarda info, quizas limpieza
 
