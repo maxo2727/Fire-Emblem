@@ -13,6 +13,6 @@ public class NeutralizePenaltyEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        unit.Stats[_stat].ArePenaltiesNeutralized = true;
+        unit.Stats.GetStat(_stat).ArePenaltiesNeutralized = true;
     }
 }

@@ -16,6 +16,6 @@ public class PenaltyRivalEffect : Effect
     public override void Apply(Unit unit)
     {
         Unit rival = unit.GetRivalUnit();
-        rival.ModifyPenalties(_stat, _penalty);
+        rival.Stats.ModifyPenalties(_stat, _penalty);
     }
 }

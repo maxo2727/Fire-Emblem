@@ -4,6 +4,7 @@ namespace Fire_Emblem.StatsFolder;
 
 public class Stat
 {
+    // Dictionary? O organizarlo mejor?
     public int BaseStat;
     public int Bonus = 0;
     public int Penalty = 0;

@@ -5,7 +5,6 @@ namespace Fire_Emblem.PlayersFolder;
 public class Player
 {
     private Unit _selectedUnit;
-    // Team Boundary
     public List<Unit> Team = new List<Unit>();
 
     public void AddUnitToTeam(Unit unit)

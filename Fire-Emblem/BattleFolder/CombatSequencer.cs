@@ -85,12 +85,12 @@ public class CombatSequencer
     
     public bool IsThereAFollowUp()
     {
-        return Math.Abs(_attackingUnit.Stats["Spd"].GetStatWithEffects() - _defendingUnit.Stats["Spd"].GetStatWithEffects()) > 4;
+        return Math.Abs(_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() - _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects()) > 4;
     }
     
     public Unit GetFollowUpAttacker()
     {
-        if (_attackingUnit.Stats["Spd"].GetStatWithEffects() > _defendingUnit.Stats["Spd"].GetStatWithEffects())
+        if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
             return _attackingUnit;
         else
             return _defendingUnit;
@@ -98,7 +98,7 @@ public class CombatSequencer
 
     public Unit GetFollowUpDefender()
     {
-        if (_attackingUnit.Stats["Spd"].GetStatWithEffects() > _defendingUnit.Stats["Spd"].GetStatWithEffects())
+        if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
             return _defendingUnit;
         else
             return _attackingUnit;

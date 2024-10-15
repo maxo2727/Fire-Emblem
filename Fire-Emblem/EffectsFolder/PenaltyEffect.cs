@@ -15,6 +15,6 @@ public class PenaltyEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        unit.ModifyPenalties(_stat, _penalty);
+        unit.Stats.ModifyPenalties(_stat, _penalty);
     }
 }

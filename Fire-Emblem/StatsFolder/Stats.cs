@@ -2,14 +2,43 @@ namespace Fire_Emblem.StatsFolder;
 
 public class Stats
 {
-    public Dictionary<string, Stat> _stats = new Dictionary<string, Stat>()
+    private readonly Dictionary<string, Stat> _stats = new Dictionary<string, Stat>()
     {
         { "Atk", new Attack() },
         { "Spd", new Speed() },
         { "Def", new Defense() },
         { "Res", new Resistence() }
     };
+
+    public Stat GetStat(string stat)
+    {
+        return _stats[stat];
+    }
+
+    public IEnumerable<KeyValuePair<string, Stat>> GetAllStats()
+    {
+        return _stats;
+    }
+
+    public IEnumerable<string> GetStatNames()
+    {
+        return _stats.Keys;
+    }
+
+    public IEnumerable<Stat> GetStatValues()
+    {
+        return _stats.Values;
+    }
     
+    public void ClearEffectsForEveryStat()
+    {
+        foreach (Stat stat in _stats.Values)
+        {
+            stat.ClearStatEffects();
+        }
+    }
+    
+    // Necesario? O trainwreck noma?
     public void ModifyBonuses(string stat, int bonus)
     {
         _stats[stat].Bonus += bonus;
@@ -39,23 +68,4 @@ public class Stats
     {
         _stats[stat].FollowUpPenalty += penalty;
     }
-    
-    // public void ModifyRivalBonuses(string stat, int bonus)
-    // {
-    //     _rival.ModifyBonuses(stat, bonus);
-    // }
-    //
-    // public void ModifyRivalPenalties(string stat, int penalty)
-    // {
-    //     _rival.ModifyPenalties(stat, penalty);
-    // }
-    //
-    // public void ModifyRivalFirstAttackBonuses(string stat, int penalty)
-    // {
-    //     _rival.ModifyFirstAttackBonuses(stat, penalty);
-    // }
-    // public void ModifyRivalFirstAttackPenalties(string stat, int penalty)
-    // {
-    //     _rival.ModifyFirstAttackPenalties(stat, penalty);
-    // }
 }

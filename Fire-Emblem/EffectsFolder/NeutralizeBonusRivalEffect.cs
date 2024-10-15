@@ -14,6 +14,6 @@ public class NeutralizeBonusRivalEffect : Effect
     public override void Apply(Unit unit)
     {
         Unit rival = unit.GetRivalUnit();
-        rival.Stats[_stat].AreBonusesNeutralized = true;
+        rival.Stats.GetStat(_stat).AreBonusesNeutralized = true;
     }
 }

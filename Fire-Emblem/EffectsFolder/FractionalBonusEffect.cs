@@ -15,7 +15,7 @@ public class FractionalBonusEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        int bonus = unit.Stats[_stat].BaseStat / _baseStatFraction;
-        unit.ModifyBonuses(_stat, bonus);
+        int bonus = unit.Stats.GetStat(_stat).BaseStat / _baseStatFraction;
+        unit.Stats.ModifyBonuses(_stat, bonus);
     }
 }

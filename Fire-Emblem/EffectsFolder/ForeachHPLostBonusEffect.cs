@@ -20,6 +20,6 @@ public class ForeachHPLostBonusEffect : Effect
         int bonus = lostHP * _multiplicator;
         if (bonus > 30)
             bonus = 30;
-        unit.ModifyBonuses(_stat, bonus);
+        unit.Stats.ModifyBonuses(_stat, bonus);
     }
 }

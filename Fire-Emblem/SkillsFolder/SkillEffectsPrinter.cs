@@ -27,7 +27,7 @@ public class SkillEffectsPrinter
     // Limpiarlas...?
     public void PrintBonuses(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.Bonus != 0)
             {
@@ -38,7 +38,7 @@ public class SkillEffectsPrinter
 
     public void PrintFirstAttackBonuses(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.FirstAttackBonus != 0)
             {
@@ -49,7 +49,7 @@ public class SkillEffectsPrinter
 
     public void PrintFollowUpBonuses(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.FollowUpBonus != 0)
             {
@@ -60,7 +60,7 @@ public class SkillEffectsPrinter
 
     public void PrintPenalties(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.Penalty != 0)
             {
@@ -71,7 +71,7 @@ public class SkillEffectsPrinter
 
     public void PrintFirstAttackPenalties(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.FirstAttackPenalty != 0)
             {
@@ -82,7 +82,7 @@ public class SkillEffectsPrinter
     
     public void PrintFollowUpPenalties(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.FollowUpPenalty != 0)
             {
@@ -93,7 +93,7 @@ public class SkillEffectsPrinter
 
     public void PrintBonusNeutralization(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.AreBonusesNeutralized)
             {
@@ -104,7 +104,7 @@ public class SkillEffectsPrinter
     
     public void PrintPenaltyNeutralization(Unit unit)
     {
-        foreach (var (statName, stat) in unit.Stats)
+        foreach (var (statName, stat) in unit.Stats.GetAllStats())
         {
             if (stat.ArePenaltiesNeutralized)
             {

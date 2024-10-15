@@ -7,7 +7,7 @@ public class NeutralizeAllPenaltiesEffect : Effect
 {
     public override void Apply(Unit unit)
     {
-        foreach (Stat stat in unit.Stats.Values)
+        foreach (Stat stat in unit.Stats.GetStatValues())
         {
             stat.ArePenaltiesNeutralized = true;
         }

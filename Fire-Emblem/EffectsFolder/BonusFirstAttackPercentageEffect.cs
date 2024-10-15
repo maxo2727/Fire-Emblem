@@ -15,7 +15,7 @@ public class BonusFirstAttackPercentageEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        int bonus = (int)Math.Truncate(unit.Stats[_stat].BaseStat * _percentage);
-        unit.ModifyFirstAttackBonuses(_stat, bonus);
+        int bonus = (int)Math.Truncate(unit.Stats.GetStat(_stat).BaseStat * _percentage);
+        unit.Stats.ModifyFirstAttackBonuses(_stat, bonus);
     }
 }

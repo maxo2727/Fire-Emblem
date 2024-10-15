@@ -10,4 +10,9 @@ public class Weapon
         Name = name;
         Type = WeaponTypeSetter.SetWeaponType(name);
     }
+    
+    public string GetDefenseFromWeaponType(Weapon attackingUnitWeapon)
+    {
+        return WeaponDefenseGetter.GetDefenseFromWeaponType(attackingUnitWeapon);
+    }
 }

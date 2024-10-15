@@ -8,8 +8,8 @@ public class SoulbladeEffect : Effect
     public override void Apply(Unit unit)
     {
         _rival = unit.GetRivalUnit();
-        int defBaseStat = _rival.Stats["Def"].BaseStat;
-        int resBaseStat = _rival.Stats["Res"].BaseStat;
+        int defBaseStat = _rival.Stats.GetStat("Def").BaseStat;
+        int resBaseStat = _rival.Stats.GetStat("Res").BaseStat;
         int promedioDefRes = (defBaseStat + resBaseStat) / 2;
         int defModification = promedioDefRes - defBaseStat;
         int resModification = promedioDefRes - resBaseStat;
@@ -21,11 +21,11 @@ public class SoulbladeEffect : Effect
     {
         if (modification > 0)
         {
-            _rival.ModifyBonuses(stat, modification);
+            _rival.Stats.ModifyBonuses(stat, modification);
         }
         else
         {
-            _rival.ModifyPenalties(stat, modification);
+            _rival.Stats.ModifyPenalties(stat, modification);
         }
     }
 }

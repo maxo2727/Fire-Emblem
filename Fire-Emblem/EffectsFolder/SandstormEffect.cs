@@ -8,8 +8,8 @@ public class SandstormEffect : Effect
     public override void Apply(Unit unit)
     {
         _unit = unit;
-        int defBaseStat = unit.Stats["Def"].BaseStat;
-        int atkBaseStat = unit.Stats["Atk"].BaseStat;
+        int defBaseStat = unit.Stats.GetStat("Def").BaseStat;
+        int atkBaseStat = unit.Stats.GetStat("Atk").BaseStat;
         int atkModification = (int)Math.Truncate(1.5 * defBaseStat) - atkBaseStat;
         AddSandstormModification("Atk", atkModification);
     }
@@ -18,11 +18,11 @@ public class SandstormEffect : Effect
     {
         if (modification > 0)
         {
-            _unit.ModifyFollowUpBonuses(stat, modification);
+            _unit.Stats.ModifyFollowUpBonuses(stat, modification);
         }
         else
         {
-            _unit.ModifyFollowUpPenalties(stat, modification);
+            _unit.Stats.ModifyFollowUpPenalties(stat, modification);
         }
     }
 }

@@ -46,10 +46,6 @@ public class Game
 // - GameStats
 //   - Store Players, roundNumber, bools, etc
 //
-// - Unit
-//   - Skills Boundaries
-//   - Stats Boundaries
-//
 // - Player
 //   - Team Boundary
 //
@@ -63,3 +59,6 @@ public class Game
 //  - Boundaries
 //  - Separar Modelos en Proyecto
 //  - Crear GameStats
+
+// DUDAS:
+//  - Encapsulation Dictionary ta bien devolver todos los (key, value)?

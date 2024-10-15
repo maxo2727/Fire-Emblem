@@ -15,6 +15,8 @@ public class BonusEffect: Effect
     
     public override void Apply(Unit unit)
     {
-        unit.ModifyBonuses(_stat, _bonus);
+        // unit.Stats.GetStat(_stat).Bonus += _bonus;
+        unit.Stats.ModifyBonuses(_stat, _bonus);
+        // unit.ModifyBonuses(_stat, _bonus);
     }
 }
