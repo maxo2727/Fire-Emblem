@@ -26,7 +26,7 @@ public class UnitSelector
     
     public void SelectUnitForBattle(int playerNumber, Player player)
     {
-        List<Unit> aliveUnitsInCombat = player.GetAliveUnitsInCombat();
+        List<Unit> aliveUnitsInCombat = player.Team.GetAliveUnitsInCombat();
         _view.WriteLine($"Player {playerNumber} selecciona una opción");
         _responseHandler.ShowArrayOfOptions(aliveUnitsInCombat); // esto dentro de USER CHOICE
         Unit selectedUnit = _responseHandler.AskUserForOption(aliveUnitsInCombat);

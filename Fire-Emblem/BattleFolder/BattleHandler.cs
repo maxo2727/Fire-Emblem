@@ -42,7 +42,7 @@ public class BattleHandler
     public bool CheckFinishCondition()
     {
         foreach (Player player in _players.PlayersDict.Values)
-            if (player.HasLostAllItsUnits())
+            if (player.Team.HasLostAllItsUnits())
                 return true;
         return false;
     }
@@ -58,7 +58,7 @@ public class BattleHandler
         int winner = 0;
         foreach (var (playerNumber, player) in _players.PlayersDict)
         {
-            if (!player.HasLostAllItsUnits())
+            if (!player.Team.HasLostAllItsUnits())
             {
                 winner = playerNumber;
             }
