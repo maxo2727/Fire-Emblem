@@ -38,11 +38,12 @@ public class TeamLoader
         }
         _players.PlayersDict[playerNumber].AddUnitToTeam(newUnit);
     }
-
+    
+    // Debería ser Parse unit y dsp metodo agregar
     public void AddSkillsToUnit(string skillsLine, Unit newUnit)
     {
         string[] unitSkills = skillsLine.Replace("(","").Replace(")","").Split(",");
         foreach (string skill in unitSkills)
-            newUnit.AddSkill(skill);
+            newUnit.Skills.AddSkill(skill);
     }
 }

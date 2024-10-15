@@ -52,8 +52,7 @@ public class BattleHandler
         int winner = GetBattleWinner();
         _view.WriteLine($"Player {winner} ganó");
     }
-
-    // limpiar
+    
     public int GetBattleWinner()
     {
         int winner = 0;

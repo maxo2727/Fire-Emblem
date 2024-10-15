@@ -7,6 +7,7 @@ namespace Fire_Emblem;
 
 public class Game
 {
+    private View _view;
     private string _teamsFolder;
     private TeamFileSelector _teamFileSelector;
     private TeamLoader _teamLoader;
@@ -15,6 +16,7 @@ public class Game
     
     public Game(View view, string teamsFolder)
     {
+        _view = view;
         _teamsFolder = teamsFolder;
         Players players = new Players();
         _teamFileSelector = new TeamFileSelector(view);
@@ -25,6 +27,8 @@ public class Game
 
     public void Play()
     {
+        // string teamFile = _teamFileSelector.SelectTeamFileNuevo(_teamsFolder);
+        string[] teams = _teamFileSelector.GetAvailableTeamsInOrder(_teamsFolder);
         string teamFile = _teamFileSelector.SelectTeamFile(_teamsFolder);
         _teamLoader.LoadTeamFromFile(teamFile);
         if (_teamValidator.CheckTeamsValidity())
@@ -32,6 +36,30 @@ public class Game
     }
 }
 
-// Dejar trainwrecks de estructuras de datos y sacar metodos
-// Archivos ignorados?
-// probando
+// TODO:
+// - Select and Verify Team with MVC
+//   - Request Handler necessary?
+//   - Get Input in View?
+//   - Response View no inheritance?
+//   - Try Catch in Happy Path and Throw Exceptions
+//
+// - GameStats
+//   - Store Players, roundNumber, bools, etc
+//
+// - Unit
+//   - Skills Boundaries
+//   - Stats Boundaries
+//
+// - Player
+//   - Team Boundary
+//
+// - Players
+//   - Métodos de player como boundary
+//
+// View usa Modelos, Controlador usa view y modelos!!!!!
+// GameStat: clase editable que guarda info, quizas limpieza
+
+// Prioridad:
+//  - Boundaries
+//  - Separar Modelos en Proyecto
+//  - Crear GameStats

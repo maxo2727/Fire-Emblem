@@ -39,7 +39,7 @@ public class TeamValidator
                 return false;
             foreach (Unit unit in player.Team)
             {
-                if (AreSkillsOutsideSizeRange(unit.Skills) || AreThereAnyRepeatedSkills(unit.Skills))
+                if (unit.Skills.AreSkillsOutsideSizeRange() || unit.Skills.AreThereAnyRepeatedSkills())
                     return false;
             }
         }
@@ -63,20 +63,20 @@ public class TeamValidator
         return false;
     }
     
-    public bool AreSkillsOutsideSizeRange(List<Skill> skills)
-    {
-        int skillsCount = skills.Count;
-        return 2 < skillsCount;
-    }
-
-    public bool AreThereAnyRepeatedSkills(List<Skill> skills)
-    {
-        HashSet<string> uniqueSkillNames = new HashSet<string>();
-        foreach (Skill skill in skills)
-        {
-            if (!uniqueSkillNames.Add(skill.Name))
-                return true;
-        }
-        return false;
-    }
+    // public bool AreSkillsOutsideSizeRange(List<Skill> skills)
+    // {
+    //     int skillsCount = skills.Count;
+    //     return 2 < skillsCount;
+    // }
+    //
+    // public bool AreThereAnyRepeatedSkills(List<Skill> skills)
+    // {
+    //     HashSet<string> uniqueSkillNames = new HashSet<string>();
+    //     foreach (Skill skill in skills)
+    //     {
+    //         if (!uniqueSkillNames.Add(skill.Name))
+    //             return true;
+    //     }
+    //     return false;
+    // }
 }

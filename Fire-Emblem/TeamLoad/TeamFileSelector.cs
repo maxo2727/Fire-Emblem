@@ -13,6 +13,21 @@ public class TeamFileSelector
         _view = view;
         _responseHandler = new ResponseHandlerTeam(_view);
     }
+
+    public string SelectTeamFileNuevo(string teamsFolder)
+    {
+        // Agrupar
+        string[] teamPaths = GetAvailableTeamsInOrder(teamsFolder);
+        string[] teamFiles = ParseTeamPathsIntoTeamFileNames(teamPaths);
+        _view.ShowArrayOfTeams(teamFiles);
+        string teamFile = GetUserSelectedOption(teamFiles);
+        return teamFile;
+    }
+
+    public string GetUserSelectedOption(string[] options)
+    {
+        return _responseHandler.AskUserForOption(options);
+    }
     
     public string SelectTeamFile(string teamsFolder)
     {
@@ -22,12 +37,20 @@ public class TeamFileSelector
         string teamFile = _responseHandler.AskUserForOption(teamPaths);
         return teamFile;
     }
-    private string[] GetAvailableTeamsInOrder(string teamsFolder)
+    
+    public string[] GetAvailableTeamsInOrder(string teamsFolder)
     {
         string[] teams = Directory.GetFiles(teamsFolder, "*.txt");
         return teams;
     }
-}
 
-// si tengo dos metodos separados pero uno llama a otro, usando todos los atributos, es cohesivo?
-// GetAvailableTeamsInOrder debe ir en nueva clase (estática)? O como es tan pequeña y tampoco se aleja tanto su responsabilidad no es necesario...
+    public string[] ParseTeamPathsIntoTeamFileNames(string[] teamPaths)
+    {
+        List<string> teamFiles = new List<string>();
+        for (int i = 0; i < teamPaths.Count(); i++)
+        {
+            teamFiles.Add(teamPaths[i].Split('\\')[2]);
+        }
+        return teamFiles.ToArray();
+    }
+}

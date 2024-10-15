@@ -45,8 +45,8 @@ public class CombatSequencer
     public void SkillChecker()
     {
         // usar dict
-        _attackingUnit.CheckIfUnitCanUseSkills(_attackingUnit);
-        _defendingUnit.CheckIfUnitCanUseSkills(_defendingUnit);
+        _attackingUnit.Skills.CheckIfUnitCanUseSkills(_attackingUnit);
+        _defendingUnit.Skills.CheckIfUnitCanUseSkills(_defendingUnit);
         _skillEffectsPrinter.PrintSkillEffectsByUnit(_attackingUnit);
         _skillEffectsPrinter.PrintSkillEffectsByUnit(_defendingUnit);
         _attackingUnit.Hp.SetMaxHPForCombat();

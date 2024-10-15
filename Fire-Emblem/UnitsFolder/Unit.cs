@@ -10,6 +10,7 @@ public class Unit
     public string Gender;
     public string DeathQuote;
     public HP Hp;
+    // Class Stats Boundries
     public Dictionary<string, Stat> Stats = new Dictionary<string, Stat>()
     {
         { "Atk", new Attack() },
@@ -17,7 +18,7 @@ public class Unit
         { "Def", new Defense() },
         { "Res", new Resistence() }
     };
-    public List<Skill> Skills = new List<Skill>();
+    public Skills Skills = new Skills();
     private Unit _rival;
     private Unit _mostRecentRival = null;
     public bool IsStartingCombat = false;
@@ -43,21 +44,6 @@ public class Unit
         Stats["Res"].BaseStat = Convert.ToInt32(unitInfo["Res"]);
     }
     
-    // Metodos de Skills
-    public void AddSkill(string skillName)
-    {
-        Skill skill = SkillFactory.CreateSkill(skillName);
-        Skills.Add(skill);
-    }
-
-    public void CheckIfUnitCanUseSkills(Unit unit)
-    {
-        foreach (Skill skill in Skills)
-        {
-            skill.UseSkill(unit);
-        }
-    }
-
     public void ResetRoundActions()
     {
         IsStartingCombat = false;

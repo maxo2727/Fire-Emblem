@@ -15,6 +15,7 @@ public class ResponseHandler
 
     public virtual void ShowArrayOfOptions<Thing>(IEnumerable<Thing> options){}
 
+    // No es tan buena idea dejarlo como IList...
     public Thing AskUserForOption<Thing>(IList<Thing> options)
     {
         int minValue = 0;
