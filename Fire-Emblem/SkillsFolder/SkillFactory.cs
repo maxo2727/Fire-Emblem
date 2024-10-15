@@ -1,4 +1,6 @@
-using Fire_Emblem.EffectsFolder;
+using Fire_Emblem_Models;
+using Fire_Emblem_Models.ConditionsFolder;
+using Fire_Emblem_Models.EffectsFolder;
 
 namespace Fire_Emblem.SkillsFolder;
 

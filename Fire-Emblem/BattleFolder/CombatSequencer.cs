@@ -1,3 +1,5 @@
+using Fire_Emblem_Models;
+using Fire_Emblem_Models.StatsFolder;
 using Fire_Emblem_View;
 using Fire_Emblem.SkillsFolder;
 using Fire_Emblem.UnitsFolder;
@@ -8,11 +10,11 @@ public class CombatSequencer
 {
     private Unit _attackingUnit;
     private Unit _defendingUnit;
-    private View _view;
+    private FireEmblemView _view;
     private SkillEffectsPrinter _skillEffectsPrinter;
     private int _battleRound;
 
-    public CombatSequencer(View view, int battleRound)
+    public CombatSequencer(FireEmblemView view, int battleRound)
     {
         _view = view;
         _skillEffectsPrinter = new SkillEffectsPrinter(_view);

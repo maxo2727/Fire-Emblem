@@ -4,9 +4,9 @@ namespace Fire_Emblem.ResponseHandlerFolder;
 
 public class ResponseHandlerTeam:ResponseHandler.ResponseHandler
 {
-    private View _view;
+    private FireEmblemView _view;
     
-    public ResponseHandlerTeam(View view) : base(view)
+    public ResponseHandlerTeam(FireEmblemView view) : base(view)
     {
         _view = view;
     }

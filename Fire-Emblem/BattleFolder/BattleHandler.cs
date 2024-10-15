@@ -1,15 +1,15 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
-using Fire_Emblem.PlayersFolder;
 
 namespace Fire_Emblem.BattleFolder;
 
 public class BattleHandler
 {
-    private View _view;
+    private FireEmblemView _view;
     private Players _players;
     private RoundHandler _roundHandler;
 
-    public BattleHandler(View view, Players players)
+    public BattleHandler(FireEmblemView view, Players players)
     {
         _view = view;
         _players = players;

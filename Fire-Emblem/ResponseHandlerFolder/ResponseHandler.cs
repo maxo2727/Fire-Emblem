@@ -6,9 +6,9 @@ namespace Fire_Emblem.ResponseHandler;
 
 public class ResponseHandler
 {
-    private View _view;
+    private FireEmblemView _view;
 
-    public ResponseHandler(View view)
+    public ResponseHandler(FireEmblemView view)
     {
         _view = view;
     }

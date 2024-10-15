@@ -1,3 +1,4 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
 using Fire_Emblem.UnitsFolder;
 
@@ -5,9 +6,9 @@ namespace Fire_Emblem.ResponseHandlerFolder;
 
 public class ResponseHandlerUnit:ResponseHandler.ResponseHandler
 {
-    private View _view;
+    private FireEmblemView _view;
 
-    public ResponseHandlerUnit(View view) : base(view)
+    public ResponseHandlerUnit(FireEmblemView view) : base(view)
     {
         _view = view;
     }

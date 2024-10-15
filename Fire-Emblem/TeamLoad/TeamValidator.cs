@@ -1,5 +1,5 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
-using Fire_Emblem.PlayersFolder;
 using Fire_Emblem.SkillsFolder;
 using Fire_Emblem.UnitsFolder;
 
@@ -7,10 +7,10 @@ namespace Fire_Emblem.TeamLoad;
 
 public class TeamValidator
 {
-    private View _view;
+    private FireEmblemView _view;
     private Players _players;
 
-    public TeamValidator(View view, Players players)
+    public TeamValidator(FireEmblemView view, Players players)
     {
         _players = players;
         _view = view;

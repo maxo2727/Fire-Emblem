@@ -28,13 +28,13 @@ public class View
     public string[] GetScript()
         => _view.GetScript();
 
-    public void ShowArrayOfTeams(string[] teamFiles)
-    {
-        WriteLine("Elige un archivo para cargar los equipos");
-        for (int i = 0; i < teamFiles.Length; i++)
-        {
-            string teamFile = teamFiles[i];
-            WriteLine($"{i}: {teamFile}");
-        }
-    }
+    // public void ShowArrayOfTeams(string[] teamFiles)
+    // {
+    //     WriteLine("Elige un archivo para cargar los equipos");
+    //     for (int i = 0; i < teamFiles.Length; i++)
+    //     {
+    //         string teamFile = teamFiles[i];
+    //         WriteLine($"{i}: {teamFile}");
+    //     }
+    // }
 }

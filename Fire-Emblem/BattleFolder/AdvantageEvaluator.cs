@@ -1,3 +1,4 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
 using Fire_Emblem.UnitsFolder;
 
@@ -14,7 +15,7 @@ public class AdvantageEvaluator
         { "Bow", "" }
     };
     
-    public static void CheckAdvantage(Unit attacker, Unit defender, View view)
+    public static void CheckAdvantage(Unit attacker, Unit defender, FireEmblemView view)
     {
         if (AdvantageEvaluator.IsThereAnAdvantage(attacker, defender))
         {

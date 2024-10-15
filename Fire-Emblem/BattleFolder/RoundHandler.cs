@@ -1,5 +1,5 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
-using Fire_Emblem.PlayersFolder;
 using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
@@ -7,7 +7,7 @@ namespace Fire_Emblem.BattleFolder;
 public class RoundHandler
 {
     // Crear acá algún diccionario round context?
-    private View _view;
+    private FireEmblemView _view;
     private Players _players;
     private int _attackingPlayerNumber;
     private int _defendingPlayerNumber;
@@ -17,7 +17,7 @@ public class RoundHandler
     private UnitSelector _unitSelector;
     private CombatSequencer _combatSequencer;
 
-    public RoundHandler(View view, Players players)
+    public RoundHandler(FireEmblemView view, Players players)
     {
         _view = view;
         _players = players;

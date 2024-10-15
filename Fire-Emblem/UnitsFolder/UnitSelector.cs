@@ -1,5 +1,5 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
-using Fire_Emblem.PlayersFolder;
 using Fire_Emblem.ResponseHandlerFolder;
 
 namespace Fire_Emblem.UnitsFolder;
@@ -9,9 +9,9 @@ public class UnitSelector
 {
     private Players _players;
     private ResponseHandler.ResponseHandler _responseHandler;
-    private View _view;
+    private FireEmblemView _view;
 
-    public UnitSelector(Players players, View view)
+    public UnitSelector(Players players, FireEmblemView view)
     {
         _players = players;
         _responseHandler = new ResponseHandlerUnit(view);

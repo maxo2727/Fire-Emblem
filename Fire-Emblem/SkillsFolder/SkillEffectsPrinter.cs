@@ -1,3 +1,4 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
 using Fire_Emblem.UnitsFolder;
 
@@ -5,9 +6,9 @@ namespace Fire_Emblem.SkillsFolder;
 
 public class SkillEffectsPrinter
 {
-    private View _view;
+    private FireEmblemView _view;
     
-    public SkillEffectsPrinter(View view)
+    public SkillEffectsPrinter(FireEmblemView view)
     {
         _view = view;
     }

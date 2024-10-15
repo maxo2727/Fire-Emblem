@@ -5,10 +5,10 @@ namespace Fire_Emblem.TeamLoad;
 
 public class TeamFileSelector
 {
-    private View _view;
+    private FireEmblemView _view;
     private ResponseHandler.ResponseHandler _responseHandler;
 
-    public TeamFileSelector(View view)
+    public TeamFileSelector(FireEmblemView view)
     {
         _view = view;
         _responseHandler = new ResponseHandlerTeam(_view);

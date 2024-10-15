@@ -1,3 +1,4 @@
+using Fire_Emblem_Models;
 using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
@@ -8,7 +9,7 @@ public class DamageCalculator
     {
         double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);
         int attack = attacker.Stats.GetStat("Atk").GetStatWithEffects(attacker);
-        string defenseType = defender.Weapon.GetDefenseFromWeaponType(attacker.Weapon);
+        string defenseType = WeaponDefenseGetter.GetDefenseFromWeaponType(attacker.Weapon);
         int defense = defender.Stats.GetStat(defenseType).GetStatWithEffects(defender);
         int damage = (int)Math.Truncate(attack * WTB - defense);
         if (damage < 0)
