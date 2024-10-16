@@ -12,18 +12,20 @@ public class CombatSequencer
     private Unit _defendingUnit;
     private FireEmblemView _view;
     private SkillEffectsPrinter _skillEffectsPrinter;
-    private int _battleRound;
+    private GameInfo _gameInfo;
+    // private int _battleRound;
 
-    public CombatSequencer(FireEmblemView view, int battleRound)
+    public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
         _skillEffectsPrinter = new SkillEffectsPrinter(_view);
-        _battleRound = battleRound;
+        _gameInfo = gameInfo;
+        // _battleRound = battleRound;
     }
     
-    public void CombatSequence(Unit attackingUnit, Unit defendingUnit)
+    public void CombatSequence()
     {
-        SetCombatUnits(attackingUnit, defendingUnit);
+        SetCombatUnits();
         SkillChecker();
         Attack();
         if (IsThereAnyUnitDead())
@@ -34,19 +36,20 @@ public class CombatSequencer
         FollowUp();
     }
 
-    public void SetCombatUnits(Unit attackingUnit, Unit defendingUnit)
+    public void SetCombatUnits()
     {
-        _attackingUnit = attackingUnit;
-        _defendingUnit = defendingUnit;
+        _attackingUnit = _gameInfo.AttackingUnit;
+        _defendingUnit = _gameInfo.DefendingUnit;
         _attackingUnit.IsStartingCombat = true;
         _attackingUnit.SetRivalUnit(_defendingUnit);
         _defendingUnit.SetRivalUnit(_attackingUnit);
     }
 
-    // Propia clase?
+    // Propia clase Controller?
     public void SkillChecker()
     {
-        // usar dict
+        // If GameState.IsFirstRound:
+
         _attackingUnit.Skills.CheckIfUnitCanUseSkills(_attackingUnit);
         _defendingUnit.Skills.CheckIfUnitCanUseSkills(_defendingUnit);
         _skillEffectsPrinter.PrintSkillEffectsByUnit(_attackingUnit);
@@ -113,8 +116,8 @@ public class CombatSequencer
     
     // Esto está muy mal, pero no se me ocurre otra forma de rescatar la ronda desde el RoundHandler....
     // Quizá con Controladores y modelos, usando Round Context?
-    public void IncreaseRoundNumber()
-    {
-        _battleRound++;
-    }
+    // public void IncreaseRoundNumber()
+    // {
+    //     _battleRound++;
+    // }
 }

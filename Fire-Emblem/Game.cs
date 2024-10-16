@@ -17,10 +17,11 @@ public class Game
     {
         _teamsFolder = teamsFolder;
         Players players = new Players();
+        GameInfo gameInfo = new GameInfo(players);
         _teamFileSelector = new TeamFileSelector(view);
-        _teamLoader = new TeamLoader(players);
-        _teamValidator = new TeamValidator(view, players);
-        _battleHandler = new BattleHandler(view, players);
+        _teamLoader = new TeamLoader(gameInfo);
+        _teamValidator = new TeamValidator(view, gameInfo);
+        _battleHandler = new BattleHandler(view, gameInfo);
     }
 
     public void Play()
@@ -40,8 +41,6 @@ public class Game
 //   - Response View no inheritance?
 //   - Try Catch in Happy Path and Throw Exceptions
 //
-// - GameStats
-//   - Store Players, roundNumber, bools, etc
 //
 // View usa Modelos, Controlador usa view y modelos!!!!!
 // GameStat: clase editable que guarda info, quizas limpieza

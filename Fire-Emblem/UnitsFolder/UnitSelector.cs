@@ -7,21 +7,24 @@ namespace Fire_Emblem.UnitsFolder;
 // static?
 public class UnitSelector
 {
-    private Players _players;
+    private GameInfo _gameInfo;
     private ResponseHandler.ResponseHandler _responseHandler;
     private FireEmblemView _view;
 
-    public UnitSelector(Players players, FireEmblemView view)
+    public UnitSelector(GameInfo gameInfo, FireEmblemView view)
     {
-        _players = players;
+        _gameInfo = gameInfo;
         _responseHandler = new ResponseHandlerUnit(view);
         _view = view;
     }
     
-    public void SelectUnitsForAllPlayers(int attackerPlayerNumber, int defenderPlayerNumber)
+    public void SelectUnitsForAllPlayers()
     {
-        SelectUnitForBattle(attackerPlayerNumber, _players.PlayersDict[attackerPlayerNumber]);
-        SelectUnitForBattle(defenderPlayerNumber, _players.PlayersDict[defenderPlayerNumber]);
+        int attackingPlayerNumber = _gameInfo.AttackingPlayerNumber;
+        int defenderPlayerNumber = _gameInfo.DefendingPlayerNumber;
+        SelectUnitForBattle(attackingPlayerNumber, _gameInfo.Players.GetPlayerById(attackingPlayerNumber));
+        SelectUnitForBattle(defenderPlayerNumber, _gameInfo.Players.GetPlayerById(defenderPlayerNumber));
+        _gameInfo.SaveBattleUnitChoice();
     }
     
     public void SelectUnitForBattle(int playerNumber, Player player)

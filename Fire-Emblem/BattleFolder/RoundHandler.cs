@@ -8,76 +8,47 @@ public class RoundHandler
 {
     // Crear acá algún diccionario round context?
     private FireEmblemView _view;
-    private Players _players;
-    private int _attackingPlayerNumber;
-    private int _defendingPlayerNumber;
-    private int _battleRound;
-    private Unit _attackingUnit;
-    private Unit _defendingUnit;
+    private GameInfo _gameInfo;
     private UnitSelector _unitSelector;
     private CombatSequencer _combatSequencer;
 
-    public RoundHandler(FireEmblemView view, Players players)
+    public RoundHandler(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
-        _players = players;
-        _battleRound = 1;
-        _unitSelector = new UnitSelector(players, view);
-        _combatSequencer = new CombatSequencer(view, _battleRound);
+        _gameInfo = gameInfo;
+        _unitSelector = new UnitSelector(_gameInfo, view);
+        _combatSequencer = new CombatSequencer(view, _gameInfo);
     }
     
     public void BeginNewRound()
     {
         SetUpUnits();
-        AdvantageEvaluator.CheckAdvantage(_attackingUnit, _defendingUnit, _view);
-        _combatSequencer.CombatSequence(_attackingUnit, _defendingUnit);
-        _view.WriteLine($"{_attackingUnit.Name} ({_attackingUnit.GetCurrentHP()}) : {_defendingUnit.Name} ({_defendingUnit.GetCurrentHP()})");
+        AdvantageEvaluator.CheckAdvantage(_gameInfo, _view);
+        _combatSequencer.CombatSequence();
+        _view.WriteLine($"{_gameInfo.AttackingUnit.Name} ({_gameInfo.AttackingUnit.GetCurrentHP()}) : {_gameInfo.DefendingUnit.Name} ({_gameInfo.DefendingUnit.GetCurrentHP()})");
     }
-
+    
+    //LIMPIAR!!
     public void SetUpUnits()
     {
-        _unitSelector.SelectUnitsForAllPlayers(_attackingPlayerNumber, _defendingPlayerNumber);
-        _attackingUnit = _players.PlayersDict[_attackingPlayerNumber].GetSelectedUnit();
-        _defendingUnit = _players.PlayersDict[_defendingPlayerNumber].GetSelectedUnit();
-        _view.WriteLine($"Round {_battleRound}: {_attackingUnit.Name} (Player {_attackingPlayerNumber}) comienza");
+        _unitSelector.SelectUnitsForAllPlayers();
+        _view.WriteLine($"Round {_gameInfo.RoundTurn}: {_gameInfo.AttackingUnit.Name} (Player {_gameInfo.AttackingPlayerNumber}) comienza");
     }
 
     public void WrapUpForNextRound()
     {
-        IncreaseRoundNumber();
         ChangeTurns();
-        ResetUnitRoundActions();
-        SetMostRecentRivalForThisCombat();
-    }
-
-    public void IncreaseRoundNumber()
-    {
-        _battleRound++;
-        _combatSequencer.IncreaseRoundNumber();
-    }
-    public void ChangeTurns()
-    {
-        if (_attackingPlayerNumber == 1)
-            SetPlayerTurns(2,1);
-        else
-            SetPlayerTurns(1,2);
+        _gameInfo.IncreaseRoundNumber();
+        _gameInfo.ResetUnitRoundActions();
+        _gameInfo.SetMostRecentRivalForThisCombat();
     }
     
-    public void SetPlayerTurns(int attackingPlayerNumber, int defendingPlayerNumber)
+    // metodos de GameInfo??
+    public void ChangeTurns()
     {
-        _attackingPlayerNumber = attackingPlayerNumber;
-        _defendingPlayerNumber = defendingPlayerNumber;
-    }
-
-    public void ResetUnitRoundActions()
-    {
-        _attackingUnit.ResetRoundActions();
-        _defendingUnit.ResetRoundActions();
-    }
-
-    public void SetMostRecentRivalForThisCombat()
-    {
-        _attackingUnit.SetMostRecentRival(_defendingUnit);
-        _defendingUnit.SetMostRecentRival(_attackingUnit);
+        if (_gameInfo.AttackingPlayerNumber == 1)
+            _gameInfo.SetPlayerTurns(2,1);
+        else
+            _gameInfo.SetPlayerTurns(1,2);
     }
 }

@@ -8,11 +8,11 @@ namespace Fire_Emblem.TeamLoad;
 public class TeamValidator
 {
     private FireEmblemView _view;
-    private Players _players;
+    private GameInfo _gameInfo;
 
-    public TeamValidator(FireEmblemView view, Players players)
+    public TeamValidator(FireEmblemView view, GameInfo gameInfo)
     {
-        _players = players;
+        _gameInfo = gameInfo;
         _view = view;
     }
 
@@ -33,7 +33,8 @@ public class TeamValidator
     {
         // usar try catch
         // ojo con mucho codigo dentro del if
-        foreach (Player player in _players.PlayersDict.Values)
+        List<Player> players = _gameInfo.Players.GetAllPlayers();
+        foreach (Player player in players)
         {
             if (player.Team.IsTeamOutsideSizeRange() || player.Team.AreThereAnyRepeatedUnits())
                 return false;

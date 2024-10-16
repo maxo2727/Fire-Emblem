@@ -4,6 +4,7 @@ namespace Fire_Emblem_Models;
 
 public class Unit
 {
+    // Intrinsico del unit
     public string Name;
     public Weapon Weapon;
     public string Gender;
@@ -11,10 +12,12 @@ public class Unit
     public HP Hp;
     public Stats Stats = new Stats();
     public Skills Skills = new Skills();
+    // Asociado a la ronda
     private Unit _rival;
     private Unit _mostRecentRival = null;
     public bool IsStartingCombat = false;
-    public bool HasMadeFirstAttack = false;
+    public bool HasMadeFirstAttack = false; //InFirstAttack?
+    //InCounterAttack?
     public bool InFollowUp = false;
     
     // Probanding extra damage stuff
@@ -45,6 +48,12 @@ public class Unit
         HasMadeFirstAttack = false;
         InFollowUp = false;
         Stats.ClearEffectsForEveryStat();
+        ResetDamageEffects();
+    }
+
+    public void ResetDamageEffects()
+    {
+        ExtraDamage = 0;
     }
     
     public void TakeDamage(int damage)

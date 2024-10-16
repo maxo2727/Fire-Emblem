@@ -6,13 +6,13 @@ namespace Fire_Emblem.BattleFolder;
 public class BattleHandler
 {
     private FireEmblemView _view;
-    private Players _players;
+    private GameInfo _gameInfo;
     private RoundHandler _roundHandler;
 
-    public BattleHandler(FireEmblemView view, Players players)
+    public BattleHandler(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
-        _players = players;
+        _gameInfo = gameInfo;
     }
     
     public void StartBattle()
@@ -23,8 +23,11 @@ public class BattleHandler
     
     public void InitializeBattle()
     {
-        _roundHandler = new RoundHandler(_view, _players);
-        _roundHandler.SetPlayerTurns(1,2);
+        _roundHandler = new RoundHandler(_view, _gameInfo);
+        _gameInfo.SetPlayerTurns(1,2);
+        _gameInfo.RoundTurn = 1;
+        // _gameInfo.AttackingPlayerNumber = 1;
+        // _gameInfo.DefendingPlayerNumber = 2;
     }
     
     public void HandleNextBattleRound()
@@ -38,10 +41,11 @@ public class BattleHandler
             HandleNextBattleRound();
         }
     }
-
+    
+    // Player?
     public bool CheckFinishCondition()
     {
-        foreach (Player player in _players.PlayersDict.Values)
+        foreach (Player player in _gameInfo.Players.GetAllPlayers())
             if (player.Team.HasLostAllItsUnits())
                 return true;
         return false;
@@ -53,14 +57,16 @@ public class BattleHandler
         _view.WriteLine($"Player {winner} ganó");
     }
     
+    // GameInfo?
     public int GetBattleWinner()
     {
         int winner = 0;
-        foreach (var (playerNumber, player) in _players.PlayersDict)
+        foreach (int playerID in PlayerNumbers.GetAllPlayerNumbers())
         {
+            Player player = _gameInfo.Players.GetPlayerById(playerID);
             if (!player.Team.HasLostAllItsUnits())
             {
-                winner = playerNumber;
+                winner = playerID;
             }
         }
         return winner;

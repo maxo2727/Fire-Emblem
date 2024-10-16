@@ -15,8 +15,11 @@ public class AdvantageEvaluator
         { "Bow", "" }
     };
     
-    public static void CheckAdvantage(Unit attacker, Unit defender, FireEmblemView view)
+    public static void CheckAdvantage(GameInfo gameInfo, FireEmblemView view)
     {
+        // atributos?
+        Unit attacker = gameInfo.AttackingUnit;
+        Unit defender = gameInfo.DefendingUnit;
         if (AdvantageEvaluator.IsThereAnAdvantage(attacker, defender))
         {
             double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);

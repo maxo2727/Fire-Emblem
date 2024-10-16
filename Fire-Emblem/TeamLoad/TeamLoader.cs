@@ -7,11 +7,11 @@ namespace Fire_Emblem.TeamLoad;
 
 public class TeamLoader
 {
-    private Players _players;
+    private GameInfo _gameInfo;
     
-    public TeamLoader(Players players)
+    public TeamLoader(GameInfo gameInfo)
     {
-        _players = players;
+        _gameInfo = gameInfo;
     }
 
     public void LoadTeamFromFile(string teamFile)
@@ -28,7 +28,8 @@ public class TeamLoader
         }
         reader.Close();
     }
-
+    
+    // Limpiar...
     public void ReadUnitInfoFromLine(string line, int playerNumber)
     {
         string[] splittedUnitLine = line.Split(" ", 2);
@@ -39,7 +40,9 @@ public class TeamLoader
         {
             AddSkillsToUnit(splittedUnitLine[1], newUnit);
         }
-        _players.PlayersDict[playerNumber].Team.AddUnit(newUnit);
+
+        Player player = _gameInfo.Players.GetPlayerById(playerNumber);
+        player.Team.AddUnit(newUnit);
     }
     
     // Debería ser Parse unit y dsp metodo agregar... LIMPIAR
