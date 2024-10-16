@@ -16,6 +16,9 @@ public class Unit
     public bool IsStartingCombat = false;
     public bool HasMadeFirstAttack = false;
     public bool InFollowUp = false;
+    
+    // Probanding extra damage stuff
+    public int ExtraDamage = 0;
 
     public Unit(string name)
     {

@@ -721,6 +721,11 @@ public class SkillFactory
                 return new Skill(name, conditions, effects);
                 break;
             
+            case "Bravery":
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new DamageExtraEffect(5) };
+                return new Skill(name, conditions, effects);
+            
             default:
                 conditions = new List<ICondition>() { };
                 effects = new List<Effect>() {  };

@@ -23,6 +23,7 @@ public class SkillEffectsPrinter
         PrintFollowUpPenalties(unit);
         PrintBonusNeutralization(unit);
         PrintPenaltyNeutralization(unit);
+        PrintDamageBonus(unit);
     }
     
     // Limpiarlas...?
@@ -111,6 +112,14 @@ public class SkillEffectsPrinter
             {
                 _view.WriteLine($"Los penalty de {statName} de {unit.Name} fueron neutralizados");
             }
+        }
+    }
+
+    public void PrintDamageBonus(Unit unit)
+    {
+        if (unit.ExtraDamage > 0)
+        {
+            _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
         }
     }
 }

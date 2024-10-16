@@ -36,7 +36,6 @@ public class Game
 
 // TODO:
 // - Select and Verify Team with MVC
-//   - Request Handler necessary?
 //   - Get Input in View?
 //   - Response View no inheritance?
 //   - Try Catch in Happy Path and Throw Exceptions
@@ -48,9 +47,8 @@ public class Game
 // GameStat: clase editable que guarda info, quizas limpieza
 
 // Prioridad:
-//  - Boundaries
-//  - Separar Modelos en Proyecto
 //  - Crear GameStats
 
 // DUDAS:
 //  - Encapsulation Dictionary ta bien devolver todos los (key, value)?
+//    R: NO!! Solo debería devolver los values.
