@@ -795,12 +795,32 @@ public class SkillFactory
                 return conditionalEffects;
                 break;
             
+            case "Back at You":
+                conditions = new List<ICondition>() { new StartsCombatRivalCondition() };
+                effects = new List<Effect>() { new DamageExtraHPPercentageEffect(0.5) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Lunar Brace":
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new WeaponTypeCondition("Physical")
+                };
+                effects = new List<Effect>() { new DamageExtraPercentageRivalEffect("Def", 0.3) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
             case "Bravery":
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new DamageExtraEffect(5) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects));
                 return conditionalEffects;
                 break;
+            
+            
             
             default:
                 conditions = new List<ICondition>() { };

@@ -1,6 +1,7 @@
 using Fire_Emblem_Models.ConditionsFolder;
+using Fire_Emblem_Models.EffectsFolder;
 
-namespace Fire_Emblem_Models.EffectsFolder;
+namespace Fire_Emblem_Models;
 
 public class ConditionalEffect
 {

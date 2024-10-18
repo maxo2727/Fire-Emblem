@@ -1,6 +1,6 @@
 namespace Fire_Emblem_Models.EffectsFolder;
 
-public class BonusRivalEffect : BonusEffect
+public class  BonusRivalEffect : BonusEffect
 {
     public BonusRivalEffect(string stat, int bonus) : base(stat, bonus) {}
 

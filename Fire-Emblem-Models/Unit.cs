@@ -21,7 +21,7 @@ public class Unit
     public bool InFollowUp = false;
     
     // Probanding extra damage stuff
-    public int ExtraDamage = 0;
+    public DamageEffects DamageEffects = new DamageEffects();
 
     public Unit(string name)
     {
@@ -48,12 +48,7 @@ public class Unit
         HasMadeFirstAttack = false;
         InFollowUp = false;
         Stats.ClearEffectsForEveryStat();
-        ResetDamageEffects();
-    }
-
-    public void ResetDamageEffects()
-    {
-        ExtraDamage = 0;
+        DamageEffects.ResetDamageEffects();
     }
     
     public void TakeDamage(int damage)

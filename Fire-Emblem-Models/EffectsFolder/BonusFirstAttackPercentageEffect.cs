@@ -16,4 +16,4 @@ public class BonusFirstAttackPercentageEffect : Effect
         int bonus = (int)Math.Truncate(unit.Stats.GetStat(_stat).BaseStat * _percentage);
         unit.Stats.ModifyFirstAttackBonuses(_stat, bonus);
     }
-}
+}   

@@ -12,14 +12,14 @@ public class DamageCalculator
         string defenseType = WeaponDefenseGetter.GetDefenseFromWeaponType(attacker.Weapon);
         int defense = defender.Stats.GetStat(defenseType).GetStatWithEffects(defender);
         int damage = (int)Math.Truncate(attack * WTB - defense);
-        damage += attacker.ExtraDamage;
-        if (damage < 0)
-            damage = 0;
+        int modifiedDamage = attacker.DamageEffects.CalculateModifiedDamage(damage);
+        if (modifiedDamage < 0)
+            modifiedDamage = 0;
         // donde manejar eso?? Quizas afuera en un controller DamageController o AttackController
         if (!attacker.HasMadeFirstAttack)
         {
             attacker.HasMadeFirstAttack = true;
         }
-        return damage;
+        return modifiedDamage;
     }
 }

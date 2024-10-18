@@ -22,6 +22,11 @@ public class HP
     {
         return _baseMaxHP + _bonusMaxHP;
     }
+
+    public int GetLostHP()
+    {
+        return _baseMaxHP + _bonusMaxHP - _currentHP;
+    }
     
     //properties
     public void SetCurrentHP(int value)

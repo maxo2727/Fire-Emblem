@@ -55,3 +55,11 @@ public class Game
 // DUDAS:
 //  - Encapsulation Dictionary ta bien devolver todos los (key, value)?
 //    R: NO!! Solo debería devolver los values.
+//  - Como usar TrueTruncator?
+
+// Cosas a Limpiar
+//  - Funciones Show de vista
+//  - Flujo cargar equipo
+//  - GameInfo con Battle/Round/Combat
+//  - Try/Catch en Validation
+//  - Responses

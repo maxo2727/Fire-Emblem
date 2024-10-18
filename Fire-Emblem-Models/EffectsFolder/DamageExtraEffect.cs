@@ -10,6 +10,6 @@ public class DamageExtraEffect : Effect
     }
     public override void Apply(Unit unit)
     {
-        unit.ExtraDamage += _extraDamage;
+        unit.DamageEffects.DamageBonus += _extraDamage;
     }
 }

@@ -117,9 +117,9 @@ public class SkillEffectsPrinter
 
     public void PrintDamageBonus(Unit unit)
     {
-        if (unit.ExtraDamage > 0)
+        if (unit.DamageEffects.DamageBonus > 0)
         {
-            _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
+            _view.WriteLine($"{unit.Name} realizará +{unit.DamageEffects.DamageBonus} daño extra en cada ataque");
         }
     }
 }
