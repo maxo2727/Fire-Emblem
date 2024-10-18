@@ -2,20 +2,24 @@ namespace Fire_Emblem_Models;
 
 public class Skills
 {
-    private readonly List<Skill> _skills = new List<Skill>();
+    private readonly List<string> _skills = new List<string>();
     
-    public void AddSkill(Skill skill)
+    public void AddSkill(string skill)
     {
-        // Skill skill = SkillFactory.CreateSkill(skillName);
         _skills.Add(skill);
     }
     
-    public void CheckIfUnitCanUseSkills(Unit unit)
+    // public void CheckIfUnitCanUseSkills(Unit unit)
+    // {
+    //     foreach (string skill in _skills)
+    //     {
+    //         skill.UseSkill(unit);
+    //     }
+    // }
+
+    public List<string> GetAllSkills()
     {
-        foreach (Skill skill in _skills)
-        {
-            skill.UseSkill(unit);
-        }
+        return _skills;
     }
     
     public bool AreSkillsOutsideSizeRange()
@@ -27,9 +31,9 @@ public class Skills
     public bool AreThereAnyRepeatedSkills()
     {
         HashSet<string> uniqueSkillNames = new HashSet<string>();
-        foreach (Skill skill in _skills)
+        foreach (string skill in _skills)
         {
-            if (!uniqueSkillNames.Add(skill.Name))
+            if (!uniqueSkillNames.Add(skill))
                 return true;
         }
         return false;

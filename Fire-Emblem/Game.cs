@@ -41,12 +41,16 @@ public class Game
 //   - Response View no inheritance?
 //   - Try Catch in Happy Path and Throw Exceptions
 //
-//
-// View usa Modelos, Controlador usa view y modelos!!!!!
-// GameStat: clase editable que guarda info, quizas limpieza
-
-// Prioridad:
-//  - Crear GameStats
+// Efectos de Daño:
+//  - Guardar todos los daños extra en cada atributo distinto de Unit? Quizas dsp encapsular
+//  - Entonces, no es necesario chequear cuando se aplica el efecto, porque se reinicia el daño extra cada ronda...
+//  
+// Prioridad Efectos:
+//    1.- Efectos a Stats
+//    2.- Daño Extra
+//    3.- Reducción Daño porcentual (combinación multiplicativa)
+//    4.- Reducción Daño Absoluto
+// Unit y Skills Builder
 
 // DUDAS:
 //  - Encapsulation Dictionary ta bien devolver todos los (key, value)?

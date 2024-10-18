@@ -6,11 +6,12 @@ namespace Fire_Emblem.BattleFolder;
 
 public class RoundHandler
 {
-    // Crear acá algún diccionario round context?
     private FireEmblemView _view;
     private GameInfo _gameInfo;
     private UnitSelector _unitSelector;
     private CombatSequencer _combatSequencer;
+    private SkillController _skillController;
+    
 
     public RoundHandler(FireEmblemView view, GameInfo gameInfo)
     {
@@ -18,20 +19,25 @@ public class RoundHandler
         _gameInfo = gameInfo;
         _unitSelector = new UnitSelector(_gameInfo, view);
         _combatSequencer = new CombatSequencer(view, _gameInfo);
+        _skillController = new SkillController(_view, _gameInfo);
     }
     
     public void BeginNewRound()
     {
         SetUpUnits();
         AdvantageEvaluator.CheckAdvantage(_gameInfo, _view);
+        _skillController.UseSkills();
         _combatSequencer.CombatSequence();
         _view.WriteLine($"{_gameInfo.AttackingUnit.Name} ({_gameInfo.AttackingUnit.GetCurrentHP()}) : {_gameInfo.DefendingUnit.Name} ({_gameInfo.DefendingUnit.GetCurrentHP()})");
     }
     
-    //LIMPIAR!!
+    //LIMPIAR!! Dividir en funciones mas chicas q seteen otras cosas
     public void SetUpUnits()
     {
         _unitSelector.SelectUnitsForAllPlayers();
+        _gameInfo.AttackingUnit.IsStartingCombat = true;
+        _gameInfo.AttackingUnit.SetRivalUnit(_gameInfo.DefendingUnit);
+        _gameInfo.DefendingUnit.SetRivalUnit(_gameInfo.AttackingUnit);
         _view.WriteLine($"Round {_gameInfo.RoundTurn}: {_gameInfo.AttackingUnit.Name} (Player {_gameInfo.AttackingPlayerNumber}) comienza");
     }
 

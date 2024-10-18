@@ -6,35 +6,40 @@ namespace Fire_Emblem.SkillsFolder;
 
 public class SkillFactory
 {
-    public static Skill CreateSkill(string name)
+    public static List<ConditionalEffect> GetConditionalEffects(string name)
     {
         List<Effect> effects;
         List<ICondition> conditions;
+        List<ConditionalEffect> conditionalEffects = new List<ConditionalEffect>();
         
         switch (name)
         {
             case "Attack +6":
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects = new List<Effect> {new BonusEffect("Atk", 6)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Speed +5":
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Spd", 5)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Defense +5":
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Def", 5)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Resistance +5":
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Res", 5)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Atk/Def +5":
@@ -44,7 +49,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Def",5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Atk/Res +5":
@@ -54,7 +60,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Res",5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Atk/Spd + 5":
@@ -64,7 +71,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Spd",5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Spd/Res +5":
@@ -74,7 +82,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 5), 
                     new BonusEffect("Res",5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Spd/Def +5":
@@ -84,37 +93,43 @@ public class SkillFactory
                     new BonusEffect("Spd", 5), 
                     new BonusEffect("Def",5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "HP +15":
                 conditions = new List<ICondition>() {new EmptyCondition()};
                 effects = new List<Effect>() {new BonusHPEffect(15)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Will to Win":
                 conditions = new List<ICondition>() {new HPLessThanCondition(0.5)};
                 effects = new List<Effect>() {new BonusEffect("Atk", 8)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Fair Fight":
                 conditions = new List<ICondition>() {new StartsCombatCondition()};
                 effects = new List<Effect>() {new BonusEffect("Atk", 6), new BonusRivalEffect("Atk", 6)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Single-Minded":
                 conditions = new List<ICondition>() {new MostRecentRivalCondition()};
                 effects = new List<Effect>() {new BonusEffect("Atk", 8)};
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Ignis":
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new BonusFirstAttackPercentageEffect("Atk", 0.5) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Perceptive":
@@ -124,7 +139,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 12), 
                     new FractionalBonusEffect("Spd", 4)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Tome Precision":
@@ -134,7 +150,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Spd", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Wrath":
@@ -144,7 +161,8 @@ public class SkillFactory
                     new ForeachHPLostBonusEffect("Atk", 1),
                     new ForeachHPLostBonusEffect("Spd", 1)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Resolve":
@@ -154,7 +172,8 @@ public class SkillFactory
                     new BonusEffect("Def", 7),
                     new BonusEffect("Res", 7)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Deadly Blade":
@@ -168,31 +187,36 @@ public class SkillFactory
                     new BonusEffect("Atk", 8),
                     new BonusEffect("Spd", 8)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Death Blow":
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Atk", 8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Armored Blow":
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Def", 8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
                 
             case "Darting Blow":
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Spd", 8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Warding Blow":
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Res", 8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Swift Sparrow":
@@ -202,7 +226,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Spd", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Sturdy Blow":
@@ -212,7 +237,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Def", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Mirror Strike":
@@ -222,7 +248,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Res", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Steady Blow":
@@ -233,7 +260,8 @@ public class SkillFactory
                     new BonusEffect("Def", 6)
                     
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Swift Strike":
@@ -243,7 +271,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 6),
                     new BonusEffect("Res", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Bracing Blow":
@@ -253,7 +282,8 @@ public class SkillFactory
                     new BonusEffect("Def", 6),
                     new BonusEffect("Res", 6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Atk/Spd":
@@ -263,7 +293,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Spd", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Atk/Def":
@@ -273,7 +304,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Def", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Atk/Res":
@@ -283,7 +315,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Res", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Spd/Def":
@@ -293,7 +326,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 10),
                     new BonusEffect("Def", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Spd/Res":
@@ -303,7 +337,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 10),
                     new BonusEffect("Res", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Brazen Def/Res":
@@ -313,31 +348,36 @@ public class SkillFactory
                     new BonusEffect("Def", 10),
                     new BonusEffect("Res", 10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Fire Boost":
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Atk", 6) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Wind Boost":
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Spd", 6) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Earth Boost":
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Def", 6) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Water Boost":
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Res", 6) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Chaos Style":
@@ -360,31 +400,36 @@ public class SkillFactory
                     })
                 };
                 effects = new List<Effect>() { new BonusEffect("Spd", 3) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Blinding Flash":
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Spd", -4) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break; 
             
             case "Not *Quite*":
                 conditions = new List<ICondition>() { new StartsCombatRivalCondition() };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -4)  };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Stunning Smile":
                 conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Spd", -8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Disarming Sigh":
                 conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -8) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Charmer":
@@ -394,7 +439,8 @@ public class SkillFactory
                     new PenaltyRivalEffect("Atk", -3),
                     new PenaltyRivalEffect("Spd", -3)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Luna":
@@ -404,7 +450,8 @@ public class SkillFactory
                     new PenaltyRivalFirstAttackPercentageEffect("Def", 0.5),
                     new PenaltyRivalFirstAttackPercentageEffect("Res", 0.5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Belief in Love":
@@ -420,25 +467,29 @@ public class SkillFactory
                     new PenaltyRivalEffect("Atk", -5),
                     new PenaltyRivalEffect("Def", -5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Beorc's Blessing":
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new NeutralizeAllBonusesRivalEffect()  };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Agnea's Arrow":
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new NeutralizeAllPenaltiesEffect()  };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Soulblade":
                 conditions = new List<ICondition>() { new WeaponNameCondition("Sword") };
                 effects = new List<Effect>() { new SoulbladeEffect() };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Sandstorm":
@@ -447,7 +498,8 @@ public class SkillFactory
                 {
                     new SandstormEffect()
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Sword Agility":
@@ -457,7 +509,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lance Power":
@@ -467,7 +520,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Sword Power":
@@ -477,7 +531,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Bow Focus":
@@ -487,7 +542,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Res", -10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lance Agility":
@@ -497,7 +553,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Axe Power":
@@ -507,7 +564,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Bow Agility":
@@ -517,7 +575,8 @@ public class SkillFactory
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Sword Focus":
@@ -527,7 +586,8 @@ public class SkillFactory
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Res", -10)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Close Def":
@@ -548,7 +608,8 @@ public class SkillFactory
                     new BonusEffect("Res", 8),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Distant Def":
@@ -567,7 +628,8 @@ public class SkillFactory
                     new BonusEffect("Res", 8),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Atk/Spd":
@@ -579,7 +641,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Spd")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Atk/Def":
@@ -591,7 +654,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Def")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Atk/Res":
@@ -603,7 +667,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Spd/Def":
@@ -615,7 +680,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Spd"),
                     new NeutralizeBonusRivalEffect("Def")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Spd/Res":
@@ -627,7 +693,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Spd"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Lull Def/Res":
@@ -639,7 +706,8 @@ public class SkillFactory
                     new NeutralizeBonusRivalEffect("Def"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Fort. Def/Res":
@@ -650,7 +718,8 @@ public class SkillFactory
                     new BonusEffect("Res", 6),
                     new PenaltyEffect("Atk", -2)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Life and Death":
@@ -662,7 +731,8 @@ public class SkillFactory
                     new PenaltyEffect("Def", -5),
                     new PenaltyEffect("Res", -5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Solid Ground":
@@ -673,7 +743,8 @@ public class SkillFactory
                     new BonusEffect("Def", 6),
                     new PenaltyEffect("Res", -5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Still Water":
@@ -684,7 +755,8 @@ public class SkillFactory
                     new BonusEffect("Res", 6),
                     new PenaltyEffect("Def", -5)
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Dragonskin":
@@ -704,7 +776,8 @@ public class SkillFactory
                     new BonusEffect("Res", 6),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Light and Dark":
@@ -718,18 +791,22 @@ public class SkillFactory
                     new NeutralizeAllPenaltiesEffect(),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
             
             case "Bravery":
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new DamageExtraEffect(5) };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
             
             default:
                 conditions = new List<ICondition>() { };
                 effects = new List<Effect>() {  };
-                return new Skill(name, conditions, effects);
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
                 break;
         }
     }

@@ -49,9 +49,8 @@ public class TeamLoader
     public void AddSkillsToUnit(string skillsLine, Unit newUnit)
     {
         string[] unitSkills = skillsLine.Replace("(","").Replace(")","").Split(",");
-        foreach (string skillName in unitSkills)
+        foreach (string skill in unitSkills)
         {
-            Skill skill = SkillFactory.CreateSkill(skillName);
             newUnit.Skills.AddSkill(skill);
         }
     }

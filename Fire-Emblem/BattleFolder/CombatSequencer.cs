@@ -1,4 +1,5 @@
 using Fire_Emblem_Models;
+using Fire_Emblem_Models.EffectsFolder;
 using Fire_Emblem_Models.StatsFolder;
 using Fire_Emblem_View;
 using Fire_Emblem.SkillsFolder;
@@ -12,21 +13,19 @@ public class CombatSequencer
     private Unit _defendingUnit;
     private FireEmblemView _view;
     private SkillEffectsPrinter _skillEffectsPrinter;
+    private SkillController _skillController;
     private GameInfo _gameInfo;
-    // private int _battleRound;
 
     public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
-        _skillEffectsPrinter = new SkillEffectsPrinter(_view);
         _gameInfo = gameInfo;
-        // _battleRound = battleRound;
+        _skillController = new SkillController(_view, _gameInfo);
     }
     
     public void CombatSequence()
     {
         SetCombatUnits();
-        SkillChecker();
         Attack();
         if (IsThereAnyUnitDead())
             return;
@@ -35,27 +34,12 @@ public class CombatSequencer
             return;
         FollowUp();
     }
-
+    
+    // in gameInfo? -> Reset
     public void SetCombatUnits()
     {
         _attackingUnit = _gameInfo.AttackingUnit;
         _defendingUnit = _gameInfo.DefendingUnit;
-        _attackingUnit.IsStartingCombat = true;
-        _attackingUnit.SetRivalUnit(_defendingUnit);
-        _defendingUnit.SetRivalUnit(_attackingUnit);
-    }
-
-    // Propia clase Controller?
-    public void SkillChecker()
-    {
-        // If GameState.IsFirstRound:
-
-        _attackingUnit.Skills.CheckIfUnitCanUseSkills(_attackingUnit);
-        _defendingUnit.Skills.CheckIfUnitCanUseSkills(_defendingUnit);
-        _skillEffectsPrinter.PrintSkillEffectsByUnit(_attackingUnit);
-        _skillEffectsPrinter.PrintSkillEffectsByUnit(_defendingUnit);
-        _attackingUnit.Hp.SetMaxHPForCombat();
-        _defendingUnit.Hp.SetMaxHPForCombat();
     }
     
     public void Attack()
@@ -113,11 +97,4 @@ public class CombatSequencer
     {
         return (!_attackingUnit.IsAlive() || !_defendingUnit.IsAlive());
     }
-    
-    // Esto está muy mal, pero no se me ocurre otra forma de rescatar la ronda desde el RoundHandler....
-    // Quizá con Controladores y modelos, usando Round Context?
-    // public void IncreaseRoundNumber()
-    // {
-    //     _battleRound++;
-    // }
 }

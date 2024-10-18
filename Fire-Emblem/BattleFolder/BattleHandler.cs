@@ -26,8 +26,6 @@ public class BattleHandler
         _roundHandler = new RoundHandler(_view, _gameInfo);
         _gameInfo.SetPlayerTurns(1,2);
         _gameInfo.RoundTurn = 1;
-        // _gameInfo.AttackingPlayerNumber = 1;
-        // _gameInfo.DefendingPlayerNumber = 2;
     }
     
     public void HandleNextBattleRound()
