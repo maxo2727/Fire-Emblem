@@ -12,8 +12,8 @@ public class CombatSequencer
     private Unit _attackingUnit;
     private Unit _defendingUnit;
     private FireEmblemView _view;
-    private SkillEffectsPrinter _skillEffectsPrinter;
     private SkillController _skillController;
+    private DamageCalculator _damageCalculator;
     private GameInfo _gameInfo;
 
     public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
@@ -21,6 +21,7 @@ public class CombatSequencer
         _view = view;
         _gameInfo = gameInfo;
         _skillController = new SkillController(_view, _gameInfo);
+        _damageCalculator = new DamageCalculator(_view, _gameInfo);
     }
     
     public void CombatSequence()
@@ -44,14 +45,14 @@ public class CombatSequencer
     
     public void Attack()
     {
-        int damage = DamageCalculator.CalculateDamage(_attackingUnit, _defendingUnit);
+        int damage = _damageCalculator.CalculateDamage(_attackingUnit, _defendingUnit);
         _view.WriteLine($"{_attackingUnit.Name} ataca a {_defendingUnit.Name} con {damage} de daño");
         _defendingUnit.TakeDamage(damage);
     }
     
     public void CounterAttack()
     {
-        int damage = DamageCalculator.CalculateDamage(_defendingUnit, _attackingUnit);
+        int damage = _damageCalculator.CalculateDamage(_defendingUnit, _attackingUnit);
         _view.WriteLine($"{_defendingUnit.Name} ataca a {_attackingUnit.Name} con {damage} de daño");
         _attackingUnit.TakeDamage(damage);
     }
@@ -64,7 +65,7 @@ public class CombatSequencer
             Unit followUpDefender = GetFollowUpDefender();
             followUpAttacker.InFollowUp = true;
             followUpDefender.InFollowUp = true;
-            int damage = DamageCalculator.CalculateDamage(followUpAttacker, followUpDefender);
+            int damage = _damageCalculator.CalculateDamage(followUpAttacker, followUpDefender);
             _view.WriteLine($"{followUpAttacker.Name} ataca a {followUpDefender.Name} con {damage} de daño");
             followUpDefender.TakeDamage(damage);
         }

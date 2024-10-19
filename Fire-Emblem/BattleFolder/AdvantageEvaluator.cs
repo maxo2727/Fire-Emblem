@@ -4,51 +4,55 @@ using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
 
+// LIMPIAR:
+// atributos de unidades y WTB
+// Unir funciones IsThereAnAdvantage con GetAdvantageWTB
+// ta bien un || en la funcion if?
+
+
 public class AdvantageEvaluator
 {
-    private static Dictionary<string, string> AdvantageousAgainst = new Dictionary<string, string>
+    private GameInfo _gameInfo;
+    private FireEmblemView _view;
+    private Dictionary<string, string> _advantageousAgainst = AdvantageRelations.AdvantageousAgainst;
+
+    public AdvantageEvaluator(FireEmblemView view, GameInfo gameInfo)
     {
-        { "Sword", "Axe" },
-        { "Axe", "Lance" },
-        { "Lance", "Sword" },
-        { "Magic", "" },
-        { "Bow", "" }
-    };
+        _view = view;
+        _gameInfo = gameInfo;
+    }
     
-    public static void CheckAdvantage(GameInfo gameInfo, FireEmblemView view)
+    public void CheckAdvantage()
     {
         // atributos?
-        Unit attacker = gameInfo.AttackingUnit;
-        Unit defender = gameInfo.DefendingUnit;
-        if (AdvantageEvaluator.IsThereAnAdvantage(attacker, defender))
+        Unit attacker = _gameInfo.AttackingUnit;
+        Unit defender = _gameInfo.DefendingUnit;
+        if (IsThereAnAdvantage(attacker, defender)) // GetAdvantage != 1
         {
-            double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);
-            Unit unitWithAdvantage = AdvantageEvaluator.GetUnitWithAdvantage(attacker, defender, WTB);
-            Unit unitWithDisadvantage = AdvantageEvaluator.GetUnitWithDisadvantage(attacker, defender, WTB);
-            view.WriteLine($"{unitWithAdvantage.Name} ({unitWithAdvantage.Weapon.Name}) tiene ventaja con respecto a {unitWithDisadvantage.Name} ({unitWithDisadvantage.Weapon.Name})");
+            double WTB = GetAdvantageWTB(attacker, defender);
+            Unit unitWithAdvantage = GetUnitWithAdvantage(attacker, defender, WTB);
+            Unit unitWithDisadvantage = GetUnitWithDisadvantage(attacker, defender, WTB);
+            _view.WriteLine($"{unitWithAdvantage.Name} ({unitWithAdvantage.Weapon.Name}) tiene ventaja con respecto a {unitWithDisadvantage.Name} ({unitWithDisadvantage.Weapon.Name})");
         }
         else
-            view.WriteLine("Ninguna unidad tiene ventaja con respecto a la otra");
+            _view.WriteLine("Ninguna unidad tiene ventaja con respecto a la otra");
     }
 
-    public static bool IsThereAnAdvantage(Unit attacker, Unit defender)
+    public bool IsThereAnAdvantage(Unit attacker, Unit defender)
     {
         string attackerWeapon = attacker.Weapon.Name;
         string defenderWeapon = defender.Weapon.Name;
-        if (defenderWeapon == AdvantageousAgainst[attackerWeapon] ||
-            attackerWeapon == AdvantageousAgainst[defenderWeapon])
-            return true;
-        else
-            return false;
+        return defenderWeapon == _advantageousAgainst[attackerWeapon] ||
+               attackerWeapon == _advantageousAgainst[defenderWeapon];
     }
     
-    public static double GetAdvantageWTB(Unit attacker, Unit defender)
+    public double GetAdvantageWTB(Unit attacker, Unit defender)
     {
         string attackerWeapon = attacker.Weapon.Name;
         string defenderWeapon = defender.Weapon.Name;
-        if (defenderWeapon == AdvantageousAgainst[attackerWeapon])
+        if (defenderWeapon == _advantageousAgainst[attackerWeapon])
             return 1.2;
-        else if (attackerWeapon == AdvantageousAgainst[defenderWeapon])
+        else if (attackerWeapon == _advantageousAgainst[defenderWeapon])
             return 0.8;
         else
             return 1.0;
@@ -70,6 +74,3 @@ public class AdvantageEvaluator
             return attacker;
     }
 }
-
-// utilizar el numero obtenido altiro, y ver si no es 1
-// equilibrar con codigo entendible, y cambios innecesarios

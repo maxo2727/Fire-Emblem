@@ -38,7 +38,7 @@ public class SkillController
         _conditionalEffectsToApply = new List<ConditionalEffect>();
         foreach (string skill in unit.Skills.GetAllSkills())
         {
-            List<ConditionalEffect> conditionalEffects = SkillFactory.GetConditionalEffects(skill);
+            List<ConditionalEffect> conditionalEffects = SkillCatalog.GetConditionalEffects(skill);
             foreach (ConditionalEffect conditionalEffect in conditionalEffects)
             {
                 _conditionalEffectsToApply.Add(conditionalEffect);

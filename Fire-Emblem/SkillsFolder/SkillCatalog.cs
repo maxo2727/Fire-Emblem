@@ -4,7 +4,7 @@ using Fire_Emblem_Models.EffectsFolder;
 
 namespace Fire_Emblem.SkillsFolder;
 
-public class SkillFactory
+public class SkillCatalog
 {
     public static List<ConditionalEffect> GetConditionalEffects(string name)
     {
@@ -834,11 +834,63 @@ public class SkillFactory
                 return conditionalEffects;
                 break;
             
+            case "Gentility":
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) )  };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Bow Guard":
+                conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Bow") ) };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5)) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Arms Shield":
+                conditions = new List<ICondition>() { new AdvantageCondition() };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(7) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Axe Guard":
+                conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Axe") ) };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Magic Guard":
+                conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Magic") ) };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Lance Guard":
+                conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Lance") ) };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Sympathetic":
+                conditions = new List<ICondition>()
+                {
+                    new RivalCondition( new StartsCombatCondition() ),
+                    new HPLessThanCondition(0.5)
+                };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
             
             
             default:
-                conditions = new List<ICondition>() { };
-                effects = new List<Effect>() {   };
+                conditions = new List<ICondition>() {  };
+                effects = new List<Effect>() {  };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects));
                 return conditionalEffects;
                 break;

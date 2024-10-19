@@ -174,9 +174,10 @@ public class SkillEffectsPrinter
 
     public void PrintBaseDamageReduction(Unit unit)
     {
-        if (unit.DamageEffects.BaseDamageReduction > 0)
+        Unit rival = unit.GetRivalUnit();
+        if (rival.DamageEffects.BaseDamageReduction > 0)
         {
-            _view.WriteLine($"{unit.Name} recibirá -{unit.DamageEffects.BaseDamageReduction} daño en cada ataque");
+            _view.WriteLine($"{unit.Name} recibirá -{rival.DamageEffects.BaseDamageReduction} daño en cada ataque");
         }
     }
 }
