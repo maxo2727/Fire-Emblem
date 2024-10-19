@@ -26,7 +26,8 @@ public class Stat
         }
         return statValue;
     }
-
+    
+    // DamageCalculator?
     protected int CalculateStatWithEffectsWhenCheckingAttacksOf(Unit unit)
     {
         int statValue = BaseStat;

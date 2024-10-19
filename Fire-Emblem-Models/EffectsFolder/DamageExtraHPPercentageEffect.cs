@@ -15,6 +15,6 @@ public class DamageExtraHPPercentageEffect : Effect
         double extraDamage = unit.Hp.GetLostHP() * _percentage;
         double roundedExtraDamage = Math.Round(extraDamage, 9);
         int truncatedExtraDamage = (int)Math.Floor(roundedExtraDamage);
-        unit.DamageEffects.DamageBonus += truncatedExtraDamage;
+        unit.DamageEffects.BaseDamageBonus += truncatedExtraDamage;
     }
 }

@@ -60,6 +60,6 @@ public class Game
 // Cosas a Limpiar
 //  - Funciones Show de vista
 //  - Flujo cargar equipo
-//  - GameInfo con Battle/Round/Combat
+//  - GameInfo con Battle/Round/Combat, guardar units?
 //  - Try/Catch en Validation
 //  - Responses

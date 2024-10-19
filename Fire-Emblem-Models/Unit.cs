@@ -22,7 +22,6 @@ public class Unit
     
     // Probanding extra damage stuff
     public DamageEffects DamageEffects = new DamageEffects();
-
     public Unit(string name)
     {
         Name = name;

@@ -796,7 +796,7 @@ public class SkillFactory
                 break;
             
             case "Back at You":
-                conditions = new List<ICondition>() { new StartsCombatRivalCondition() };
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
                 effects = new List<Effect>() { new DamageExtraHPPercentageEffect(0.5) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects));
                 return conditionalEffects;
@@ -820,11 +820,25 @@ public class SkillFactory
                 return conditionalEffects;
                 break;
             
+            case "Dragon Wall":
+                conditions = new List<ICondition>() { };
+                effects = new List<Effect>() {  };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
+            case "Golden Lotus":
+                conditions = new List<ICondition>() { new RivalCondition( new WeaponTypeCondition("Physical")) };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                return conditionalEffects;
+                break;
+            
             
             
             default:
                 conditions = new List<ICondition>() { };
-                effects = new List<Effect>() {  };
+                effects = new List<Effect>() {   };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects));
                 return conditionalEffects;
                 break;

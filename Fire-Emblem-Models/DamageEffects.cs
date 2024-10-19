@@ -2,20 +2,97 @@ namespace Fire_Emblem_Models;
 
 public class DamageEffects
 {
-    public int DamageBonus = 0;
-    public int PercentageDamageReduction = 1;
-    public int DamageReduction = 0;
+    private int _modifiedDamage;
+    
+    public int BaseDamageBonus = 0;
+    public double BasePercentageDamageReduction = 0;
+    public int BaseDamageReduction = 0;
 
-    // Separar...?
-    public int CalculateModifiedDamage(int damage)
+    public int FirstAttackDamageBonus = 0;
+    public double FirstAttackPercentageDamageReduction = 0;
+    public int FirstAttackDamageReduction = 0;
+    
+    public int FollowUpDamageBonus = 0;
+    public double FollowUpPercentageDamageReduction = 0;
+    public int FollowUpDamageReduction = 0;
+
+    public void IncreaseBasePercentageDamageReduction(double newReduction)
     {
-        return (damage + DamageBonus) * PercentageDamageReduction - DamageReduction;
+        BasePercentageDamageReduction = 1 - (1 - BasePercentageDamageReduction) * (1 - newReduction);
+    }
+    
+    public void IncreaseFirstAttackPercentageDamageReduction(double newReduction)
+    {
+        FirstAttackPercentageDamageReduction = 1 - (1 - FirstAttackPercentageDamageReduction) * (1 - newReduction);
+    }
+
+    public void IncreaseFollowUpPercentageDamageReduction(double newReduction)
+    {
+        FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - newReduction);
+    }
+    
+    public int CalculateModifiedBaseDamage(int damage)
+    {
+        _modifiedDamage = damage;
+        AddDamageBonus(BaseDamageBonus);
+        ApplyPercentageDamageReduction(BasePercentageDamageReduction);
+        ApplyDamageReduction(BaseDamageReduction);
+        return _modifiedDamage;
+    }
+
+    public int CalculateModifiedFirstAttackDamage(int damage)
+    {
+        _modifiedDamage = damage;
+        AddDamageBonus(BaseDamageBonus);
+        AddDamageBonus(FirstAttackDamageBonus);
+        ApplyPercentageDamageReduction(BasePercentageDamageReduction);
+        ApplyPercentageDamageReduction(FirstAttackPercentageDamageReduction);
+        ApplyDamageReduction(BaseDamageReduction);
+        ApplyDamageReduction(FirstAttackDamageReduction);
+        return _modifiedDamage;
+    }
+
+    public int CalculateModifiedFollowUpDamage(int damage)
+    {
+        _modifiedDamage = damage;
+        AddDamageBonus(BaseDamageBonus);
+        AddDamageBonus(FollowUpDamageBonus);
+        ApplyPercentageDamageReduction(BasePercentageDamageReduction);
+        ApplyPercentageDamageReduction(FollowUpPercentageDamageReduction);
+        ApplyDamageReduction(BaseDamageReduction);
+        ApplyDamageReduction(FollowUpDamageReduction);
+        return _modifiedDamage;
+    }
+
+    private void AddDamageBonus(int bonus)
+    {
+        _modifiedDamage += bonus;
+    }
+    
+    private void ApplyPercentageDamageReduction(double percentageReduction)
+    {
+        double damage = _modifiedDamage * (1 - percentageReduction);
+        double roundedDamage = Math.Round(damage, 9);
+        int truncatedDamage = (int)Math.Floor(roundedDamage);
+        _modifiedDamage = truncatedDamage;
+    }
+    
+    private void ApplyDamageReduction(int reduction)
+    {
+        _modifiedDamage -= reduction;
     }
 
     public void ResetDamageEffects()
     {
-        DamageBonus = 0;
-        PercentageDamageReduction = 1;
-        DamageReduction = 0;
+        BaseDamageBonus = 0;
+        FirstAttackDamageBonus = 0;
+        FollowUpDamageBonus = 0;
+        BasePercentageDamageReduction = 0;
+        FirstAttackPercentageDamageReduction = 0;
+        FollowUpPercentageDamageReduction = 0;
+        BaseDamageReduction = 0;
+        FirstAttackDamageBonus = 0;
+        FollowUpDamageReduction = 0;
+
     }
 }

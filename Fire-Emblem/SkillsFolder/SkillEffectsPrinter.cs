@@ -23,7 +23,13 @@ public class SkillEffectsPrinter
         PrintFollowUpPenalties(unit);
         PrintBonusNeutralization(unit);
         PrintPenaltyNeutralization(unit);
-        PrintDamageBonus(unit);
+        PrintBaseDamageBonus(unit);
+        PrintFirstAttackDamageBonus(unit);
+        PrintFollowUpDamageBonus(unit);
+        PrintBaseDamagePercentageReductionToRival(unit);
+        PrintFirstAttackDamagePercentageReductionToRival(unit);
+        PrintFollowUpDamagePercentageReductionToRival(unit);
+        PrintBaseDamageReduction(unit);
     }
     
     // Limpiarlas...?
@@ -115,11 +121,62 @@ public class SkillEffectsPrinter
         }
     }
 
-    public void PrintDamageBonus(Unit unit)
+    public void PrintBaseDamageBonus(Unit unit)
     {
-        if (unit.DamageEffects.DamageBonus > 0)
+        if (unit.DamageEffects.BaseDamageBonus > 0)
         {
-            _view.WriteLine($"{unit.Name} realizará +{unit.DamageEffects.DamageBonus} daño extra en cada ataque");
+            _view.WriteLine($"{unit.Name} realizará +{unit.DamageEffects.BaseDamageBonus} daño extra en cada ataque");
+        }
+    }
+
+    public void PrintFirstAttackDamageBonus(Unit unit)
+    {
+        if (unit.DamageEffects.FirstAttackDamageBonus > 0)
+        {
+            _view.WriteLine($"{unit.Name} realizará +{unit.DamageEffects.FirstAttackDamageBonus} daño extra en su primer ataque");
+        }
+    }
+
+    public void PrintFollowUpDamageBonus(Unit unit)
+    {
+        if (unit.DamageEffects.FollowUpDamageBonus > 0)
+        {
+            _view.WriteLine($"{unit.Name} realizará +{unit.DamageEffects.FollowUpDamageBonus} daño extra en su Follow-Up");
+        }
+    }
+
+    public void PrintBaseDamagePercentageReductionToRival(Unit unit)
+    {
+        Unit rival = unit.GetRivalUnit();
+        if (rival.DamageEffects.BasePercentageDamageReduction > 0)
+        {
+            _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {Math.Round(rival.DamageEffects.BasePercentageDamageReduction * 100)}%");
+        }
+    }
+
+    public void PrintFirstAttackDamagePercentageReductionToRival(Unit unit)
+    {
+        Unit rival = unit.GetRivalUnit();
+        if (rival.DamageEffects.FirstAttackPercentageDamageReduction > 0)
+        {
+            _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {Math.Round(rival.DamageEffects.FirstAttackPercentageDamageReduction * 100)}%");
+        }
+    }
+    
+    public void PrintFollowUpDamagePercentageReductionToRival(Unit unit)
+    {
+        Unit rival = unit.GetRivalUnit();
+        if (rival.DamageEffects.FollowUpPercentageDamageReduction > 0)
+        {
+            _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {Math.Round(rival.DamageEffects.FollowUpPercentageDamageReduction * 100)}%");
+        }
+    }
+
+    public void PrintBaseDamageReduction(Unit unit)
+    {
+        if (unit.DamageEffects.BaseDamageReduction > 0)
+        {
+            _view.WriteLine($"{unit.Name} recibirá -{unit.DamageEffects.BaseDamageReduction} daño en cada ataque");
         }
     }
 }

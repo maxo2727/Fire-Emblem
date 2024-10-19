@@ -18,6 +18,6 @@ public class DamageExtraPercentageRivalEffect : Effect
         double extraDamage = statValue * _percentage;
         double roundedExtraDamage = Math.Round(extraDamage, 9);
         int truncatedExtraDamage = (int)Math.Floor(roundedExtraDamage);
-        unit.DamageEffects.DamageBonus += truncatedExtraDamage;
+        unit.DamageEffects.BaseDamageBonus += truncatedExtraDamage;
     }
 }
