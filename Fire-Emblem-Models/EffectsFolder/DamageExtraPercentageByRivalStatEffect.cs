@@ -1,11 +1,11 @@
 namespace Fire_Emblem_Models.EffectsFolder;
 
-public class DamageExtraPercentageRivalEffect : Effect
+public class DamageExtraPercentageByRivalStatEffect : Effect
 {
     private string _stat;
     private double _percentage;
 
-    public DamageExtraPercentageRivalEffect(string stat, double percentage)
+    public DamageExtraPercentageByRivalStatEffect(string stat, double percentage)
     {
         _stat = stat;
         _percentage = percentage;
@@ -14,7 +14,7 @@ public class DamageExtraPercentageRivalEffect : Effect
     public override void Apply(Unit unit)
     {
         Unit rival = unit.GetRivalUnit();
-        int statValue = rival.Stats.GetStat(_stat).BaseStat;
+        int statValue = rival.Stats.GetStat(_stat).GetStatWithBaseEffects();
         double extraDamage = statValue * _percentage;
         double roundedExtraDamage = Math.Round(extraDamage, 9);
         int truncatedExtraDamage = (int)Math.Floor(roundedExtraDamage);

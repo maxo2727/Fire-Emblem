@@ -5,30 +5,41 @@ namespace Fire_Emblem_Models;
 
 public class ConditionalEffect
 {
-    private string priority;
+    private int _priority;
     private List<ICondition> _conditions;
     private List<Effect> _effects;
+    private Unit _targetUnit;
 
-    public ConditionalEffect(List<ICondition> conditions, List<Effect> effects)
+    public ConditionalEffect(List<ICondition> conditions, List<Effect> effects, int priority)
     {
         _conditions = conditions;
         _effects = effects;
+        _priority = priority;
+    }
+
+    public void SetTargetUnit(Unit unit)
+    {
+        _targetUnit = unit;
+    }
+
+    public int GetPriority()
+    {
+        return _priority;
     }
     
-    // no es algo híbrido?
-    public void UseConditionalEffect(Unit unit)
+    public void UseConditionalEffect()
     {
-        if (ConditionsAreMet(unit))
+        if (ConditionsAreMet())
         {
-            ApplyEffects(unit);
+            ApplyEffects();
         };
     }
     
-    public bool ConditionsAreMet(Unit unit)
+    public bool ConditionsAreMet()
     {
         foreach (ICondition condition in _conditions)
         {
-            if (!condition.IsMet(unit))
+            if (!condition.IsMet(_targetUnit))
             {
                 return false;
             }
@@ -36,11 +47,11 @@ public class ConditionalEffect
         return true;
     }
     
-    public void ApplyEffects(Unit unit)
+    public void ApplyEffects()
     {
         foreach (Effect effect in _effects)
         {
-            effect.Apply(unit);
+            effect.Apply(_targetUnit);
         }
     }
 }

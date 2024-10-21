@@ -27,6 +27,7 @@ public class RoundHandler
     public void BeginNewRound()
     {
         SetUpUnits();
+        UpdateUnitCombatStatus();
         _advantageEvaluator.CheckAdvantage();
         _skillController.UseSkills();
         _combatSequencer.CombatSequence();
@@ -46,6 +47,7 @@ public class RoundHandler
     public void WrapUpForNextRound()
     {
         ChangeTurns();
+        UpdateFirstCombatStatusForAllunits();
         _gameInfo.IncreaseRoundNumber();
         _gameInfo.ResetUnitRoundActions();
         _gameInfo.SetMostRecentRivalForThisCombat();
@@ -58,5 +60,18 @@ public class RoundHandler
             _gameInfo.SetPlayerTurns(2,1);
         else
             _gameInfo.SetPlayerTurns(1,2);
+    }
+
+    // gameInfo??
+    public void UpdateUnitCombatStatus()
+    {
+        _gameInfo.AttackingUnit.UpdateAttackingCombatStatus();
+        _gameInfo.DefendingUnit.UpdateDefendingCombatStatus();
+    }
+    
+    public void UpdateFirstCombatStatusForAllunits()
+    {
+        _gameInfo.AttackingUnit.UpdateFirstAttackingCombatStatus(); 
+        _gameInfo.DefendingUnit.UpdateFirstDefendingCombatStatus();
     }
 }

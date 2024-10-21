@@ -74,4 +74,9 @@ public class Stat
         AreBonusesNeutralized = false;
         ArePenaltiesNeutralized = false;
     }
+
+    public int GetStatWithBaseEffects()
+    {
+        return BaseStat + Bonus + Penalty;
+    }
 }

@@ -6,8 +6,9 @@ namespace Fire_Emblem.SkillsFolder;
 
 public class SkillCatalog
 {
-    public static List<ConditionalEffect> GetConditionalEffects(string name)
+    public static List<ConditionalEffect> GetConditionalEffectsFromSkill(string name)
     {
+        int priority;
         List<Effect> effects;
         List<ICondition> conditions;
         List<ConditionalEffect> conditionalEffects = new List<ConditionalEffect>();
@@ -15,168 +16,169 @@ public class SkillCatalog
         switch (name)
         {
             case "Attack +6":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects = new List<Effect> {new BonusEffect("Atk", 6)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Speed +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Spd", 5)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Defense +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Def", 5)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Resistance +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect> {new BonusEffect("Res", 5)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Atk/Def +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect>
                 {
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Def",5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Atk/Res +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect>
                 {
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Res",5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Atk/Spd + 5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect>
                 {
                     new BonusEffect("Atk", 5), 
                     new BonusEffect("Spd",5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Spd/Res +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect>
                 {
                     new BonusEffect("Spd", 5), 
                     new BonusEffect("Res",5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Spd/Def +5":
+                priority = 1;
                 conditions = new List<ICondition> {new EmptyCondition()};
                 effects =  new List<Effect>
                 {
                     new BonusEffect("Spd", 5), 
                     new BonusEffect("Def",5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "HP +15":
+                priority = 1;
                 conditions = new List<ICondition>() {new EmptyCondition()};
                 effects = new List<Effect>() {new BonusHPEffect(15)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Will to Win":
+                priority = 1;
                 conditions = new List<ICondition>() {new HPLessThanCondition(0.5)};
                 effects = new List<Effect>() {new BonusEffect("Atk", 8)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Fair Fight":
+                priority = 1;
                 conditions = new List<ICondition>() {new StartsCombatCondition()};
                 effects = new List<Effect>() {new BonusEffect("Atk", 6), new BonusRivalEffect("Atk", 6)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Single-Minded":
+                priority = 1;
                 conditions = new List<ICondition>() {new MostRecentRivalCondition()};
                 effects = new List<Effect>() {new BonusEffect("Atk", 8)};
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Ignis":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new BonusFirstAttackPercentageEffect("Atk", 0.5) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Perceptive":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 12), 
                     new FractionalBonusEffect("Spd", 4)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Tome Precision":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Magic") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Spd", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Wrath":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
                     new ForeachHPLostBonusEffect("Atk", 1),
                     new ForeachHPLostBonusEffect("Spd", 1)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Resolve":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.75) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Def", 7),
                     new BonusEffect("Res", 7)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Deadly Blade":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(), 
@@ -187,72 +189,72 @@ public class SkillCatalog
                     new BonusEffect("Atk", 8),
                     new BonusEffect("Spd", 8)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Death Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Atk", 8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Armored Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Def", 8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
                 
             case "Darting Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Spd", 8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Warding Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new BonusEffect("Res", 8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Swift Sparrow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Spd", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sturdy Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Def", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Mirror Strike":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 6),
                     new BonusEffect("Res", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Steady Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
@@ -260,127 +262,127 @@ public class SkillCatalog
                     new BonusEffect("Def", 6)
                     
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Swift Strike":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 6),
                     new BonusEffect("Res", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Bracing Blow":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Def", 6),
                     new BonusEffect("Res", 6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Atk/Spd":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Spd", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Atk/Def":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Def", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Atk/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new BonusEffect("Res", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Spd/Def":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 10),
                     new BonusEffect("Def", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Spd/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 10),
                     new BonusEffect("Res", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Brazen Def/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Def", 10),
                     new BonusEffect("Res", 10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Fire Boost":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Atk", 6) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Wind Boost":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Spd", 6) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Earth Boost":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Def", 6) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Water Boost":
+                priority = 1;
                 conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Res", 6) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Chaos Style":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new OrCondition( new List<ICondition>()
@@ -400,61 +402,61 @@ public class SkillCatalog
                     })
                 };
                 effects = new List<Effect>() { new BonusEffect("Spd", 3) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Blinding Flash":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Spd", -4) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
-                return conditionalEffects;
-                break; 
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects; 
             
             case "Not *Quite*":
+                priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatRivalCondition() };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -4)  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Stunning Smile":
+                priority = 1;
                 conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Spd", -8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Disarming Sigh":
+                priority = 1;
                 conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -8) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Charmer":
+                priority = 1;
                 conditions = new List<ICondition>() { new MostRecentRivalCondition() };
                 effects = new List<Effect>()
                 {
                     new PenaltyRivalEffect("Atk", -3),
                     new PenaltyRivalEffect("Spd", -3)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Luna":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
                     new PenaltyRivalFirstAttackPercentageEffect("Def", 0.5),
                     new PenaltyRivalFirstAttackPercentageEffect("Res", 0.5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Belief in Love":
+                priority = 1;
                 conditions = new List<ICondition>() { 
                     new OrCondition(new List<ICondition>()
                     {
@@ -467,130 +469,130 @@ public class SkillCatalog
                     new PenaltyRivalEffect("Atk", -5),
                     new PenaltyRivalEffect("Def", -5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Beorc's Blessing":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new NeutralizeAllBonusesRivalEffect()  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Agnea's Arrow":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new NeutralizeAllPenaltiesEffect()  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Soulblade":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Sword") };
                 effects = new List<Effect>() { new SoulbladeEffect() };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sandstorm":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
                     new SandstormEffect()
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sword Agility":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Sword") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lance Power":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Lance") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sword Power":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Sword") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Bow Focus":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Bow") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Res", -10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lance Agility":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Lance") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Axe Power":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Axe") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Def", -10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Bow Agility":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Bow") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 12),
                     new PenaltyEffect("Atk", -6)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sword Focus":
+                priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Sword") };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
                     new PenaltyEffect("Res", -10)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Close Def":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatRivalCondition(),
@@ -608,11 +610,11 @@ public class SkillCatalog
                     new BonusEffect("Res", 8),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Distant Def":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatRivalCondition(),
@@ -628,11 +630,11 @@ public class SkillCatalog
                     new BonusEffect("Res", 8),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Atk/Spd":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -641,11 +643,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Spd")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Atk/Def":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -654,11 +656,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Def")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Atk/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -667,11 +669,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Atk"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Spd/Def":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -680,11 +682,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Spd"),
                     new NeutralizeBonusRivalEffect("Def")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Spd/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -693,11 +695,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Spd"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lull Def/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -706,11 +708,11 @@ public class SkillCatalog
                     new NeutralizeBonusRivalEffect("Def"),
                     new NeutralizeBonusRivalEffect("Res")
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Fort. Def/Res":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -718,11 +720,11 @@ public class SkillCatalog
                     new BonusEffect("Res", 6),
                     new PenaltyEffect("Atk", -2)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Life and Death":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -731,11 +733,11 @@ public class SkillCatalog
                     new PenaltyEffect("Def", -5),
                     new PenaltyEffect("Res", -5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Solid Ground":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -743,11 +745,11 @@ public class SkillCatalog
                     new BonusEffect("Def", 6),
                     new PenaltyEffect("Res", -5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Still Water":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -755,11 +757,11 @@ public class SkillCatalog
                     new BonusEffect("Res", 6),
                     new PenaltyEffect("Def", -5)
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Dragonskin":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new OrCondition(new List<ICondition>()
@@ -776,11 +778,11 @@ public class SkillCatalog
                     new BonusEffect("Res", 6),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Light and Dark":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -791,109 +793,445 @@ public class SkillCatalog
                     new NeutralizeAllPenaltiesEffect(),
                     new NeutralizeAllBonusesRivalEffect()
                 };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Back at You":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
                 effects = new List<Effect>() { new DamageExtraHPPercentageEffect(0.5) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lunar Brace":
+                priority = 2;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
                     new WeaponTypeCondition("Physical")
                 };
-                effects = new List<Effect>() { new DamageExtraPercentageRivalEffect("Def", 0.3) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                effects = new List<Effect>() { new DamageExtraPercentageByRivalStatEffect("Def", 0.3) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Bravery":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new DamageExtraEffect(5) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Dragon Wall":
-                conditions = new List<ICondition>() { };
-                effects = new List<Effect>() {  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                priority = 2;
+                conditions = new List<ICondition>() { new StatComparisonCondition("Res") };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Res") ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
+            
+            case "Dodge":
+                priority = 2;
+                conditions = new List<ICondition>() { new StatComparisonCondition("Spd") };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
             
             case "Golden Lotus":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new WeaponTypeCondition("Physical")) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.5) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Gentility":
+                priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) )  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Bow Guard":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Bow") ) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5)) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Arms Shield":
+                priority = 1;
                 conditions = new List<ICondition>() { new AdvantageCondition() };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(7) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Axe Guard":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Axe") ) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Magic Guard":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Magic") ) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Lance Guard":
+                priority = 1;
                 conditions = new List<ICondition>() { new RivalCondition( new WeaponNameCondition("Lance") ) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
             case "Sympathetic":
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new RivalCondition( new StartsCombatCondition() ),
                     new HPLessThanCondition(0.5)
                 };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
             
+            case "Bushido":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new DamageExtraEffect(7) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>() { new StatComparisonCondition("Spd") };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Moon-Twin Wing":
+                priority = 1;
+                conditions = new List<ICondition>() { new HPMoreThanCondition(0.25) };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect ( new PenaltyEffect("Atk", -5) ),
+                    new RivalEffect ( new PenaltyEffect("Spd", -5) ),
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>()
+                {
+                    new HPMoreThanCondition(0.25),
+                    new StatComparisonCondition("Spd")
+                };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Blue Skies":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new DamageExtraEffect(5),
+                    new RivalEffect( new DamageReductionEffect(5) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Aegis Shield":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Def", 6),
+                    new BonusEffect("Res", 3),
+                    new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.5) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Remote Sparrow":
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition() };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Spd", 7),
+                    new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Remote Mirror":
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition()  };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Res", 10),
+                    new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Remote Sturdy":
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition()  };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Def", 10),
+                    new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Fierce Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 8),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Darting Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Spd", 8),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Steady Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Def", 8),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Warding Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Res", 8),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Kestrel Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 6),
+                    new BonusEffect("Spd", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Sturdy Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 6),
+                    new BonusEffect("Def", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Mirror Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 6),
+                    new BonusEffect("Res", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Steady Posture":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Spd", 6),
+                    new BonusEffect("Def", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Swift Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Spd", 6),
+                    new BonusEffect("Res", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Bracing Stance":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Def", 6),
+                    new BonusEffect("Res", 6),
+                    new RivalEffect( new DamageReductionPercentageFollowUpEffect(0.1) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Poetic Justice":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Spd", -4) ),
+                    new DamageExtraPercentageByRivalStatEffect("Atk", 0.15)
+                    
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Laguz Friend":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new DamageReductionPercentageEffect(0.5) ),
+                    new NeutralizeBonusEffect("Def"),
+                    new NeutralizeBonusEffect("Res"),
+                    new PenaltyPercentageEffect("Def", 0.5),
+                    new PenaltyPercentageEffect("Res", 0.5),
+                    
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Chivalry":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new HPRivalCondition(1.0)
+                };
+                effects = new List<Effect>()
+                {
+                    new DamageExtraEffect(2),
+                    new RivalEffect( new DamageReductionEffect(2) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Dragon's Wrath":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.25) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>() { new StatComparisonCondition("Atk", "Res") };
+                effects = new List<Effect>() { new DamageExtraFirstAttackPercentageDifferenceRivalStatEffect("Atk", "Res", 0.25) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Prescience":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Atk", -5) ),
+                    new RivalEffect( new PenaltyEffect("Res", -5) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new OrCondition( new List<ICondition>()
+                    {
+                        new StartsCombatCondition(),
+                        new OrCondition( new List<ICondition>()
+                        {
+                            new RivalCondition( new WeaponNameCondition("Magic") ),
+                            new RivalCondition( new WeaponNameCondition("Bow") )
+                        })
+                    })
+                    
+                };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Extra Chivalry":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) )  };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Atk", -5) ),
+                    new RivalEffect( new PenaltyEffect("Spd", -5) ),
+                    new RivalEffect( new PenaltyEffect("Def", -5) )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition()  };
+                effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageHPRival(0.5) ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+                
+            case "Guard Bearing":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition()  };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Spd", -4) ),
+                    new RivalEffect( new PenaltyEffect("Def", -4) ),
+                    new GuardBearingEffect()
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Divine Recreation":
+                priority = 1;
+                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) ) };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Atk", -4) ),
+                    new RivalEffect( new PenaltyEffect("Spd", -4) ),
+                    new RivalEffect( new PenaltyEffect("Def", -4) ),
+                    new RivalEffect( new PenaltyEffect("Res", -4) ),
+                    new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) ),
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 3;
+                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) ) };
+                effects = new List<Effect>() { new DivineRecreationExtraDamageEffect() };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
             
             default:
+                priority = 1;
                 conditions = new List<ICondition>() {  };
                 effects = new List<Effect>() {  };
-                conditionalEffects.Add(new ConditionalEffect(conditions, effects));
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
-                break;
         }
     }
 }

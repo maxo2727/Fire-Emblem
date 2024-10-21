@@ -56,6 +56,7 @@ public class Game
 //  - Encapsulation Dictionary ta bien devolver todos los (key, value)?
 //    R: NO!! Solo debería devolver los values.
 //  - Como usar TrueTruncator?
+//  - Como componer y decorar condiciones con otras similares? QUIZAS, PARA CADA TIPO DE ATAQUE, PASARLE EL UNIT.BONUS.FIRSTATTACK, Y DE AHI DARLE EL BONUS??
 
 // Cosas a Limpiar
 //  - Funciones Show de vista
@@ -63,3 +64,6 @@ public class Game
 //  - GameInfo con Battle/Round/Combat, guardar units?
 //  - Try/Catch en Validation
 //  - Responses
+//  - Effects and Conditions: Decorate With RivalCondition() and FirstAttack(), FollowUp()
+//  - Sign in Penalties to Always positive, and then substract it.
+//  - DamageHandler y DamageEffects

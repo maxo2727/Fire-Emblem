@@ -16,6 +16,7 @@ public class DamageEffects
     public double FollowUpPercentageDamageReduction = 0;
     public int FollowUpDamageReduction = 0;
 
+    // encapsular estar 3 funciones en una, recibiendo el unit.DamageEffect y decorando la condicion
     public void IncreaseBasePercentageDamageReduction(double newReduction)
     {
         BasePercentageDamageReduction = 1 - (1 - BasePercentageDamageReduction) * (1 - newReduction);

@@ -17,8 +17,11 @@ public class Unit
     private Unit _mostRecentRival = null;
     public bool IsStartingCombat = false;
     public bool HasMadeFirstAttack = false; //InFirstAttack?
-    //InCounterAttack?
     public bool InFollowUp = false;
+    public bool IsAttacking = false;
+    public bool IsDefending = false;
+    public bool IsFirstAttackingCombat = true;
+    public bool IsFirstDefendingCombat = true;
     
     // Probanding extra damage stuff
     public DamageEffects DamageEffects = new DamageEffects();
@@ -88,6 +91,40 @@ public class Unit
     public void SetMostRecentRival(Unit rival)
     {
         _mostRecentRival = rival;
+    }
+
+    public void UpdateAttackingCombatStatus()
+    {
+        if (!IsAttacking)
+        {
+            IsAttacking = true;
+            IsDefending = false;
+        }
+    }
+    
+    public void UpdateDefendingCombatStatus()
+    {
+        if (!IsDefending)
+        {
+            IsAttacking = false;
+            IsDefending = true;
+        }
+    }
+
+    public void UpdateFirstAttackingCombatStatus()
+    {
+        if (IsFirstAttackingCombat)
+        {
+            IsFirstAttackingCombat = false;
+        }
+    }
+    
+    public void UpdateFirstDefendingCombatStatus()
+    {
+        if (IsFirstDefendingCombat)
+        {
+            IsFirstDefendingCombat = false;
+        }
     }
 }
     

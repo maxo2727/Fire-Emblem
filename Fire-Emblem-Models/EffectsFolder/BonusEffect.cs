@@ -1,3 +1,5 @@
+using Fire_Emblem_Models.StatsFolder;
+
 namespace Fire_Emblem_Models.EffectsFolder;
 
 public class BonusEffect: Effect
@@ -13,9 +15,7 @@ public class BonusEffect: Effect
     
     public override void Apply(Unit unit)
     {
-        // unit.Stats.GetStat(_stat)
-        // .Bonus += _bonus;
-        unit.Stats.ModifyBonuses(_stat, _bonus);
-        // unit.ModifyBonuses(_stat, _bonus);
+        Stat stat = unit.Stats.GetStat(_stat);
+        stat.Bonus += _bonus;
     }
 }
