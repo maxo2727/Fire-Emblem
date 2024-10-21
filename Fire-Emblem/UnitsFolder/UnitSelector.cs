@@ -4,35 +4,37 @@ using Fire_Emblem.ResponseHandlerFolder;
 
 namespace Fire_Emblem.UnitsFolder;
 
-// static?
 public class UnitSelector
 {
+    private Player _player;
+    private List<Unit> _aliveUnitsInCombat;
     private GameInfo _gameInfo;
-    private ResponseHandler.ResponseHandler _responseHandler;
+    private ResponseHandler _responseHandler;
     private FireEmblemView _view;
 
     public UnitSelector(GameInfo gameInfo, FireEmblemView view)
     {
         _gameInfo = gameInfo;
-        _responseHandler = new ResponseHandlerUnit(view);
+        _responseHandler = new ResponseHandler(view);
         _view = view;
     }
     
-    public void SelectUnitsForAllPlayers()
+    public void SelectUnitForBattle(int playerNumber)
     {
-        int attackingPlayerNumber = _gameInfo.AttackingPlayerNumber;
-        int defenderPlayerNumber = _gameInfo.DefendingPlayerNumber;
-        SelectUnitForBattle(attackingPlayerNumber, _gameInfo.Players.GetPlayerById(attackingPlayerNumber));
-        SelectUnitForBattle(defenderPlayerNumber, _gameInfo.Players.GetPlayerById(defenderPlayerNumber));
-        _gameInfo.SaveBattleUnitChoice();
+        ShowAliveUnitsInCombat(playerNumber);
+        GetSelectedUnitForCombat();
     }
-    
-    public void SelectUnitForBattle(int playerNumber, Player player)
+
+    public void ShowAliveUnitsInCombat(int playerNumber)
     {
-        List<Unit> aliveUnitsInCombat = player.Team.GetAliveUnitsInCombat();
-        _view.WriteLine($"Player {playerNumber} selecciona una opción");
-        _responseHandler.ShowArrayOfOptions(aliveUnitsInCombat); // esto dentro de USER CHOICE
-        Unit selectedUnit = _responseHandler.AskUserForOption(aliveUnitsInCombat);
-        player.SelectUnit(selectedUnit);
+        _player = _gameInfo.Players.GetPlayerById(playerNumber);
+        _aliveUnitsInCombat = _player.Team.GetAliveUnitsInCombat();
+        _view.ShowListOfUnits(playerNumber, _aliveUnitsInCombat);
+    }
+
+    public void GetSelectedUnitForCombat()
+    {
+        Unit selectedUnit = _responseHandler.AskUserForUnit(_aliveUnitsInCombat);
+        _player.SelectUnit(selectedUnit);
     }
 }

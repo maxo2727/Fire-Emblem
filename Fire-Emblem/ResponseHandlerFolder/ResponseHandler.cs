@@ -1,8 +1,9 @@
+using Fire_Emblem_Models;
 using Fire_Emblem_View;
 
 // using System.Linq;
 
-namespace Fire_Emblem.ResponseHandler;
+namespace Fire_Emblem.ResponseHandlerFolder;
 
 public class ResponseHandler
 {
@@ -13,9 +14,15 @@ public class ResponseHandler
         _view = view;
     }
 
-    public virtual void ShowArrayOfOptions<Thing>(IEnumerable<Thing> options){}
+    public Unit AskUserForUnit(List<Unit> units)
+    {
+        int minValue = 0;
+        int maxValue = units.Count() - 1;
+        int selectedOption = AskUserToSelectNumber(minValue, maxValue);
+        return units[selectedOption];
+    }
 
-    // No es tan buena idea dejarlo como IList...
+    // Hacer un método para AskUserForString y AskUserForUnit?
     public Thing AskUserForOption<Thing>(IList<Thing> options)
     {
         int minValue = 0;
@@ -30,7 +37,7 @@ public class ResponseHandler
         bool wasParsePossible;
         do
         {
-            string? userInput = _view.ReadLine();
+            string? userInput = _view.GetOptionNumber();
             wasParsePossible = int.TryParse(userInput, out value);
         } while (!wasParsePossible || IsValueOutsideTheValidRange(minValue, value, maxValue));
 

@@ -6,51 +6,46 @@ namespace Fire_Emblem.TeamLoad;
 public class TeamFileSelector
 {
     private FireEmblemView _view;
-    private ResponseHandler.ResponseHandler _responseHandler;
+    private ResponseHandler _responseHandler;
+    private string[] _teamPaths;
+    private string[] _teamFiles;
 
     public TeamFileSelector(FireEmblemView view)
     {
         _view = view;
-        _responseHandler = new ResponseHandlerTeam(_view);
+        _responseHandler = new ResponseHandler(_view);
     }
 
     public string SelectTeamFileNuevo(string teamsFolder)
     {
-        // Agrupar
-        string[] teamPaths = GetAvailableTeamsInOrder(teamsFolder);
-        string[] teamFiles = ParseTeamPathsIntoTeamFileNames(teamPaths);
-        _view.ShowArrayOfTeams(teamFiles);
-        string teamFile = GetUserSelectedOption(teamFiles);
-        return teamFile;
-    }
-
-    public string GetUserSelectedOption(string[] options)
-    {
-        return _responseHandler.AskUserForOption(options);
+        GetAvailableTeamsInOrder(teamsFolder);
+        ShowAvailableTeamsInOrder();
+        return GetUserSelectedTeamFile();
     }
     
-    public string SelectTeamFile(string teamsFolder)
+    public void GetAvailableTeamsInOrder(string teamsFolder)
     {
-        _view.WriteLine("Elige un archivo para cargar los equipos");
-        string[] teamPaths = GetAvailableTeamsInOrder(teamsFolder);
-        _responseHandler.ShowArrayOfOptions(teamPaths);
-        string teamFile = _responseHandler.AskUserForOption(teamPaths);
-        return teamFile;
-    }
-    
-    public string[] GetAvailableTeamsInOrder(string teamsFolder)
-    {
-        string[] teams = Directory.GetFiles(teamsFolder, "*.txt");
-        return teams;
+        _teamPaths = Directory.GetFiles(teamsFolder, "*.txt");
     }
 
-    public string[] ParseTeamPathsIntoTeamFileNames(string[] teamPaths)
+    public void ShowAvailableTeamsInOrder()
+    {
+        ParseTeamPathsIntoTeamFileNames();
+        _view.ShowArrayOfTeams(_teamFiles);
+    }
+    
+    public void ParseTeamPathsIntoTeamFileNames()
     {
         List<string> teamFiles = new List<string>();
-        for (int i = 0; i < teamPaths.Count(); i++)
+        for (int i = 0; i < _teamPaths.Count(); i++)
         {
-            teamFiles.Add(teamPaths[i].Split('\\')[2]);
+            teamFiles.Add(_teamPaths[i].Split('\\')[2]);
         }
-        return teamFiles.ToArray();
+        _teamFiles = teamFiles.ToArray();
+    }
+    
+    public string GetUserSelectedTeamFile()
+    {
+        return _responseHandler.AskUserForOption(_teamPaths);
     }
 }

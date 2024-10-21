@@ -22,7 +22,7 @@ public class Team
                 AliveUnitsInCombat.Add(unit);
         return AliveUnitsInCombat;
     }
-
+    
     public bool HasLostAllItsUnits()
     {
         foreach (Unit unit in _team)

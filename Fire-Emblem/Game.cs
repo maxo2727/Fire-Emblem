@@ -26,9 +26,7 @@ public class Game
 
     public void Play()
     {
-        // string teamFile = _teamFileSelector.SelectTeamFileNuevo(_teamsFolder);
-        string[] teams = _teamFileSelector.GetAvailableTeamsInOrder(_teamsFolder);
-        string teamFile = _teamFileSelector.SelectTeamFile(_teamsFolder);
+        string teamFile = _teamFileSelector.SelectTeamFileNuevo(_teamsFolder);
         _teamLoader.LoadTeamFromFile(teamFile);
         if (_teamValidator.CheckTeamsValidity())
             _battleHandler.StartBattle();
@@ -44,12 +42,7 @@ public class Game
 // Efectos de Daño:
 //  - Guardar todos los daños extra en cada atributo distinto de Unit? Quizas dsp encapsular
 //  - Entonces, no es necesario chequear cuando se aplica el efecto, porque se reinicia el daño extra cada ronda...
-//  
-// Prioridad Efectos:
-//    1.- Efectos a Stats
-//    2.- Daño Extra
-//    3.- Reducción Daño porcentual (combinación multiplicativa)
-//    4.- Reducción Daño Absoluto
+// 
 // Unit y Skills Builder
 
 // DUDAS:

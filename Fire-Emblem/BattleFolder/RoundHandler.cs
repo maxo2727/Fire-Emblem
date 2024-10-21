@@ -37,11 +37,18 @@ public class RoundHandler
     //LIMPIAR!! Dividir en funciones mas chicas q seteen otras cosas
     public void SetUpUnits()
     {
-        _unitSelector.SelectUnitsForAllPlayers();
+        SelectUnitsForAllPlayers();
         _gameInfo.AttackingUnit.IsStartingCombat = true;
         _gameInfo.AttackingUnit.SetRivalUnit(_gameInfo.DefendingUnit);
         _gameInfo.DefendingUnit.SetRivalUnit(_gameInfo.AttackingUnit);
         _view.WriteLine($"Round {_gameInfo.RoundTurn}: {_gameInfo.AttackingUnit.Name} (Player {_gameInfo.AttackingPlayerNumber}) comienza");
+    }
+
+    public void SelectUnitsForAllPlayers()
+    {
+        _unitSelector.SelectUnitForBattle(_gameInfo.AttackingPlayerNumber);
+        _unitSelector.SelectUnitForBattle(_gameInfo.DefendingPlayerNumber);
+        _gameInfo.SaveBattleUnitChoice();
     }
 
     public void WrapUpForNextRound()

@@ -6,6 +6,7 @@ namespace Fire_Emblem_Models;
 public class ConditionalEffect
 {
     private int _priority;
+    // Encapsular?
     private List<ICondition> _conditions;
     private List<Effect> _effects;
     private Unit _targetUnit;
