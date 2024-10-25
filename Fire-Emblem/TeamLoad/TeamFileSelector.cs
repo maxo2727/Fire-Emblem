@@ -23,18 +23,18 @@ public class TeamFileSelector
         return GetUserSelectedTeamFile();
     }
     
-    public void GetAvailableTeamsInOrder(string teamsFolder)
+    private void GetAvailableTeamsInOrder(string teamsFolder)
     {
         _teamPaths = Directory.GetFiles(teamsFolder, "*.txt");
     }
 
-    public void ShowAvailableTeamsInOrder()
+    private void ShowAvailableTeamsInOrder()
     {
         ParseTeamPathsIntoTeamFileNames();
         _view.ShowArrayOfTeams(_teamFiles);
     }
     
-    public void ParseTeamPathsIntoTeamFileNames()
+    private void ParseTeamPathsIntoTeamFileNames()
     {
         List<string> teamFiles = new List<string>();
         for (int i = 0; i < _teamPaths.Count(); i++)
@@ -44,8 +44,8 @@ public class TeamFileSelector
         _teamFiles = teamFiles.ToArray();
     }
     
-    public string GetUserSelectedTeamFile()
+    private string GetUserSelectedTeamFile()
     {
-        return _responseHandler.AskUserForOption(_teamPaths);
+        return _responseHandler.AskUserForTeamFile(_teamPaths);
     }
 }

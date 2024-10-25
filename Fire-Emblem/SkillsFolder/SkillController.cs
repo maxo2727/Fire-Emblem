@@ -1,26 +1,22 @@
 using Fire_Emblem_Models;
-using Fire_Emblem_Models.EffectsFolder;
 using Fire_Emblem_View;
-using Fire_Emblem.SkillsFolder;
 
-namespace Fire_Emblem;
+namespace Fire_Emblem.SkillsFolder;
 
 public class SkillController
 {
     private Unit _attackingUnit;
     private Unit _defendingUnit;
-    private FireEmblemView _view;
     private SkillEffectsPrinter _skillEffectsPrinter;
     private GameInfo _gameInfo;
     private List<ConditionalEffect> _conditionalEffectsToApply;
     
     public SkillController(FireEmblemView view, GameInfo gameInfo)
     {
-        _view = view;
-        _skillEffectsPrinter = new SkillEffectsPrinter(_view);
+        _skillEffectsPrinter = view.GetSkillEffectsPrinter();
         _gameInfo = gameInfo;
     }
-
+    
     public void UseSkills()
     {
         _conditionalEffectsToApply = new List<ConditionalEffect>();
@@ -36,7 +32,7 @@ public class SkillController
         _defendingUnit.Hp.SetMaxHPForCombat();
     }
 
-    public void GetConditionalEffects(Unit unit)
+    private void GetConditionalEffects(Unit unit)
     {
         foreach (string skill in unit.Skills.GetAllSkills())
         {
@@ -49,7 +45,7 @@ public class SkillController
         }
     }
 
-    public void SortConditionalEffects()
+    private void SortConditionalEffects()
     {
         _conditionalEffectsToApply.Sort(
             (p1, p2) =>
@@ -61,7 +57,7 @@ public class SkillController
         );
     }
 
-    public void ApplyConditionalEffectsToAllUnits()
+    private void ApplyConditionalEffectsToAllUnits()
     {
         foreach (ConditionalEffect conditionalEffect in _conditionalEffectsToApply)
         {

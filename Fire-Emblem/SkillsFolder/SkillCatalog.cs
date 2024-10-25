@@ -1235,14 +1235,3 @@ public class SkillCatalog
         }
     }
 }
-
-// todo Mejoras:
-// - or and conditions: que conditions sera una sola, o que and no exista y sea una lista?
-// - Ver tema de Hp: limpiar
-// - Heredar efectos y condiciones similares
-// - Limpiar flujo pelea con capitulos clean code
-// Ojo, ver mis comentarios preguntas y resolverlas/borrarlas, o dejar los necesarios, tambien puede limpiar...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-// Preguntas profe:
-// train wreck son Hp y agregar habilidades -> Ley de demeter?
-// Heredar efectos?

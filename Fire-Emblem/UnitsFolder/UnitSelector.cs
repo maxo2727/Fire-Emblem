@@ -19,20 +19,20 @@ public class UnitSelector
         _view = view;
     }
     
-    public void SelectUnitForBattle(int playerNumber)
+    public void SelectUnit(int playerNumber)
     {
         ShowAliveUnitsInCombat(playerNumber);
-        GetSelectedUnitForCombat();
+        SelectUnitForCombat();
     }
 
-    public void ShowAliveUnitsInCombat(int playerNumber)
+    private void ShowAliveUnitsInCombat(int playerNumber)
     {
         _player = _gameInfo.Players.GetPlayerById(playerNumber);
         _aliveUnitsInCombat = _player.Team.GetAliveUnitsInCombat();
         _view.ShowListOfUnits(playerNumber, _aliveUnitsInCombat);
     }
 
-    public void GetSelectedUnitForCombat()
+    private void SelectUnitForCombat()
     {
         Unit selectedUnit = _responseHandler.AskUserForUnit(_aliveUnitsInCombat);
         _player.SelectUnit(selectedUnit);

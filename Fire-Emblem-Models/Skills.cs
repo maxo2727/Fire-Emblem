@@ -8,14 +8,6 @@ public class Skills
     {
         _skills.Add(skill);
     }
-    
-    // public void CheckIfUnitCanUseSkills(Unit unit)
-    // {
-    //     foreach (string skill in _skills)
-    //     {
-    //         skill.UseSkill(unit);
-    //     }
-    // }
 
     public List<string> GetAllSkills()
     {

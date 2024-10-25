@@ -1,8 +1,6 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_View;
 
-// using System.Linq;
-
 namespace Fire_Emblem.ResponseHandlerFolder;
 
 public class ResponseHandler
@@ -21,17 +19,16 @@ public class ResponseHandler
         int selectedOption = AskUserToSelectNumber(minValue, maxValue);
         return units[selectedOption];
     }
-
-    // Hacer un método para AskUserForString y AskUserForUnit?
-    public Thing AskUserForOption<Thing>(IList<Thing> options)
+    
+    public string AskUserForTeamFile(string[] teamFiles)
     {
         int minValue = 0;
-        int maxValue = options.Count() - 1;
+        int maxValue = teamFiles.Count() - 1;
         int selectedOption = AskUserToSelectNumber(minValue, maxValue);
-        return options[selectedOption];
+        return teamFiles[selectedOption];
     }
     
-    public int AskUserToSelectNumber(int minValue, int maxValue)
+    private int AskUserToSelectNumber(int minValue, int maxValue)
     {
         int value;
         bool wasParsePossible;

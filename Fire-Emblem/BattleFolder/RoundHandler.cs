@@ -1,5 +1,6 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_View;
+using Fire_Emblem.SkillsFolder;
 using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
@@ -27,27 +28,26 @@ public class RoundHandler
     public void BeginNewRound()
     {
         SetUpUnits();
-        UpdateUnitCombatStatus();
+        _view.ShowInitialRoundStatus(_gameInfo);
         _advantageEvaluator.CheckAdvantage();
         _skillController.UseSkills();
         _combatSequencer.CombatSequence();
-        _view.WriteLine($"{_gameInfo.AttackingUnit.Name} ({_gameInfo.AttackingUnit.GetCurrentHP()}) : {_gameInfo.DefendingUnit.Name} ({_gameInfo.DefendingUnit.GetCurrentHP()})");
+        _view.ShowFinishedRoundStatus(_gameInfo);
     }
-    
-    //LIMPIAR!! Dividir en funciones mas chicas q seteen otras cosas
-    public void SetUpUnits()
+
+    private void SetUpUnits()
     {
         SelectUnitsForAllPlayers();
         _gameInfo.AttackingUnit.IsStartingCombat = true;
         _gameInfo.AttackingUnit.SetRivalUnit(_gameInfo.DefendingUnit);
         _gameInfo.DefendingUnit.SetRivalUnit(_gameInfo.AttackingUnit);
-        _view.WriteLine($"Round {_gameInfo.RoundTurn}: {_gameInfo.AttackingUnit.Name} (Player {_gameInfo.AttackingPlayerNumber}) comienza");
+        UpdateUnitCombatStatus();
     }
 
-    public void SelectUnitsForAllPlayers()
+    private void SelectUnitsForAllPlayers()
     {
-        _unitSelector.SelectUnitForBattle(_gameInfo.AttackingPlayerNumber);
-        _unitSelector.SelectUnitForBattle(_gameInfo.DefendingPlayerNumber);
+        _unitSelector.SelectUnit(_gameInfo.AttackingPlayerNumber);
+        _unitSelector.SelectUnit(_gameInfo.DefendingPlayerNumber);
         _gameInfo.SaveBattleUnitChoice();
     }
 
@@ -60,23 +60,21 @@ public class RoundHandler
         _gameInfo.SetMostRecentRivalForThisCombat();
     }
     
-    // metodos de GameInfo??
-    public void ChangeTurns()
+    private void ChangeTurns()
     {
         if (_gameInfo.AttackingPlayerNumber == 1)
             _gameInfo.SetPlayerTurns(2,1);
         else
             _gameInfo.SetPlayerTurns(1,2);
     }
-
-    // gameInfo??
-    public void UpdateUnitCombatStatus()
+    
+    private void UpdateUnitCombatStatus()
     {
         _gameInfo.AttackingUnit.UpdateAttackingCombatStatus();
         _gameInfo.DefendingUnit.UpdateDefendingCombatStatus();
     }
     
-    public void UpdateFirstCombatStatusForAllunits()
+    private void UpdateFirstCombatStatusForAllunits()
     {
         _gameInfo.AttackingUnit.UpdateFirstAttackingCombatStatus(); 
         _gameInfo.DefendingUnit.UpdateFirstDefendingCombatStatus();

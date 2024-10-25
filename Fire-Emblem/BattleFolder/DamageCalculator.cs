@@ -6,9 +6,6 @@ namespace Fire_Emblem.BattleFolder;
 
 public class DamageCalculator
 {
-    // no hacerla static
-    // usar atributos para wtb, damage y dividir funciones
-
     private FireEmblemView _view;
     private GameInfo _gameInfo;
     private AdvantageEvaluator _advantageEvaluator;
@@ -28,7 +25,7 @@ public class DamageCalculator
         int defense = defender.Stats.GetStat(defenseType).GetStatWithEffects(defender);
         int damage = (int)Math.Truncate(attack * WTB - defense);
 
-        int modifiedDamage;
+        int modifiedDamage; 
         if (!attacker.HasMadeFirstAttack)
         {
             modifiedDamage = attacker.DamageEffects.CalculateModifiedFirstAttackDamage(damage);
@@ -45,11 +42,11 @@ public class DamageCalculator
         if (modifiedDamage < 0)
             modifiedDamage = 0;
         
-        // donde manejar eso?? Quizas afuera en un controller DamageController o AttackController
         if (!attacker.HasMadeFirstAttack)
         {
             attacker.HasMadeFirstAttack = true;
         }
+        _view.PrintCombatEvent(attacker.Name, defender.Name, modifiedDamage);
         return modifiedDamage;
     }
 }

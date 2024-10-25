@@ -1,4 +1,5 @@
 using Fire_Emblem_Models;
+using Fire_Emblem_Models.Exceptions;
 using Fire_Emblem_View;
 using Fire_Emblem.SkillsFolder;
 using Fire_Emblem.UnitsFolder;
@@ -16,34 +17,51 @@ public class TeamValidator
         _view = view;
     }
 
-    public bool CheckTeamsValidity()
+    public void CheckTeamsValidity()
     {
-        if (AreTeamsValid())
-        {
-            return true;
-        }
-        else
-        {
-            _view.WriteLine("Archivo de equipos no válido");
-            return false;
-        }
-    }
-
-    public bool AreTeamsValid()
-    {
-        // usar try catch
-        // ojo con mucho codigo dentro del if
         List<Player> players = _gameInfo.Players.GetAllPlayers();
         foreach (Player player in players)
         {
-            if (player.Team.IsTeamOutsideSizeRange() || player.Team.AreThereAnyRepeatedUnits())
-                return false;
+            CheckTeamSize(player);
+            CheckTeamUnitRepetition(player);
+
             foreach (Unit unit in player.Team.GetAllUnits())
             {
-                if (unit.Skills.AreSkillsOutsideSizeRange() || unit.Skills.AreThereAnyRepeatedSkills())
-                    return false;
+                CheckSkillsSize(unit);
+                CheckSkillRepetition(unit);
             }
         }
-        return true;
+    }
+
+    private void CheckTeamSize(Player player)
+    {
+        if (player.Team.IsTeamOutsideSizeRange())
+        {
+            throw new InvalidTeamException();
+        }
+    }
+
+    private void CheckTeamUnitRepetition(Player player)
+    {
+        if (player.Team.AreThereAnyRepeatedUnits())
+        {
+            throw new InvalidTeamException();
+        }
+    }
+
+    private void CheckSkillsSize(Unit unit)
+    {
+        if (unit.Skills.AreSkillsOutsideSizeRange())
+        {
+            throw new InvalidTeamException();
+        }
+    }
+
+    private void CheckSkillRepetition(Unit unit)
+    {
+        if (unit.Skills.AreThereAnyRepeatedSkills())
+        {
+            throw new InvalidTeamException();
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Fire_Emblem.TeamLoad;
 public class TeamLoader
 {
     private GameInfo _gameInfo;
+    private int _playerNumber;
     
     public TeamLoader(GameInfo gameInfo)
     {
@@ -17,20 +18,24 @@ public class TeamLoader
     public void LoadTeamFromFile(string teamFile)
     {
         StreamReader reader = new StreamReader(teamFile);
-        int playerNumber = 1;
+        _playerNumber = 1;
         while (!reader.EndOfStream)
         {
             string line = reader.ReadLine();
             if (line.StartsWith("Player"))
-                playerNumber = int.Parse(line.Split(" ")[1]);
+                SetPlayerNumber(line);
             else
-                ReadUnitInfoFromLine(line, playerNumber);
+                ReadUnitInfoFromLine(line);
         }
         reader.Close();
     }
+
+    private void SetPlayerNumber(string line)
+    {
+        _playerNumber = int.Parse(line.Split(" ")[1]);
+    }
     
-    // Limpiar...
-    public void ReadUnitInfoFromLine(string line, int playerNumber)
+    private void ReadUnitInfoFromLine(string line)
     {
         string[] splittedUnitLine = line.Split(" ", 2);
         string unitName = splittedUnitLine[0];
@@ -41,12 +46,11 @@ public class TeamLoader
             AddSkillsToUnit(splittedUnitLine[1], newUnit);
         }
 
-        Player player = _gameInfo.Players.GetPlayerById(playerNumber);
+        Player player = _gameInfo.Players.GetPlayerById(_playerNumber);
         player.Team.AddUnit(newUnit);
     }
     
-    // Debería ser Parse unit y dsp metodo agregar... LIMPIAR
-    public void AddSkillsToUnit(string skillsLine, Unit newUnit)
+    private void AddSkillsToUnit(string skillsLine, Unit newUnit)
     {
         string[] unitSkills = skillsLine.Replace("(","").Replace(")","").Split(",");
         foreach (string skill in unitSkills)

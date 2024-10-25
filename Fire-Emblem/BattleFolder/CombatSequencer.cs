@@ -12,7 +12,6 @@ public class CombatSequencer
     private Unit _attackingUnit;
     private Unit _defendingUnit;
     private FireEmblemView _view;
-    private SkillController _skillController;
     private DamageCalculator _damageCalculator;
     private GameInfo _gameInfo;
 
@@ -20,7 +19,6 @@ public class CombatSequencer
     {
         _view = view;
         _gameInfo = gameInfo;
-        _skillController = new SkillController(_view, _gameInfo);
         _damageCalculator = new DamageCalculator(_view, _gameInfo);
     }
     
@@ -36,28 +34,25 @@ public class CombatSequencer
         FollowUp();
     }
     
-    // in gameInfo? -> Reset
-    public void SetCombatUnits()
+    private void SetCombatUnits()
     {
         _attackingUnit = _gameInfo.AttackingUnit;
         _defendingUnit = _gameInfo.DefendingUnit;
     }
     
-    public void Attack()
+    private void Attack()
     {
         int damage = _damageCalculator.CalculateDamage(_attackingUnit, _defendingUnit);
-        _view.WriteLine($"{_attackingUnit.Name} ataca a {_defendingUnit.Name} con {damage} de daño");
         _defendingUnit.TakeDamage(damage);
     }
     
-    public void CounterAttack()
+    private void CounterAttack()
     {
         int damage = _damageCalculator.CalculateDamage(_defendingUnit, _attackingUnit);
-        _view.WriteLine($"{_defendingUnit.Name} ataca a {_attackingUnit.Name} con {damage} de daño");
         _attackingUnit.TakeDamage(damage);
     }
     
-    public void FollowUp()
+    private void FollowUp()
     {
         if (IsThereAFollowUp())
         {
@@ -66,19 +61,18 @@ public class CombatSequencer
             followUpAttacker.InFollowUp = true;
             followUpDefender.InFollowUp = true;
             int damage = _damageCalculator.CalculateDamage(followUpAttacker, followUpDefender);
-            _view.WriteLine($"{followUpAttacker.Name} ataca a {followUpDefender.Name} con {damage} de daño");
             followUpDefender.TakeDamage(damage);
         }
         else
-            _view.WriteLine("Ninguna unidad puede hacer un follow up");
+            _view.PrintNoFollowUp();
     }
     
-    public bool IsThereAFollowUp()
+    private bool IsThereAFollowUp()
     {
         return Math.Abs(_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() - _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects()) > 4;
     }
     
-    public Unit GetFollowUpAttacker()
+    private Unit GetFollowUpAttacker()
     {
         if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
             return _attackingUnit;
@@ -86,7 +80,7 @@ public class CombatSequencer
             return _defendingUnit;
     }
 
-    public Unit GetFollowUpDefender()
+    private Unit GetFollowUpDefender()
     {
         if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
             return _defendingUnit;
@@ -94,7 +88,7 @@ public class CombatSequencer
             return _attackingUnit;
     }
     
-    public bool IsThereAnyUnitDead()
+    private bool IsThereAnyUnitDead()
     {
         return (!_attackingUnit.IsAlive() || !_defendingUnit.IsAlive());
     }

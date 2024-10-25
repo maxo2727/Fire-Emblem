@@ -36,7 +36,7 @@ public class Team
         int teamLength = _team.Count;
         return teamLength < 1 || 3 < teamLength;
     }
-
+    
     public bool AreThereAnyRepeatedUnits()
     {
         HashSet<string> uniqueUnitNames = new HashSet<string>();

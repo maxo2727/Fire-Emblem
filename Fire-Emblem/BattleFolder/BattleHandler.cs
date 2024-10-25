@@ -21,17 +21,17 @@ public class BattleHandler
         HandleNextBattleRound();
     }
     
-    public void InitializeBattle()
+    private void InitializeBattle()
     {
         _roundHandler = new RoundHandler(_view, _gameInfo);
         _gameInfo.SetPlayerTurns(1,2);
         _gameInfo.RoundTurn = 1;
     }
     
-    public void HandleNextBattleRound()
+    private void HandleNextBattleRound()
     {
         _roundHandler.BeginNewRound();
-        if (CheckFinishCondition())
+        if (IsFinishConditionMet())
             FinishBattle();
         else
         {
@@ -40,8 +40,7 @@ public class BattleHandler
         }
     }
     
-    // Player?
-    public bool CheckFinishCondition()
+    private bool IsFinishConditionMet()
     {
         foreach (Player player in _gameInfo.Players.GetAllPlayers())
             if (player.Team.HasLostAllItsUnits())
@@ -49,14 +48,13 @@ public class BattleHandler
         return false;
     }
 
-    public void FinishBattle()
+    private void FinishBattle()
     {
         int winner = GetBattleWinner();
-        _view.WriteLine($"Player {winner} ganó");
+        _view.ShowWinner(winner);
     }
     
-    // GameInfo?
-    public int GetBattleWinner()
+    private int GetBattleWinner()
     {
         int winner = 0;
         foreach (int playerID in PlayerNumbers.GetAllPlayerNumbers())

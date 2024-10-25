@@ -10,14 +10,14 @@ public class UnitsJsonReader
         return GetUnitInfoFromList(unitsList, unitObjective);
     }
     
-    public static List<Dictionary<string, string>> GetListOfUnits(string unitsJsonFilePath)
+    private static List<Dictionary<string, string>> GetListOfUnits(string unitsJsonFilePath)
     {
         string unitsJsonString = File.ReadAllText(unitsJsonFilePath);
         List<Dictionary<string, string>> unitsList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(unitsJsonString);
         return unitsList;
     }
 
-    public static Dictionary<string, string> GetUnitInfoFromList(List<Dictionary<string, string>> unitsList, string unitObjective)
+    private static Dictionary<string, string> GetUnitInfoFromList(List<Dictionary<string, string>> unitsList, string unitObjective)
     {
         Dictionary<string, string> unitInfo = new Dictionary<string, string>();
         foreach (Dictionary<string, string> unit in unitsList)

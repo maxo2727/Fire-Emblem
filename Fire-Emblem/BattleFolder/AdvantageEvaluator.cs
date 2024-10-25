@@ -1,14 +1,9 @@
 using Fire_Emblem_Models;
+using Fire_Emblem_Models.Exceptions;
 using Fire_Emblem_View;
 using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
-
-// LIMPIAR:
-// atributos de unidades y WTB
-// Unir funciones IsThereAnAdvantage con GetAdvantageWTB
-// ta bien un || en la funcion if?
-
 
 public class AdvantageEvaluator
 {
@@ -24,21 +19,20 @@ public class AdvantageEvaluator
     
     public void CheckAdvantage()
     {
-        // atributos?
         Unit attacker = _gameInfo.AttackingUnit;
         Unit defender = _gameInfo.DefendingUnit;
-        if (IsThereAnAdvantage(attacker, defender)) // GetAdvantage != 1
+        if (IsThereAnAdvantage(attacker, defender))
         {
             double WTB = GetAdvantageWTB(attacker, defender);
             Unit unitWithAdvantage = GetUnitWithAdvantage(attacker, defender, WTB);
             Unit unitWithDisadvantage = GetUnitWithDisadvantage(attacker, defender, WTB);
-            _view.WriteLine($"{unitWithAdvantage.Name} ({unitWithAdvantage.Weapon.Name}) tiene ventaja con respecto a {unitWithDisadvantage.Name} ({unitWithDisadvantage.Weapon.Name})");
+            _view.PrintAdvantage(unitWithAdvantage, unitWithDisadvantage);
         }
         else
-            _view.WriteLine("Ninguna unidad tiene ventaja con respecto a la otra");
+            _view.PrintNoAdvantage();
     }
 
-    public bool IsThereAnAdvantage(Unit attacker, Unit defender)
+    private bool IsThereAnAdvantage(Unit attacker, Unit defender)
     {
         string attackerWeapon = attacker.Weapon.Name;
         string defenderWeapon = defender.Weapon.Name;
@@ -58,7 +52,7 @@ public class AdvantageEvaluator
             return 1.0;
     }
 
-    public static Unit GetUnitWithAdvantage(Unit attacker, Unit defender, double WBT)
+    private static Unit GetUnitWithAdvantage(Unit attacker, Unit defender, double WBT)
     {
         if (WBT == 1.2)
             return attacker;
@@ -66,7 +60,7 @@ public class AdvantageEvaluator
             return defender;
     }
     
-    public static Unit GetUnitWithDisadvantage(Unit attacker, Unit defender, double WBT)
+    private static Unit GetUnitWithDisadvantage(Unit attacker, Unit defender, double WBT)
     {
         if (WBT == 1.2)
             return defender;
