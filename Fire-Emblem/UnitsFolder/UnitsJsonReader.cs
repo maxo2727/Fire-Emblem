@@ -6,7 +6,7 @@ public class UnitsJsonReader
 {
     public static Dictionary<string, string> GetUnitInfo(string unitObjective)
     {
-        List<Dictionary<string, string>> unitsList = GetListOfUnits("characters.json"); // VAR GLOBAL?
+        List<Dictionary<string, string>> unitsList = GetListOfUnits("characters.json");
         return GetUnitInfoFromList(unitsList, unitObjective);
     }
     

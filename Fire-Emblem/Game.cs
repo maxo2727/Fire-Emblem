@@ -49,5 +49,5 @@ public class Game
 //  - Effects and Conditions: Decorate With RivalCondition() and FirstAttack(), FollowUp(), Percentage()?
 //  - Sign in Penalties to Always positive, and then subtract it.
 //  - DamageHandler y DamageEffects
-//  - Unit y Skills Builder
 //  - Clases en FireEmblemView?
+//  - Guardar logicas pequeñas (Truncator y DamageCalculator) como modelo 

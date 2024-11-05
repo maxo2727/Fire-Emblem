@@ -12,14 +12,14 @@ public class CombatSequencer
     private Unit _attackingUnit;
     private Unit _defendingUnit;
     private FireEmblemView _view;
-    private DamageCalculator _damageCalculator;
+    private DamageHandler _damageHandler;
     private GameInfo _gameInfo;
 
     public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
         _gameInfo = gameInfo;
-        _damageCalculator = new DamageCalculator(_view, _gameInfo);
+        _damageHandler = new DamageHandler(_view, _gameInfo);
     }
     
     public void CombatSequence()
@@ -42,14 +42,16 @@ public class CombatSequencer
     
     private void Attack()
     {
-        int damage = _damageCalculator.CalculateDamage(_attackingUnit, _defendingUnit);
+        int damage = _damageHandler.CalculateDamageNew(_attackingUnit, _defendingUnit);
         _defendingUnit.TakeDamage(damage);
+        _attackingUnit.HasMadeFirstAttack = true;
     }
     
     private void CounterAttack()
     {
-        int damage = _damageCalculator.CalculateDamage(_defendingUnit, _attackingUnit);
+        int damage = _damageHandler.CalculateDamageNew(_defendingUnit, _attackingUnit);
         _attackingUnit.TakeDamage(damage);
+        _defendingUnit.HasMadeFirstAttack = true;
     }
     
     private void FollowUp()
@@ -60,7 +62,7 @@ public class CombatSequencer
             Unit followUpDefender = GetFollowUpDefender();
             followUpAttacker.InFollowUp = true;
             followUpDefender.InFollowUp = true;
-            int damage = _damageCalculator.CalculateDamage(followUpAttacker, followUpDefender);
+            int damage = _damageHandler.CalculateDamageNew(followUpAttacker, followUpDefender);
             followUpDefender.TakeDamage(damage);
         }
         else

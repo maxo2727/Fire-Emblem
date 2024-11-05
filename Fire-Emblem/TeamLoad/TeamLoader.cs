@@ -9,6 +9,7 @@ public class TeamLoader
 {
     private GameInfo _gameInfo;
     private int _playerNumber;
+    private UnitLoader _unitLoader = new UnitLoader();
     
     public TeamLoader(GameInfo gameInfo)
     {
@@ -18,7 +19,6 @@ public class TeamLoader
     public void LoadTeamFromFile(string teamFile)
     {
         StreamReader reader = new StreamReader(teamFile);
-        _playerNumber = 1;
         while (!reader.EndOfStream)
         {
             string line = reader.ReadLine();
@@ -39,8 +39,7 @@ public class TeamLoader
     {
         string[] splittedUnitLine = line.Split(" ", 2);
         string unitName = splittedUnitLine[0];
-        Unit newUnit = new Unit(unitName);
-        LoadUnitInfo(newUnit);
+        Unit newUnit = _unitLoader.LoadUnit(unitName);
         if (splittedUnitLine.Length > 1)
         {
             AddSkillsToUnit(splittedUnitLine[1], newUnit);
@@ -57,24 +56,5 @@ public class TeamLoader
         {
             newUnit.Skills.AddSkill(skill);
         }
-    }
-    
-    private void LoadUnitInfo(Unit unit)
-    {
-        Dictionary<string, string> unitInfo = UnitsJsonReader.GetUnitInfo(unit.Name);
-        LoadUnitWeaponInfo(unit, unitInfo["Weapon"]);
-        unit.Gender = unitInfo["Gender"];
-        unit.DeathQuote = unitInfo["DeathQuote"];
-        unit.Hp = new HP(Convert.ToInt32(unitInfo["HP"]));
-        unit.Stats.GetStat("Atk").BaseStat = Convert.ToInt32(unitInfo["Atk"]);
-        unit.Stats.GetStat("Spd").BaseStat = Convert.ToInt32(unitInfo["Spd"]);
-        unit.Stats.GetStat("Def").BaseStat = Convert.ToInt32(unitInfo["Def"]);
-        unit.Stats.GetStat("Res").BaseStat = Convert.ToInt32(unitInfo["Res"]);
-    }
-
-    private void LoadUnitWeaponInfo(Unit unit, string weapon)
-    {
-        unit.Weapon = new Weapon(weapon);
-        unit.Weapon.Type = WeaponTypeSetter.SetWeaponType(weapon);
     }
 }

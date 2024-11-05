@@ -1,10 +1,10 @@
 namespace Fire_Emblem_Models.ConditionsFolder;
 
-public class HPRivalComparisonCondition : ICondition
+public class HPUnitComparisonCondition : ICondition
 {
     private int _difference;
 
-    public HPRivalComparisonCondition(int difference)
+    public HPUnitComparisonCondition(int difference)
     {
         _difference = difference;
     }

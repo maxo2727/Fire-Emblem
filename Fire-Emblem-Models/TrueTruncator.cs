@@ -1,6 +1,6 @@
-namespace Fire_Emblem;
+namespace Fire_Emblem_Models;
 
-public class TrueTruncator
+public static class TrueTruncator
 {
     public static int Truncate(double value)
     {

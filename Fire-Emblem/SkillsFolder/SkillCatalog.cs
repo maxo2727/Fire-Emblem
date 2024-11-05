@@ -355,28 +355,28 @@ public class SkillCatalog
             
             case "Fire Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Atk", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Wind Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Spd", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Earth Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Def", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Water Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPRivalComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Res", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -391,13 +391,13 @@ public class SkillCatalog
                         {
                             new StartsCombatCondition(),
                             new WeaponTypeCondition("Physical"),
-                            new WeaponNameRivalCondition("Magic")
+                            new RivalCondition( new WeaponNameCondition("Magic") )
                         }),
                         new AndCondition(new List<ICondition>()
                         {
                             new StartsCombatCondition(),
                             new WeaponNameCondition("Magic"),
-                            new WeaponTypeRivalCondition("Physical")
+                            new RivalCondition( new WeaponTypeCondition("Physical") )
                         })
                     })
                 };
@@ -414,21 +414,21 @@ public class SkillCatalog
             
             case "Not *Quite*":
                 priority = 1;
-                conditions = new List<ICondition>() { new StartsCombatRivalCondition() };
+                conditions = new List<ICondition>() { new RivalCondition( new StartsCombatCondition() ) };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -4)  };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Stunning Smile":
                 priority = 1;
-                conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
+                conditions = new List<ICondition>() { new RivalCondition( new GenderCondition("Male") ) };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Spd", -8) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Disarming Sigh":
                 priority = 1;
-                conditions = new List<ICondition>() { new GenderRivalCondition("Male") };
+                conditions = new List<ICondition>() { new RivalCondition( new GenderCondition("Male") ) };
                 effects = new List<Effect>() { new PenaltyRivalEffect("Atk", -8) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -460,8 +460,8 @@ public class SkillCatalog
                 conditions = new List<ICondition>() { 
                     new OrCondition(new List<ICondition>()
                     {
-                        new StartsCombatRivalCondition(),
-                        new HPRivalCondition(1.0)
+                        new RivalCondition( new StartsCombatCondition() ),
+                        new RivalCondition( new HPEqualToCondition(1.0) )
                     }) 
                 };
                 effects = new List<Effect>()
@@ -595,12 +595,12 @@ public class SkillCatalog
                 priority = 1;
                 conditions = new List<ICondition>()
                 {
-                    new StartsCombatRivalCondition(),
+                    new RivalCondition( new StartsCombatCondition() ),
                     new OrCondition(new List<ICondition>()
                     {
-                        new WeaponNameRivalCondition("Sword"),
-                        new WeaponNameRivalCondition("Lance"),
-                        new WeaponNameRivalCondition("Axe")
+                        new RivalCondition( new WeaponNameCondition("Sword") ),
+                        new RivalCondition( new WeaponNameCondition("Lance") ),
+                        new RivalCondition( new WeaponNameCondition("Axe") )
                     })
                         
                 };
@@ -617,11 +617,11 @@ public class SkillCatalog
                 priority = 1;
                 conditions = new List<ICondition>()
                 {
-                    new StartsCombatRivalCondition(),
+                    new RivalCondition( new StartsCombatCondition() ),
                     new OrCondition(new List<ICondition>()
                     {
-                        new WeaponNameRivalCondition("Magic"),
-                        new WeaponNameRivalCondition("Bow")
+                        new RivalCondition( new WeaponNameCondition("Magic") ),
+                        new RivalCondition( new WeaponNameCondition("Bow") )
                     })
                 };
                 effects = new List<Effect>()
@@ -766,8 +766,8 @@ public class SkillCatalog
                 {
                     new OrCondition(new List<ICondition>()
                     {
-                        new StartsCombatRivalCondition(),
-                        new HPRivalMoreThanCondition(0.75)
+                        new RivalCondition( new StartsCombatCondition() ),
+                        new RivalCondition( new HPMoreThanCondition(0.75) )
                     })
                 };
                 effects = new List<Effect>()
@@ -1132,7 +1132,7 @@ public class SkillCatalog
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
-                    new HPRivalCondition(1.0)
+                    new RivalCondition( new HPEqualToCondition(1.0) )
                 };
                 effects = new List<Effect>()
                 {

@@ -1,6 +1,4 @@
-using Fire_Emblem_Models;
-
-namespace Fire_Emblem.UnitsFolder;
+namespace Fire_Emblem_Models;
 
 public class WeaponDefenseGetter
 {

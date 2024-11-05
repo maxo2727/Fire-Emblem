@@ -1,6 +1,6 @@
-namespace Fire_Emblem.UnitsFolder;
+namespace Fire_Emblem_Models;
 
-public class WeaponTypeSetter
+public static class WeaponTypeSetter
 {
     public static Dictionary<string, string> WeaponTypes = new Dictionary<string, string>
     {
