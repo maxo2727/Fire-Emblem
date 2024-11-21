@@ -42,14 +42,14 @@ public class CombatSequencer
     
     private void Attack()
     {
-        int damage = _damageHandler.CalculateDamageNew(_attackingUnit, _defendingUnit);
+        int damage = _damageHandler.CalculateDamage(_attackingUnit, _defendingUnit);
         _defendingUnit.TakeDamage(damage);
         _attackingUnit.HasMadeFirstAttack = true;
     }
     
     private void CounterAttack()
     {
-        int damage = _damageHandler.CalculateDamageNew(_defendingUnit, _attackingUnit);
+        int damage = _damageHandler.CalculateDamage(_defendingUnit, _attackingUnit);
         _attackingUnit.TakeDamage(damage);
         _defendingUnit.HasMadeFirstAttack = true;
     }
@@ -62,7 +62,7 @@ public class CombatSequencer
             Unit followUpDefender = GetFollowUpDefender();
             followUpAttacker.InFollowUp = true;
             followUpDefender.InFollowUp = true;
-            int damage = _damageHandler.CalculateDamageNew(followUpAttacker, followUpDefender);
+            int damage = _damageHandler.CalculateDamage(followUpAttacker, followUpDefender);
             followUpDefender.TakeDamage(damage);
         }
         else

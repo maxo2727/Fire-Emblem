@@ -5,13 +5,13 @@ using Fire_Emblem.UnitsFolder;
 
 namespace Fire_Emblem.BattleFolder;
 
-public class AdvantageEvaluator
+public class AdvantageHandler
 {
     private GameInfo _gameInfo;
     private FireEmblemView _view;
-    private Dictionary<string, string> _advantageousAgainst = AdvantageRelations.AdvantageousAgainst;
+    private Dictionary<string, string> _advantageousAgainst = AdvantageEvaluator.AdvantageousAgainst;
 
-    public AdvantageEvaluator(FireEmblemView view, GameInfo gameInfo)
+    public AdvantageHandler(FireEmblemView view, GameInfo gameInfo)
     {
         _view = view;
         _gameInfo = gameInfo;
@@ -23,7 +23,7 @@ public class AdvantageEvaluator
         Unit defender = _gameInfo.DefendingUnit;
         if (IsThereAnAdvantage(attacker, defender))
         {
-            double WTB = GetAdvantageWTB(attacker, defender);
+            double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);
             Unit unitWithAdvantage = GetUnitWithAdvantage(attacker, defender, WTB);
             Unit unitWithDisadvantage = GetUnitWithDisadvantage(attacker, defender, WTB);
             _view.PrintAdvantage(unitWithAdvantage, unitWithDisadvantage);
@@ -34,22 +34,8 @@ public class AdvantageEvaluator
 
     private bool IsThereAnAdvantage(Unit attacker, Unit defender)
     {
-        string attackerWeapon = attacker.Weapon.Name;
-        string defenderWeapon = defender.Weapon.Name;
-        return defenderWeapon == _advantageousAgainst[attackerWeapon] ||
-               attackerWeapon == _advantageousAgainst[defenderWeapon];
-    }
-    
-    public double GetAdvantageWTB(Unit attacker, Unit defender)
-    {
-        string attackerWeapon = attacker.Weapon.Name;
-        string defenderWeapon = defender.Weapon.Name;
-        if (defenderWeapon == _advantageousAgainst[attackerWeapon])
-            return 1.2;
-        else if (attackerWeapon == _advantageousAgainst[defenderWeapon])
-            return 0.8;
-        else
-            return 1.0;
+        double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);
+        return WTB != 1.0;
     }
 
     private static Unit GetUnitWithAdvantage(Unit attacker, Unit defender, double WBT)

@@ -2,7 +2,7 @@ namespace Fire_Emblem_Models.ConditionsFolder;
 
 public class AdvantageCondition : ICondition
 {
-    private Dictionary<string, string> _advantageousAgainst = AdvantageRelations.AdvantageousAgainst;
+    private Dictionary<string, string> _advantageousAgainst = AdvantageEvaluator.AdvantageousAgainst;
     
     public bool IsMet(Unit unit)
     {

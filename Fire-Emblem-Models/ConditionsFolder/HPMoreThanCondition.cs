@@ -11,7 +11,6 @@ public class HPMoreThanCondition : ICondition
     
     public bool IsMet(Unit unit)
     {
-        Console.WriteLine($"{unit.Name} HP: {Math.Round((double)unit.GetCurrentHP() / (double)unit.Hp.GetMaxHP(),2)}");
         return Math.Round((double)unit.GetCurrentHP() / (double)unit.Hp.GetMaxHP(),2) >= _value;
     }
 }

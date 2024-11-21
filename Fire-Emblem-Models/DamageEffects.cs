@@ -96,4 +96,16 @@ public class DamageEffects
         FollowUpDamageReduction = 0;
 
     }
+
+    public int GetTotalReductionToBaseDamage(int damage)
+    {
+        _modifiedDamage = damage;
+        ApplyPercentageDamageReduction(BasePercentageDamageReduction);
+        ApplyPercentageDamageReduction(FirstAttackPercentageDamageReduction);
+        ApplyPercentageDamageReduction(FollowUpPercentageDamageReduction);
+        ApplyDamageReduction(BaseDamageReduction);
+        ApplyDamageReduction(FirstAttackDamageBonus);
+        ApplyDamageReduction(FollowUpDamageReduction);
+        return _modifiedDamage;
+    }
 }

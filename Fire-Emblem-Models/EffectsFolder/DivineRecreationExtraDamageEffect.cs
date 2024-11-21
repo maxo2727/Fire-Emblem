@@ -5,7 +5,17 @@ public class DivineRecreationExtraDamageEffect : Effect
     public override void Apply(Unit unit)
     {
         Unit rival = unit.GetRivalUnit();
-        int rivalFirstAttackDifference = rival.DamageEffects.CalculateModifiedFirstAttackDamage(2);
-        int damageExtra = rivalFirstAttackDifference * 100;
+        int baseDamage = DamageCalculator.GetBaseDamage(rival, unit);
+        int reducedDamage = rival.DamageEffects.GetTotalReductionToBaseDamage(baseDamage);
+        int bonus = baseDamage - reducedDamage;
+        Console.WriteLine($"Para {unit.Name}: {baseDamage} - {reducedDamage} = {bonus}");
+        if (unit.IsAttacking)
+        {
+            unit.DamageEffects.FollowUpDamageBonus += bonus;
+        }
+        else
+        {
+            unit.DamageEffects.FirstAttackDamageBonus += bonus;
+        }
     }
 }

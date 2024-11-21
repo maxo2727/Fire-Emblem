@@ -12,7 +12,7 @@ public class RoundHandler
     private UnitSelector _unitSelector;
     private CombatSequencer _combatSequencer;
     private SkillController _skillController;
-    private AdvantageEvaluator _advantageEvaluator;
+    private AdvantageHandler _advantageHandler;
     
 
     public RoundHandler(FireEmblemView view, GameInfo gameInfo)
@@ -22,14 +22,14 @@ public class RoundHandler
         _unitSelector = new UnitSelector(_gameInfo, view);
         _combatSequencer = new CombatSequencer(view, _gameInfo);
         _skillController = new SkillController(_view, _gameInfo);
-        _advantageEvaluator = new AdvantageEvaluator(_view, _gameInfo);
+        _advantageHandler = new AdvantageHandler(_view, _gameInfo);
     }
     
     public void BeginNewRound()
     {
         SetUpUnits();
         _view.ShowInitialRoundStatus(_gameInfo);
-        _advantageEvaluator.CheckAdvantage();
+        _advantageHandler.CheckAdvantage();
         _skillController.UseSkills();
         _combatSequencer.CombatSequence();
         _view.ShowFinishedRoundStatus(_gameInfo);

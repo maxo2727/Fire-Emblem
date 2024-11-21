@@ -4,7 +4,6 @@ namespace Fire_Emblem_Models;
 
 public class Unit
 {
-    // Intrinsico del unit
     public string Name;
     public Weapon Weapon;
     public string Gender;
@@ -13,7 +12,6 @@ public class Unit
     public Stats Stats = new Stats();
     public Skills Skills = new Skills();
     
-    // Asociado a la ronda
     public Unit Rival;
     public Unit MostRecentRival = null;
     public bool IsStartingCombat = false;

@@ -1,33 +1,27 @@
-using Fire_Emblem_Models;
-using Fire_Emblem_View;
-using Fire_Emblem.UnitsFolder;
+namespace Fire_Emblem_Models;
 
-namespace Fire_Emblem.BattleFolder;
-
-public class DamageHandler
+public static class DamageCalculator
 {
-    private FireEmblemView _view;
-    private int _damage;
-
-    public DamageHandler(FireEmblemView view, GameInfo gameInfo)
-    {
-        _view = view;
-    }
-
-    private void SetDamage(int value)
+    private static int _damage;
+    private static void SetDamage(int value)
     {
         _damage = value < 0 ? 0 : value;
     }
 
-    public int CalculateDamage(Unit attacker, Unit defender)
+    public static int GetBaseDamage(Unit attacker, Unit defender)
     {
         CalculateBaseDamage(attacker, defender);
-        CalculateModifiedDamage(attacker, defender);
-        _view.PrintCombatEvent(attacker.Name, defender.Name, _damage);
         return _damage;
     }
 
-    private void CalculateBaseDamage(Unit attacker, Unit defender)
+    public static int CalculateDamageNew(Unit attacker, Unit defender)
+    {
+        CalculateBaseDamage(attacker, defender);
+        CalculateModifiedDamage(attacker, defender);
+        return _damage;
+    }
+
+    private static void CalculateBaseDamage(Unit attacker, Unit defender)
     {
         double WTB = AdvantageEvaluator.GetAdvantageWTB(attacker, defender);
         int attack = attacker.Stats.GetStat("Atk").GetStatWithEffects(attacker);
@@ -37,7 +31,7 @@ public class DamageHandler
         SetDamage(baseDamage);
     }
 
-    private void CalculateModifiedDamage(Unit attacker, Unit defender)
+    private static void CalculateModifiedDamage(Unit attacker, Unit defender)
     {
         if (!attacker.HasMadeFirstAttack)
         {
