@@ -82,4 +82,9 @@ public class FireEmblemView
     {
         _view.WriteLine($"{gameInfo.AttackingUnit.Name} ({gameInfo.AttackingUnit.GetCurrentHP()}) : {gameInfo.DefendingUnit.Name} ({gameInfo.DefendingUnit.GetCurrentHP()})");
     }
+
+    public void PrintHealBonus(Unit unit, int healBonus)
+    {
+        _view.WriteLine($"{unit.Name} recupera {healBonus} HP luego de atacar y queda con {unit.Hp.GetCurrentHP()} HP.");
+    }
 }

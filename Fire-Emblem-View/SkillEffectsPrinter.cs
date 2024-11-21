@@ -14,6 +14,7 @@ public class SkillEffectsPrinter
 
     public void PrintSkillEffectsByUnit(Unit unit)
     {
+        // SEPARAR ESTO XDD
         _unit = unit;
         PrintBonuses();
         PrintFirstAttackBonuses();
@@ -30,6 +31,7 @@ public class SkillEffectsPrinter
         PrintFirstAttackDamagePercentageReductionToRival();
         PrintFollowUpDamagePercentageReductionToRival();
         PrintBaseDamageReduction();
+        PrintHealBonusAfterAttacks();
     }
     
     public void PrintBonuses()
@@ -177,6 +179,16 @@ public class SkillEffectsPrinter
         if (rival.DamageEffects.BaseDamageReduction > 0)
         {
             _view.WriteLine($"{_unit.Name} recibirá -{rival.DamageEffects.BaseDamageReduction} daño en cada ataque");
+        }
+    }
+
+    public void PrintHealBonusAfterAttacks()
+    {
+        // ¿pasar lógica a modelo?
+        int healBonus = (int)(_unit.HealPercentage * 100);
+        if (_unit.HealPercentage > 0)
+        {
+            _view.WriteLine($"{_unit.Name} recuperará HP igual al {healBonus}% del daño realizado en cada ataque");
         }
     }
 }

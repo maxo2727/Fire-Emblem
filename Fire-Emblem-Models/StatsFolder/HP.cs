@@ -65,4 +65,9 @@ public class HP
     {
         SetCurrentHP(_currentHP - damage);
     }
+
+    public void Heal(int healBonus)
+    {
+        SetCurrentHP(_currentHP + healBonus);
+    }
 }

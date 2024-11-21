@@ -1226,6 +1226,13 @@ public class SkillCatalog
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
+            case "Sol":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new HealingEffect(0.25) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
             default:
                 priority = 1;
                 conditions = new List<ICondition>() {  };

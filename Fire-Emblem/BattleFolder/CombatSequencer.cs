@@ -1,5 +1,6 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_Models.EffectsFolder;
+using Fire_Emblem_Models.Exceptions;
 using Fire_Emblem_Models.StatsFolder;
 using Fire_Emblem_View;
 using Fire_Emblem.SkillsFolder;
@@ -9,10 +10,11 @@ namespace Fire_Emblem.BattleFolder;
 
 public class CombatSequencer
 {
-    private Unit _attackingUnit;
-    private Unit _defendingUnit;
+    private UnitController _attackerController;
+    private UnitController _defenderController;
     private FireEmblemView _view;
     private DamageHandler _damageHandler;
+    private FollowUpHandler _followUpHandler;
     private GameInfo _gameInfo;
 
     public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
@@ -20,6 +22,7 @@ public class CombatSequencer
         _view = view;
         _gameInfo = gameInfo;
         _damageHandler = new DamageHandler(_view, _gameInfo);
+        _followUpHandler = new FollowUpHandler();
     }
     
     public void CombatSequence()
@@ -36,62 +39,58 @@ public class CombatSequencer
     
     private void SetCombatUnits()
     {
-        _attackingUnit = _gameInfo.AttackingUnit;
-        _defendingUnit = _gameInfo.DefendingUnit;
+        _attackerController = new UnitController(_gameInfo.AttackingUnit, _view);
+        _defenderController = new UnitController(_gameInfo.DefendingUnit, _view);
     }
     
     private void Attack()
     {
-        int damage = _damageHandler.CalculateDamage(_attackingUnit, _defendingUnit);
-        _defendingUnit.TakeDamage(damage);
-        _attackingUnit.HasMadeFirstAttack = true;
+        DoCombatEventBetween(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
+    }
+    
+    private void DoCombatEventBetween(Unit attacker, Unit defender)
+    {
+        int damage = _damageHandler.CalculateDamage(attacker, defender);
+        defender.TakeDamage(damage);
+        attacker.HasMadeFirstAttack = true;
+        HealAfterAttack(attacker, damage);
     }
     
     private void CounterAttack()
     {
-        int damage = _damageHandler.CalculateDamage(_defendingUnit, _attackingUnit);
-        _attackingUnit.TakeDamage(damage);
-        _defendingUnit.HasMadeFirstAttack = true;
+        DoCombatEventBetween(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
     }
     
     private void FollowUp()
     {
-        if (IsThereAFollowUp())
+        try
         {
-            Unit followUpAttacker = GetFollowUpAttacker();
-            Unit followUpDefender = GetFollowUpDefender();
-            followUpAttacker.InFollowUp = true;
-            followUpDefender.InFollowUp = true;
-            int damage = _damageHandler.CalculateDamage(followUpAttacker, followUpDefender);
-            followUpDefender.TakeDamage(damage);
+            Unit attacker = _gameInfo.AttackingUnit;
+            Unit defender = _gameInfo.DefendingUnit;
+            _followUpHandler.SetFollowUp(attacker, defender);
+            Unit followUpAttacker = _followUpHandler.GetFollowUpAttacker();
+            Unit followUpDefender = _followUpHandler.GetFollowUpDefender();
+            DoCombatEventBetween(followUpAttacker, followUpDefender);
         }
-        else
+        catch (NoFollowUpException)
+        {
             _view.PrintNoFollowUp();
-    }
-    
-    private bool IsThereAFollowUp()
-    {
-        return Math.Abs(_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() - _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects()) > 4;
-    }
-    
-    private Unit GetFollowUpAttacker()
-    {
-        if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
-            return _attackingUnit;
-        else
-            return _defendingUnit;
-    }
-
-    private Unit GetFollowUpDefender()
-    {
-        if (_attackingUnit.Stats.GetStat("Spd").GetStatWithEffects() > _defendingUnit.Stats.GetStat("Spd").GetStatWithEffects())
-            return _defendingUnit;
-        else
-            return _attackingUnit;
+        }
     }
     
     private bool IsThereAnyUnitDead()
     {
-        return (!_attackingUnit.IsAlive() || !_defendingUnit.IsAlive());
+        Unit attacker = _gameInfo.AttackingUnit;
+        Unit defender = _gameInfo.DefendingUnit;
+        return (!attacker.IsAlive() || !defender.IsAlive());
+    }
+
+    private void HealAfterAttack(Unit attacker, int damage)
+    {
+        int healBonus = attacker.HealAfterAttack(damage);
+        if (healBonus > 0)
+        {
+           _view.PrintHealBonus(attacker, healBonus); 
+        }
     }
 }

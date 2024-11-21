@@ -51,3 +51,6 @@ public class Game
 //  - DamageHandler y DamageEffects
 //  - Clases en FireEmblemView?
 //  - Guardar logicas pequeñas (Truncator y DamageCalculator) como modelo 
+//  - Separar Unit: UnitHandler o Unit a secas (objeto) y UnitInfo (EDD). INCLUSO: separar UnitInfo en varias colecciones distintas
+//  - Separar HP en Handler e Info (objeto y EDD).
+//  - Ordenar CombatSequencer, limpiar código repetido en Attack y CounterAttack, y crear FollowUpController
