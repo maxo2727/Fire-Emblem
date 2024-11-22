@@ -18,5 +18,3 @@ public class Players
         return _playersDict.Values.ToList();
     }
 }
-
-// almacenar flujo de turnos aca por ej

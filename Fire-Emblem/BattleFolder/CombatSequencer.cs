@@ -22,7 +22,7 @@ public class CombatSequencer
         _view = view;
         _gameInfo = gameInfo;
         _damageHandler = new DamageHandler(_view, _gameInfo);
-        _followUpHandler = new FollowUpHandler();
+        _followUpHandler = new FollowUpHandler(_gameInfo);
     }
     
     public void CombatSequence()
@@ -45,7 +45,9 @@ public class CombatSequencer
     
     private void Attack()
     {
-        DoCombatEventBetween(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
+        Unit attacker = _gameInfo.AttackingUnit;
+        Unit defender = _gameInfo.DefendingUnit;
+        DoCombatEventBetween(attacker, defender);
     }
     
     private void DoCombatEventBetween(Unit attacker, Unit defender)
@@ -58,23 +60,30 @@ public class CombatSequencer
     
     private void CounterAttack()
     {
-        DoCombatEventBetween(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
+        Unit attacker = _gameInfo.DefendingUnit;
+        Unit defender = _gameInfo.AttackingUnit;
+        if (attacker.CanDoCounter())
+        {
+            DoCombatEventBetween(attacker, defender);
+        }
     }
     
     private void FollowUp()
     {
         try
         {
-            Unit attacker = _gameInfo.AttackingUnit;
-            Unit defender = _gameInfo.DefendingUnit;
-            _followUpHandler.SetFollowUp(attacker, defender);
+            _followUpHandler.SetFollowUp();
             Unit followUpAttacker = _followUpHandler.GetFollowUpAttacker();
             Unit followUpDefender = _followUpHandler.GetFollowUpDefender();
             DoCombatEventBetween(followUpAttacker, followUpDefender);
         }
-        catch (NoFollowUpException)
+        catch (NoFollowUpForAllUnitsException)
         {
-            _view.PrintNoFollowUp();
+            _view.PrintNoFollowUpForAllUnits();
+        }
+        catch (NoFollowUpForAttackerException)
+        {
+            _view.PrintNoFollowUpForAttacker(_gameInfo.AttackingUnit);
         }
     }
     

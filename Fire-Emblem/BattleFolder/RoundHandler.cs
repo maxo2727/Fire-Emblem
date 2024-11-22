@@ -31,6 +31,7 @@ public class RoundHandler
         _view.ShowInitialRoundStatus(_gameInfo);
         _advantageHandler.CheckAdvantage();
         _skillController.UseSkills();
+        CheckForCounterDenial();
         _combatSequencer.CombatSequence();
         _view.ShowFinishedRoundStatus(_gameInfo);
     }
@@ -78,5 +79,18 @@ public class RoundHandler
     {
         _gameInfo.AttackingUnit.UpdateFirstAttackingCombatStatus(); 
         _gameInfo.DefendingUnit.UpdateFirstDefendingCombatStatus();
+    }
+
+    private void CheckForCounterDenial()
+    {
+        if (_gameInfo.DefendingUnit.IsCounterDeniedAndDenialAnnulled())
+        {
+            _view.PrintCounterDenialAnnulled(_gameInfo.DefendingUnit);
+        }
+
+        if (_gameInfo.DefendingUnit.IsCounterDeniedButNotDenialAnnulled())
+        {
+            _view.PrintCounterDenied(_gameInfo.DefendingUnit);
+        }
     }
 }

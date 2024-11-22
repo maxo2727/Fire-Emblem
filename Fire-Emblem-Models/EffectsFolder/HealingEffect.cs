@@ -11,6 +11,6 @@ public class HealingEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        unit.HealPercentage = _percentage;
+        unit.HealPercentage += _percentage;
     }
 }

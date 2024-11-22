@@ -1233,6 +1233,63 @@ public class SkillCatalog
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
+            case "Nosferatu":
+                priority = 1;
+                conditions = new List<ICondition>() { new WeaponNameCondition("Magic") };
+                effects = new List<Effect>() { new HealingEffect(0.5) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Solar Brace":
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition() };
+                effects = new List<Effect>() { new HealingEffect(0.5) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Windsweep":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new WeaponNameCondition("Sword"),
+                    new RivalCondition( new WeaponNameCondition("Sword") )
+                };
+                effects = new List<Effect>() { new RivalEffect( new CounterDenialEffect() ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Surprise Attack":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new WeaponNameCondition("Bow"),
+                    new RivalCondition( new WeaponNameCondition("Bow") )
+                };
+                effects = new List<Effect>() { new RivalEffect( new CounterDenialEffect() ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Hliðskjálf":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new WeaponNameCondition("Magic"),
+                    new RivalCondition( new WeaponNameCondition("Magic") )
+                };
+                effects = new List<Effect>() { new RivalEffect( new CounterDenialEffect() ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Null C-Disrupt":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition()  };
+                effects = new List<Effect>() { new CounterDenialNullEffect()  };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
             default:
                 priority = 1;
                 conditions = new List<ICondition>() {  };

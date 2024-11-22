@@ -57,8 +57,13 @@ public class FireEmblemView
     {
         _view.WriteLine($"{attacker} ataca a {defender} con {damage} de daño");
     }
+
+    public void PrintNoFollowUpForAttacker(Unit attacker)
+    {
+        _view.WriteLine($"{attacker.Name} no puede hacer un follow up");
+    }
     
-    public void PrintNoFollowUp()
+    public void PrintNoFollowUpForAllUnits()
     {
         _view.WriteLine("Ninguna unidad puede hacer un follow up");
     }
@@ -86,5 +91,15 @@ public class FireEmblemView
     public void PrintHealBonus(Unit unit, int healBonus)
     {
         _view.WriteLine($"{unit.Name} recupera {healBonus} HP luego de atacar y queda con {unit.Hp.GetCurrentHP()} HP.");
+    }
+
+    public void PrintCounterDenialAnnulled(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} neutraliza los efectos que previenen sus contraataques");
+    }
+
+    public void PrintCounterDenied(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} no podrá contraatacar");
     }
 }

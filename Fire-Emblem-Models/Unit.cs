@@ -26,6 +26,8 @@ public class Unit
     public DamageEffects DamageEffects = new DamageEffects();
 
     public double HealPercentage;
+    public bool IsCounterDenied;
+    public bool IsCounterDenialAnnulled;
         
     public Unit(string name)
     {
@@ -39,7 +41,10 @@ public class Unit
         InFollowUp = false;
         Stats.ClearEffectsForEveryStat();
         DamageEffects.ResetDamageEffects();
-    }
+        HealPercentage = 0;
+        IsCounterDenied = false;
+        IsCounterDenialAnnulled = false;
+    }   
     
     public void TakeDamage(int damage)
     {
@@ -116,6 +121,29 @@ public class Unit
         int healBonus = (int)(damage * HealPercentage);
         Hp.Heal(healBonus);
         return healBonus;
+    }
+
+    public bool CanDoCounter()
+    {
+        if (IsCounterDenied)
+        {
+            if (IsCounterDenialAnnulled)
+            {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public bool IsCounterDeniedAndDenialAnnulled()
+    {
+        return IsCounterDenied && IsCounterDenialAnnulled;
+    }
+
+    public bool IsCounterDeniedButNotDenialAnnulled()
+    {
+        return IsCounterDenied && !IsCounterDenialAnnulled;
     }
 }
     
