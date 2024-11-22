@@ -1,6 +1,7 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_Models.ConditionsFolder;
 using Fire_Emblem_Models.EffectsFolder;
+using static Fire_Emblem_Models.ComparisonFunctions;
 
 namespace Fire_Emblem.SkillsFolder;
 
@@ -107,7 +108,7 @@ public class SkillCatalog
             
             case "Will to Win":
                 priority = 1;
-                conditions = new List<ICondition>() {new HPLessThanCondition(0.5)};
+                conditions = new List<ICondition>() {new HpPercentageComparisonCondition(0.5, FractionalLessThanOrEqualTo)};
                 effects = new List<Effect>() {new BonusEffect("Atk", 8)};
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -168,7 +169,7 @@ public class SkillCatalog
             
             case "Resolve":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.75) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.75, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Def", 7),
@@ -289,7 +290,7 @@ public class SkillCatalog
             
             case "Brazen Atk/Spd":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
@@ -300,7 +301,7 @@ public class SkillCatalog
             
             case "Brazen Atk/Def":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
@@ -311,7 +312,7 @@ public class SkillCatalog
             
             case "Brazen Atk/Res":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 10),
@@ -322,7 +323,7 @@ public class SkillCatalog
             
             case "Brazen Spd/Def":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 10),
@@ -333,7 +334,7 @@ public class SkillCatalog
             
             case "Brazen Spd/Res":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Spd", 10),
@@ -344,7 +345,7 @@ public class SkillCatalog
             
             case "Brazen Def/Res":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPLessThanCondition(0.8) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.8, FractionalLessThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Def", 10),
@@ -355,28 +356,28 @@ public class SkillCatalog
             
             case "Fire Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Atk", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Wind Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Spd", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Earth Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Def", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Water Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPUnitComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Res", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -461,7 +462,7 @@ public class SkillCatalog
                     new OrCondition(new List<ICondition>()
                     {
                         new RivalCondition( new StartsCombatCondition() ),
-                        new RivalCondition( new HPEqualToCondition(1.0) )
+                        new RivalCondition( new HpPercentageComparisonCondition(1.0, FractionalEqualTo) )
                     }) 
                 };
                 effects = new List<Effect>()
@@ -767,7 +768,7 @@ public class SkillCatalog
                     new OrCondition(new List<ICondition>()
                     {
                         new RivalCondition( new StartsCombatCondition() ),
-                        new RivalCondition( new HPMoreThanCondition(0.75) )
+                        new RivalCondition( new HpPercentageComparisonCondition(0.75, FractionalGreaterThanOrEqualTo) )
                     })
                 };
                 effects = new List<Effect>()
@@ -823,14 +824,14 @@ public class SkillCatalog
             
             case "Dragon Wall":
                 priority = 2;
-                conditions = new List<ICondition>() { new StatComparisonCondition("Res") };
+                conditions = new List<ICondition>() { new StatComparisonCondition("Res", GreaterThan) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Res") ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Dodge":
                 priority = 2;
-                conditions = new List<ICondition>() { new StatComparisonCondition("Spd") };
+                conditions = new List<ICondition>() { new StatComparisonCondition("Spd", GreaterThan) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -889,7 +890,7 @@ public class SkillCatalog
                 conditions = new List<ICondition>()
                 {
                     new RivalCondition( new StartsCombatCondition() ),
-                    new HPLessThanCondition(0.5)
+                    new HpPercentageComparisonCondition(0.5, FractionalLessThanOrEqualTo)
                 };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionEffect(5) ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
@@ -901,14 +902,14 @@ public class SkillCatalog
                 effects = new List<Effect>() { new DamageExtraEffect(7) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 2;
-                conditions = new List<ICondition>() { new StatComparisonCondition("Spd") };
+                conditions = new List<ICondition>() { new StatComparisonCondition("Spd", GreaterThan) };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Moon-Twin Wing":
                 priority = 1;
-                conditions = new List<ICondition>() { new HPMoreThanCondition(0.25) };
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
                 effects = new List<Effect>()
                 {
                     new RivalEffect ( new PenaltyEffect("Atk", -5) ),
@@ -918,8 +919,8 @@ public class SkillCatalog
                 priority = 2;
                 conditions = new List<ICondition>()
                 {
-                    new HPMoreThanCondition(0.25),
-                    new StatComparisonCondition("Spd")
+                    new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo),
+                    new StatComparisonCondition("Spd", GreaterThan)
                 };
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageStatDifference("Spd") ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
@@ -1132,7 +1133,7 @@ public class SkillCatalog
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
-                    new RivalCondition( new HPEqualToCondition(1.0) )
+                    new RivalCondition( new HpPercentageComparisonCondition(1.0, FractionalEqualTo) )
                 };
                 effects = new List<Effect>()
                 {
@@ -1148,7 +1149,7 @@ public class SkillCatalog
                 effects = new List<Effect>() { new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.25) ) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 2;
-                conditions = new List<ICondition>() { new StatComparisonCondition("Atk", "Res") };
+                conditions = new List<ICondition>() { new StatComparisonCondition("Atk", "Res", GreaterThan) };
                 effects = new List<Effect>() { new DamageExtraFirstAttackPercentageDifferenceRivalStatEffect("Atk", "Res", 0.25) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1182,7 +1183,7 @@ public class SkillCatalog
             
             case "Extra Chivalry":
                 priority = 1;
-                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) )  };
+                conditions = new List<ICondition>() { new RivalCondition( new HpPercentageComparisonCondition(0.5, FractionalGreaterThanOrEqualTo) )  };
                 effects = new List<Effect>()
                 {
                     new RivalEffect( new PenaltyEffect("Atk", -5) ),
@@ -1210,7 +1211,7 @@ public class SkillCatalog
             
             case "Divine Recreation":
                 priority = 1;
-                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) ) };
+                conditions = new List<ICondition>() { new RivalCondition( new HpPercentageComparisonCondition(0.5, FractionalGreaterThanOrEqualTo) ) };
                 effects = new List<Effect>()
                 {
                     new RivalEffect( new PenaltyEffect("Atk", -4) ),
@@ -1221,7 +1222,7 @@ public class SkillCatalog
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 3;
-                conditions = new List<ICondition>() { new RivalCondition( new HPMoreThanCondition(0.5) ) };
+                conditions = new List<ICondition>() { new RivalCondition( new HpPercentageComparisonCondition(0.5, FractionalGreaterThanOrEqualTo) ) };
                 effects = new List<Effect>() { new DivineRecreationExtraDamageEffect() };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1289,6 +1290,47 @@ public class SkillCatalog
                 effects = new List<Effect>() { new CounterDenialNullEffect()  };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
+            
+            case "Laws of Sacae":
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition()  };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 6),
+                    new BonusEffect("Spd", 6),
+                    new BonusEffect("Def", 6),
+                    new BonusEffect("Res", 6),
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>() { 
+                    new OrCondition(new List<ICondition>()
+                    {
+                        new RivalCondition( new WeaponNameCondition("Sword") ),
+                        new RivalCondition( new WeaponNameCondition("Lance") ),
+                        new RivalCondition( new WeaponNameCondition("Axe") ),
+                    }),
+                    new StatComparisonCondition("Spd", 5, GreaterThanOrEqualTo)
+                };
+                effects = new List<Effect>() { new RivalEffect( new CounterDenialEffect() ) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Eclipse Brace":
+                priority = 2;
+                conditions = new List<ICondition>()
+                {
+                    new StartsCombatCondition(),
+                    new WeaponTypeCondition("Physical")
+                };
+                effects = new List<Effect>()
+                {
+                    new DamageExtraPercentageByRivalStatEffect("Def", 0.3),
+                    new HealingEffect(0.5)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+                
             
             default:
                 priority = 1;
