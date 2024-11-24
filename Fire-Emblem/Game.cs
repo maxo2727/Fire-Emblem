@@ -47,7 +47,6 @@ public class Game
 // TODO
 //  - Limpiar mejor Battle/Round/Combat handlers para utilizar GameInfo y no guardar como atributos a units
 //  - Effects and Conditions: Decorate With RivalCondition() and FirstAttack(), FollowUp(), Percentage()?
-//  - Sign in Penalties to Always positive, and then subtract it.
 //  - DamageHandler y DamageEffects
 //  - Clases en FireEmblemView?
 //  - Guardar logicas pequeñas (Truncator y DamageCalculator) como modelo 

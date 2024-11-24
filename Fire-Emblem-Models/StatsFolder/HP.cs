@@ -58,7 +58,6 @@ public class HP
 
     public void SetCurrentHpBetweenCombat(int value)
     {
-        Console.WriteLine(value);
         if (value < 1)
             _currentHP = 1;
         else if (value > GetMaxHP())

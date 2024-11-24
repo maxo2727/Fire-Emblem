@@ -36,6 +36,7 @@ public class Unit
 
     public bool HasAttacked;
     public int DamageAfterCombatIfHasAttacked;
+    public Companions Companions = new();
     
     public Unit(string name)
     {
@@ -151,8 +152,8 @@ public class Unit
         return IsCounterDenied && !IsCounterDenialAnnulled;
     }
 
-    public bool IsWeaponTypeEqualTo(string weaponType)
+    public bool IsWeaponNameEqualTo(string weaponName)
     {
-        return Weapon.Type == weaponType;
+        return Weapon.Name == weaponName;
     }
 }

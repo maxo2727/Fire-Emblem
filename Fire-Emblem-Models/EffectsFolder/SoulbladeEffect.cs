@@ -23,7 +23,7 @@ public class SoulbladeEffect : Effect
         }
         else
         {
-            _rival.Stats.ModifyPenalties(stat, modification);
+            _rival.Stats.ModifyPenalties(stat, -modification);
         }
     }
 }

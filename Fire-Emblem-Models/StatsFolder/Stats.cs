@@ -39,7 +39,6 @@ public class Stats
         }
     }
     
-    // Necesario? O trainwreck noma?
     public void ModifyBonuses(string stat, int bonus)
     {
         _stats[stat].Bonus += bonus;
@@ -47,7 +46,7 @@ public class Stats
     
     public void ModifyPenalties(string stat, int penalty)
     {
-        _stats[stat].Penalty += penalty;
+        _stats[stat].Penalty -= penalty;
     }
     
     public void ModifyFirstAttackBonuses(string stat, int bonus)
@@ -57,7 +56,7 @@ public class Stats
     
     public void ModifyFirstAttackPenalties(string stat, int penalty)
     {
-        _stats[stat].FirstAttackPenalty += penalty;   
+        _stats[stat].FirstAttackPenalty -= penalty;   
     }
 
     public void ModifyFollowUpBonuses(string stat, int bonus)
@@ -67,6 +66,6 @@ public class Stats
     
     public void ModifyFollowUpPenalties(string stat, int penalty)
     {
-        _stats[stat].FollowUpPenalty += penalty;
+        _stats[stat].FollowUpPenalty -= penalty;
     }
 }

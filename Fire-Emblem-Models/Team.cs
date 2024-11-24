@@ -12,6 +12,7 @@ public class Team
     public void AddUnit(Unit unit)
     {
         _team.Add(unit);
+        AddCompanionsWithInsertedUnit(unit);
     }
     
     public List<Unit> GetAliveUnitsInCombat()
@@ -52,11 +53,23 @@ public class Team
     {
         foreach (Unit unit in _team)
         {
-            if (unit.IsWeaponTypeEqualTo(weaponType))
+            if (unit.IsWeaponNameEqualTo(weaponType))
             {
                 return true;
             }
         }
         return false;
+    }
+
+    public void AddCompanionsWithInsertedUnit(Unit insertedUnit)
+    {
+        foreach (Unit unit in _team)
+        {
+            if (unit != insertedUnit)
+            {
+                unit.Companions.Add(insertedUnit);
+                insertedUnit.Companions.Add(unit);
+            }
+        }
     }
 }

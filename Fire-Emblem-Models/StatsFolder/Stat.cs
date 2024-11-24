@@ -2,7 +2,6 @@ namespace Fire_Emblem_Models.StatsFolder;
 
 public class Stat
 {
-    // Dictionary? O organizarlo mejor?
     public int BaseStat;
     public int Bonus = 0;
     public int Penalty = 0;
@@ -13,6 +12,8 @@ public class Stat
     public bool AreBonusesNeutralized = false;
     public bool ArePenaltiesNeutralized = false;
 
+    
+    //Stat calculator!!
     public virtual int GetStatWithEffects()
     {
         int statValue = BaseStat;
@@ -27,7 +28,6 @@ public class Stat
         return statValue;
     }
     
-    // DamageCalculator?
     protected int CalculateStatWithEffectsWhenCheckingAttacksOf(Unit unit)
     {
         int statValue = BaseStat;

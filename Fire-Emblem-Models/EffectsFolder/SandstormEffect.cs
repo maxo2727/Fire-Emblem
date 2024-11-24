@@ -20,7 +20,7 @@ public class SandstormEffect : Effect
         }
         else
         {
-            _unit.Stats.ModifyFollowUpPenalties(stat, modification);
+            _unit.Stats.ModifyFollowUpPenalties(stat, -modification);
         }
     }
 }
