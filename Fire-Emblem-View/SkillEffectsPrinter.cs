@@ -148,7 +148,7 @@ public class SkillEffectsPrinter
 
     public void PrintBaseDamagePercentageReductionToRival()
     {
-        Unit rival = _unit.GetRivalUnit();
+        Unit rival = _unit.Rival;
         if (rival.DamageEffects.BasePercentageDamageReduction > 0)
         {
             _view.WriteLine($"{_unit.Name} reducirá el daño de los ataques del rival en un {Math.Round(rival.DamageEffects.BasePercentageDamageReduction * 100)}%");
@@ -157,7 +157,7 @@ public class SkillEffectsPrinter
 
     public void PrintFirstAttackDamagePercentageReductionToRival()
     {
-        Unit rival = _unit.GetRivalUnit();
+        Unit rival = _unit.Rival;
         if (rival.DamageEffects.FirstAttackPercentageDamageReduction > 0)
         {
             _view.WriteLine($"{_unit.Name} reducirá el daño del primer ataque del rival en un {Math.Round(rival.DamageEffects.FirstAttackPercentageDamageReduction * 100)}%");
@@ -166,7 +166,7 @@ public class SkillEffectsPrinter
     
     public void PrintFollowUpDamagePercentageReductionToRival()
     {
-        Unit rival = _unit.GetRivalUnit();
+        Unit rival = _unit.Rival;
         if (rival.DamageEffects.FollowUpPercentageDamageReduction > 0)
         {
             _view.WriteLine($"{_unit.Name} reducirá el daño del Follow-Up del rival en un {Math.Round(rival.DamageEffects.FollowUpPercentageDamageReduction * 100)}%");
@@ -175,7 +175,7 @@ public class SkillEffectsPrinter
 
     public void PrintBaseDamageReduction()
     {
-        Unit rival = _unit.GetRivalUnit();
+        Unit rival = _unit.Rival;
         if (rival.DamageEffects.BaseDamageReduction > 0)
         {
             _view.WriteLine($"{_unit.Name} recibirá -{rival.DamageEffects.BaseDamageReduction} daño en cada ataque");
@@ -185,8 +185,8 @@ public class SkillEffectsPrinter
     public void PrintHealBonusAfterAttacks()
     {
         // ¿pasar lógica a modelo?
-        int healBonus = (int)(_unit.HealPercentage * 100);
-        if (_unit.HealPercentage > 0)
+        int healBonus = (int)(_unit.HealingPercentageAfterAttack * 100);
+        if (_unit.HealingPercentageAfterAttack > 0)
         {
             _view.WriteLine($"{_unit.Name} recuperará HP igual al {healBonus}% del daño realizado en cada ataque");
         }

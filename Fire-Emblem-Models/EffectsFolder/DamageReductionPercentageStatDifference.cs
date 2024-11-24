@@ -11,7 +11,7 @@ public class DamageReductionPercentageStatDifference : Effect
 
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         int unitStatValue = unit.Stats.GetStat(_stat).GetStatWithBaseEffects();
         int rivalStatValue = rival.Stats.GetStat(_stat).GetStatWithBaseEffects();
         int statDifference = Math.Abs(unitStatValue - rivalStatValue);

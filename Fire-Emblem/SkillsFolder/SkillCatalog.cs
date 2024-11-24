@@ -1,7 +1,8 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_Models.ConditionsFolder;
 using Fire_Emblem_Models.EffectsFolder;
-using static Fire_Emblem_Models.ComparisonFunctions;
+using static Fire_Emblem_Models.Functions.ComparisonFunctions;
+using static Fire_Emblem_Models.Actions.HpInCombatActions;
 
 namespace Fire_Emblem.SkillsFolder;
 
@@ -356,28 +357,28 @@ public class SkillCatalog
             
             case "Fire Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonWithRivalCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Atk", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Wind Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonWithRivalCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Spd", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Earth Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonWithRivalCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Def", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Water Boost":
                 priority = 1;
-                conditions = new List<ICondition>() { new HpComparisonCondition(3) };
+                conditions = new List<ICondition>() { new HpComparisonWithRivalCondition(3) };
                 effects = new List<Effect>() { new BonusEffect("Res", 6) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -805,7 +806,7 @@ public class SkillCatalog
                 return conditionalEffects;
             
             case "Lunar Brace":
-                priority = 2;
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
@@ -1230,21 +1231,21 @@ public class SkillCatalog
             case "Sol":
                 priority = 1;
                 conditions = new List<ICondition>() { new EmptyCondition() };
-                effects = new List<Effect>() { new HealingEffect(0.25) };
+                effects = new List<Effect>() { new HealAfterAttackEffect(0.25) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Nosferatu":
                 priority = 1;
                 conditions = new List<ICondition>() { new WeaponNameCondition("Magic") };
-                effects = new List<Effect>() { new HealingEffect(0.5) };
+                effects = new List<Effect>() { new HealAfterAttackEffect(0.5) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
             case "Solar Brace":
                 priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
-                effects = new List<Effect>() { new HealingEffect(0.5) };
+                effects = new List<Effect>() { new HealAfterAttackEffect(0.5) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
@@ -1317,7 +1318,11 @@ public class SkillCatalog
                 return conditionalEffects;
             
             case "Eclipse Brace":
-                priority = 2;
+                priority = 1;
+                conditions = new List<ICondition>() { new StartsCombatCondition(),  };
+                effects = new List<Effect>() { new HealAfterAttackEffect(0.5) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 1;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
@@ -1326,11 +1331,145 @@ public class SkillCatalog
                 effects = new List<Effect>()
                 {
                     new DamageExtraPercentageByRivalStatEffect("Def", 0.3),
-                    new HealingEffect(0.5)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Resonance":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new WeaponNameCondition("Magic"),
+                    new HpFixedComparisonCondition(2, GreaterThanOrEqualTo)
+                };
+                effects = new List<Effect>()
+                {
+                    new HpBetweenCombatModificationEffect(1, DamageBeforeCombat),
+                    new DamageExtraEffect(3)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Flare":
+                priority = 1;
+                conditions = new List<ICondition>() { new WeaponNameCondition("Magic") };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyPercentageEffect("Res", 0.2) ),
+                    new HealAfterAttackEffect(0.5)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Fury":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 4),
+                    new BonusEffect("Spd", 4),
+                    new BonusEffect("Def", 4),
+                    new BonusEffect("Res", 4),
+                    new HpBetweenCombatModificationEffect(8, DamageAfterCombat)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Mystic Boost":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new RivalEffect( new PenaltyEffect("Atk", -5) ),
+                    new HpBetweenCombatModificationEffect(10, HealingAfterCombat)
+                    
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Atk/Spd Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Spd", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Atk/Def Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Def", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Atk/Res Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Atk", 7),
+                    new BonusEffect("Res", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Spd/Def Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Spd", 7),
+                    new BonusEffect("Def", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
                 
+            case "Spd/Res Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Spd", 7),
+                    new BonusEffect("Res", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Def/Res Push":
+                priority = 1;
+                conditions = new List<ICondition>() { new HpPercentageComparisonCondition(0.25, FractionalGreaterThanOrEqualTo) };
+                effects = new List<Effect>()
+                {
+                    new BonusEffect("Def", 7),
+                    new BonusEffect("Res", 7),
+                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Scendscale":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
+                    new DamageExtraPercentageByStatEffect("Atk", 0.25),
+                    new HpBetweenCombatModificationEffect(7, DamageAfterCombatIfHasAttacked)
+                        
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
             
             default:
                 priority = 1;

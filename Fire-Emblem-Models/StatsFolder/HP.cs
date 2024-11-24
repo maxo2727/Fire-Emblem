@@ -55,6 +55,17 @@ public class HP
             HasRecievedInitialHPBonus = true;
         }
     }
+
+    public void SetCurrentHpBetweenCombat(int value)
+    {
+        Console.WriteLine(value);
+        if (value < 1)
+            _currentHP = 1;
+        else if (value > GetMaxHP())
+            _currentHP = GetMaxHP();
+        else
+            _currentHP = value;
+    }
     
     public bool IsAlive()
     {
@@ -64,6 +75,11 @@ public class HP
     public void TakeDamage(int damage)
     {
         SetCurrentHP(_currentHP - damage);
+    }
+
+    public void TakeDamageBetweenCombat(int damage)
+    {
+        SetCurrentHpBetweenCombat(_currentHP - damage);
     }
 
     public void Heal(int healBonus)

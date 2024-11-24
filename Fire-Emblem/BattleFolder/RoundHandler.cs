@@ -13,6 +13,7 @@ public class RoundHandler
     private CombatSequencer _combatSequencer;
     private SkillController _skillController;
     private AdvantageHandler _advantageHandler;
+    private HpBetweenCombatManager _hpBetweenCombatManager;
     
 
     public RoundHandler(FireEmblemView view, GameInfo gameInfo)
@@ -20,19 +21,37 @@ public class RoundHandler
         _view = view;
         _gameInfo = gameInfo;
         _unitSelector = new UnitSelector(_gameInfo, view);
-        _combatSequencer = new CombatSequencer(view, _gameInfo);
         _skillController = new SkillController(_view, _gameInfo);
         _advantageHandler = new AdvantageHandler(_view, _gameInfo);
+        _hpBetweenCombatManager = new HpBetweenCombatManager(_view, _gameInfo);
+        _combatSequencer = new CombatSequencer(view, _gameInfo, _hpBetweenCombatManager);
     }
     
     public void BeginNewRound()
+    {
+        PrepareRoundCombat();
+        ExecuteRoundCombat();
+        FinishRoundCombat();
+    }
+
+    public void PrepareRoundCombat()
     {
         SetUpUnits();
         _view.ShowInitialRoundStatus(_gameInfo);
         _advantageHandler.CheckAdvantage();
         _skillController.UseSkills();
         CheckForCounterDenial();
+        _hpBetweenCombatManager.ApplyHpModificationsBeforeCombatForAllUnits();
+    }
+
+    public void ExecuteRoundCombat()
+    {
         _combatSequencer.CombatSequence();
+    }
+
+    public void FinishRoundCombat()
+    {
+        _hpBetweenCombatManager.ApplyHpModificationsAfterCombatForAllUnits();
         _view.ShowFinishedRoundStatus(_gameInfo);
     }
 
@@ -40,8 +59,8 @@ public class RoundHandler
     {
         SelectUnitsForAllPlayers();
         _gameInfo.AttackingUnit.IsStartingCombat = true;
-        _gameInfo.AttackingUnit.SetRivalUnit(_gameInfo.DefendingUnit);
-        _gameInfo.DefendingUnit.SetRivalUnit(_gameInfo.AttackingUnit);
+        _gameInfo.AttackingUnit.Rival = _gameInfo.DefendingUnit;
+        _gameInfo.DefendingUnit.Rival = _gameInfo.AttackingUnit;
         UpdateUnitCombatStatus();
     }
 

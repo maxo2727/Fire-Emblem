@@ -1,10 +1,12 @@
+using Fire_Emblem_Models.Functions;
+
 namespace Fire_Emblem_Models.EffectsFolder;
 
 public class DivineRecreationExtraDamageEffect : Effect
 {
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         int baseDamage = DamageCalculator.GetBaseDamage(rival, unit);
         int reducedDamage = rival.DamageEffects.GetTotalReductionToBaseDamage(baseDamage);
         int bonus = baseDamage - reducedDamage;

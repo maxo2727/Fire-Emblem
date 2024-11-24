@@ -16,7 +16,7 @@ public class UnitController
 
     public void HealAfterAttack(int damage)
     {
-        int healBonus = (int)(damage * _unit.HealPercentage);
+        int healBonus = (int)(damage * _unit.HealingPercentageAfterAttack);
         _unit.Hp.Heal(healBonus);
         if (healBonus > 0)
         {

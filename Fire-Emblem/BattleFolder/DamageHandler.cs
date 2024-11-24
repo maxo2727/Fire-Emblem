@@ -1,4 +1,5 @@
 using Fire_Emblem_Models;
+using Fire_Emblem_Models.Functions;
 using Fire_Emblem_View;
 using Fire_Emblem.UnitsFolder;
 

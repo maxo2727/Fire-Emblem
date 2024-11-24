@@ -13,7 +13,7 @@ public class PenaltyRivalFirstAttackPercentageEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         int penalty = -(int)Math.Truncate(rival.Stats.GetStat(_stat).BaseStat * _percentage);
         rival.Stats.ModifyFirstAttackPenalties(_stat, penalty);
     }

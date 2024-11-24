@@ -47,4 +47,16 @@ public class Team
         }
         return false;
     }
+
+    public bool IsThereAnyUnitInTeamWithWeaponType(string weaponType)
+    {
+        foreach (Unit unit in _team)
+        {
+            if (unit.IsWeaponTypeEqualTo(weaponType))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

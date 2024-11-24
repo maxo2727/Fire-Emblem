@@ -11,7 +11,7 @@ public class RivalCondition : ICondition
 
     public virtual bool IsMet(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         return _baseCondition.IsMet(rival);
     }
 }

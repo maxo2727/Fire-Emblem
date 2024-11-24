@@ -1,4 +1,4 @@
-namespace Fire_Emblem_Models;
+namespace Fire_Emblem_Models.Functions;
 
 public static class ComparisonFunctions
 {

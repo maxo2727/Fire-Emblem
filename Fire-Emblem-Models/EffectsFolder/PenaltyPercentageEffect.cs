@@ -1,3 +1,4 @@
+using Fire_Emblem_Models.Functions;
 using Fire_Emblem_Models.StatsFolder;
 
 namespace Fire_Emblem_Models.EffectsFolder;
@@ -17,8 +18,7 @@ public class PenaltyPercentageEffect : Effect
     {
         Stat stat = unit.Stats.GetStat(_stat);
         double penalty = stat.BaseStat * _percentage;
-        double roundedPenalty = Math.Round(penalty, 9);
-        int truncatedPenalty = (int)Math.Floor(roundedPenalty);
+        int truncatedPenalty = TrueTruncator.Truncate(penalty);
         stat.Penalty -= truncatedPenalty;
     }
 }

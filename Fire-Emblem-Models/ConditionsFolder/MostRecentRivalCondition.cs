@@ -4,6 +4,6 @@ public class MostRecentRivalCondition : ICondition
 {
     public bool IsMet(Unit unit)
     {
-        return unit.GetRivalUnit() == unit.GetMostRecentRival();
+        return unit.Rival == unit.MostRecentRival;
     }
 }

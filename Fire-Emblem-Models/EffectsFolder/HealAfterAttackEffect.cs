@@ -1,16 +1,16 @@
 namespace Fire_Emblem_Models.EffectsFolder;
 
-public class HealingEffect : Effect
+public class HealAfterAttackEffect : Effect
 {
     private double _percentage;
 
-    public HealingEffect(double percentage)
+    public HealAfterAttackEffect(double percentage)
     {
         _percentage = percentage;
     }
 
     public override void Apply(Unit unit)
     {
-        unit.HealPercentage += _percentage;
+        unit.HealingPercentageAfterAttack += _percentage;
     }
 }

@@ -5,7 +5,7 @@ public class GuardBearingEffect : Effect
     public override void Apply(Unit unit)
     {
         double percentage = 0.3;
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         if (IsUnitFirstAttackOrDefenseCombat(unit))
         {
             percentage = 0.6;

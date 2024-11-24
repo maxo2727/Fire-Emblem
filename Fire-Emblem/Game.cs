@@ -54,4 +54,5 @@ public class Game
 //  - Separar Unit: UnitHandler o Unit a secas (objeto) y UnitInfo (EDD). INCLUSO: separar UnitInfo en varias colecciones distintas
 //  - Separar HP en Handler e Info (objeto y EDD).
 //  - GameInfo que guarde followUpUnits?
-//  - Encapsular followup limit
+
+//  - Tener un HealingManager y un OutsideCombatDamageManager?

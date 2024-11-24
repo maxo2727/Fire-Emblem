@@ -25,10 +25,18 @@ public class Unit
     
     public DamageEffects DamageEffects = new DamageEffects();
 
-    public double HealPercentage;
+    public double HealingPercentageAfterAttack;
     public bool IsCounterDenied;
     public bool IsCounterDenialAnnulled;
-        
+    
+    public int HealingBeforeCombat;
+    public int DamageBeforeCombat;
+    public int HealingAfterCombat;
+    public int DamageAfterCombat;
+
+    public bool HasAttacked;
+    public int DamageAfterCombatIfHasAttacked;
+    
     public Unit(string name)
     {
         Name = name;
@@ -41,9 +49,15 @@ public class Unit
         InFollowUp = false;
         Stats.ClearEffectsForEveryStat();
         DamageEffects.ResetDamageEffects();
-        HealPercentage = 0;
+        HealingPercentageAfterAttack = 0;
         IsCounterDenied = false;
         IsCounterDenialAnnulled = false;
+        HealingBeforeCombat = 0;
+        DamageBeforeCombat = 0;
+        HealingAfterCombat = 0;
+        DamageAfterCombat = 0;
+        HasAttacked = false;
+        DamageAfterCombatIfHasAttacked = 0;
     }   
     
     public void TakeDamage(int damage)
@@ -59,26 +73,6 @@ public class Unit
     public bool IsAlive()
     {
         return Hp.IsAlive();
-    }
-    
-    public Unit GetRivalUnit()
-    {
-        return Rival;
-    }
-    
-    public void SetRivalUnit(Unit rival)
-    {
-        Rival = rival;
-    }
-    
-    public Unit GetMostRecentRival()
-    {
-        return MostRecentRival;
-    }
-    
-    public void SetMostRecentRival(Unit rival)
-    {
-        MostRecentRival = rival;
     }
 
     public void UpdateAttackingCombatStatus()
@@ -114,15 +108,26 @@ public class Unit
             IsFirstDefendingCombat = false;
         }
     }
-
-    //UnitController
-    public int HealAfterAttack(int damage)
+    
+    public void ApplyHealingBeforeCombat()
     {
-        int healBonus = (int)(damage * HealPercentage);
-        Hp.Heal(healBonus);
-        return healBonus;
+        Hp.Heal(HealingBeforeCombat);
     }
-
+    public void TakeDamageBeforeCombat()
+    {
+        Hp.TakeDamageBetweenCombat(DamageBeforeCombat);
+    }
+    
+    public void ApplyHealAfterCombat()
+    {
+        Hp.Heal(HealingAfterCombat);
+    }
+    
+    public void TakeDamageAfterCombat(int damage)
+    {
+        Hp.TakeDamageBetweenCombat(DamageAfterCombat);
+    }
+    
     public bool CanDoCounter()
     {
         if (IsCounterDenied)
@@ -145,8 +150,9 @@ public class Unit
     {
         return IsCounterDenied && !IsCounterDenialAnnulled;
     }
+
+    public bool IsWeaponTypeEqualTo(string weaponType)
+    {
+        return Weapon.Type == weaponType;
+    }
 }
-    
-    
-    
-    

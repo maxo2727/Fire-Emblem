@@ -11,7 +11,7 @@ public class DamageReductionPercentageHPRival : Effect
 
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         double HPLeft = (double)unit.Hp.GetCurrentHP() / (double)unit.Hp.GetMaxHP();
         double damageReduction = HPLeft * _percentage;
         double damageReductionRounded = Math.Round(damageReduction, 9);

@@ -6,7 +6,7 @@ public class NeutralizeAllBonusesRivalEffect : Effect
 {
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         foreach (Stat stat in rival.Stats.GetStatValues())
         {
             stat.AreBonusesNeutralized = true;

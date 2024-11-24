@@ -41,7 +41,7 @@ public class GameInfo
 
     public void SetMostRecentRivalForThisCombat()
     {
-        AttackingUnit.SetMostRecentRival(DefendingUnit);
-        DefendingUnit.SetMostRecentRival(AttackingUnit);
+        AttackingUnit.MostRecentRival = DefendingUnit;
+        DefendingUnit.MostRecentRival = AttackingUnit;
     }
 }

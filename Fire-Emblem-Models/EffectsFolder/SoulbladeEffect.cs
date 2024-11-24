@@ -5,7 +5,7 @@ public class SoulbladeEffect : Effect
     private Unit _rival;
     public override void Apply(Unit unit)
     {
-        _rival = unit.GetRivalUnit();
+        _rival = unit.Rival;
         int defBaseStat = _rival.Stats.GetStat("Def").BaseStat;
         int resBaseStat = _rival.Stats.GetStat("Res").BaseStat;
         int promedioDefRes = (defBaseStat + resBaseStat) / 2;

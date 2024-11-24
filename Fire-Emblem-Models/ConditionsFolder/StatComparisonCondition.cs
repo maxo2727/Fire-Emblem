@@ -30,7 +30,7 @@ public class StatComparisonCondition : ICondition
 
     public bool IsMet(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         int unitStatValue = unit.Stats.GetStat(_unitStat).GetStatWithBaseEffects();
         int rivalStatValue = rival.Stats.GetStat(_rivalStat).GetStatWithBaseEffects();
         return _comparison(unitStatValue, rivalStatValue + _offset);

@@ -11,7 +11,7 @@ public class RivalEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        Unit rival = unit.GetRivalUnit();
+        Unit rival = unit.Rival;
         _baseEffect.Apply(rival);
     }
 }

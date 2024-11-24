@@ -4,6 +4,6 @@ public class Defense : Stat
 {
     public override int GetStatWithEffects(Unit unit)
     {
-        return CalculateStatWithEffectsWhenCheckingAttacksOf(unit.GetRivalUnit());
+        return CalculateStatWithEffectsWhenCheckingAttacksOf(unit.Rival);
     }
 }

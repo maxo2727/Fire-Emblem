@@ -6,6 +6,6 @@ public class  BonusRivalEffect : BonusEffect
 
     public override void Apply(Unit unit)
     {
-        base.Apply(unit.GetRivalUnit());
+        base.Apply(unit.Rival);
     }
 }

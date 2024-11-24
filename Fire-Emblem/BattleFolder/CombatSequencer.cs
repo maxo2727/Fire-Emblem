@@ -16,11 +16,13 @@ public class CombatSequencer
     private DamageHandler _damageHandler;
     private FollowUpHandler _followUpHandler;
     private GameInfo _gameInfo;
+    private HpBetweenCombatManager _hpBetweenCombatManager;
 
-    public CombatSequencer(FireEmblemView view, GameInfo gameInfo)
+    public CombatSequencer(FireEmblemView view, GameInfo gameInfo, HpBetweenCombatManager hpBetweenCombatManager)
     {
         _view = view;
         _gameInfo = gameInfo;
+        _hpBetweenCombatManager = hpBetweenCombatManager;
         _damageHandler = new DamageHandler(_view, _gameInfo);
         _followUpHandler = new FollowUpHandler(_gameInfo);
     }
@@ -55,7 +57,7 @@ public class CombatSequencer
         int damage = _damageHandler.CalculateDamage(attacker, defender);
         defender.TakeDamage(damage);
         attacker.HasMadeFirstAttack = true;
-        HealAfterAttack(attacker, damage);
+        _hpBetweenCombatManager.ApplyHealingAfterAttack(attacker, damage);
     }
     
     private void CounterAttack()
@@ -92,14 +94,5 @@ public class CombatSequencer
         Unit attacker = _gameInfo.AttackingUnit;
         Unit defender = _gameInfo.DefendingUnit;
         return (!attacker.IsAlive() || !defender.IsAlive());
-    }
-
-    private void HealAfterAttack(Unit attacker, int damage)
-    {
-        int healBonus = attacker.HealAfterAttack(damage);
-        if (healBonus > 0)
-        {
-           _view.PrintHealBonus(attacker, healBonus); 
-        }
     }
 }
