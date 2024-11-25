@@ -10,26 +10,26 @@ public static class HpInCombatActions
 
     private static Action<Unit, int> SetHealingBeforeCombat()
     {
-        return (unit, value) => unit.HealingBeforeCombat = value;
+        return (unit, value) => unit.HealingBeforeCombat += value;
     }
 
     private static Action<Unit, int> SetDamageBeforeCombat()
     {
-        return (unit, value) => unit.DamageBeforeCombat = value;
+        return (unit, value) => unit.DamageBeforeCombat += value;
     }
     
     private static Action<Unit, int> SetHealingAfterCombat()
     {
-        return (unit, value) => unit.HealingAfterCombat = value;
+        return (unit, value) => unit.HealingAfterCombat += value;
     }
     
     private static Action<Unit, int> SetDamageAfterCombat()
     {
-        return (unit, value) => unit.DamageAfterCombat = value;
+        return (unit, value) => unit.DamageAfterCombat += value;
     }
 
     private static Action<Unit, int> SetDamageAfterCombatIfHasAttacked()
     {
-        return (unit, value) => unit.DamageAfterCombatIfHasAttacked = value;
+        return (unit, value) => unit.DamageAfterCombatIfHasAttacked += value;
     }
 }

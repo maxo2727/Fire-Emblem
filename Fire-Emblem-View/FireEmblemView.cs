@@ -108,9 +108,9 @@ public class FireEmblemView
         _view.WriteLine($"{unit.Name} recibe {unit.DamageBeforeCombat} de daño antes de iniciar el combate y queda con {unit.GetCurrentHP()} HP");
     }
 
-    public void PrintHealingAfterCombat(Unit unit)
+    public void PrintHealingAfterCombat(Unit unit, int healing)
     {
-        _view.WriteLine($"{unit.Name} recupera {unit.HealingAfterCombat} HP despues del combate");
+        _view.WriteLine($"{unit.Name} recupera {healing} HP despues del combate");
     }
 
     public void PrintDamageAfterCombat(Unit unit, int damage)

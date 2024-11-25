@@ -15,7 +15,7 @@ public class DamageExtraPercentageByStatEffect : Effect
 
     public override void Apply(Unit unit)
     {
-        int statValue = unit.Stats.GetStat(_stat).GetStatWithBaseEffects();
+        int statValue = unit.Stats.GetStat(_stat).GetStatWithEffects();
         double extraDamage = statValue * _percentage;
         int truncatedExtraDamage = TrueTruncator.Truncate(extraDamage);
         unit.DamageEffects.BaseDamageBonus += truncatedExtraDamage;

@@ -22,8 +22,8 @@ public class DamageReductionPercentageStatDifference : Effect
     protected double CalculateDamageReduction(Unit unit)
     {
         Unit rival = unit.Rival;
-        int unitStatValue = unit.Stats.GetStat(_stat).GetStatWithBaseEffects();
-        int rivalStatValue = rival.Stats.GetStat(_stat).GetStatWithBaseEffects();
+        int unitStatValue = unit.Stats.GetStat(_stat).GetStatWithEffects();
+        int rivalStatValue = rival.Stats.GetStat(_stat).GetStatWithEffects();
         int statDifference = Math.Abs(unitStatValue - rivalStatValue);
         int statDifferencePonderated = statDifference * _ponderation;
         if (statDifferencePonderated > _topLimit)

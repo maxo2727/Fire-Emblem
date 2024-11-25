@@ -1,7 +1,7 @@
 using Fire_Emblem_Models.Functions;
 using Fire_Emblem_Models.StatsFolder;
 
-namespace Fire_Emblem_Models.EffectsFolder;
+namespace Fire_Emblem_Models.EffectsFolder.DamageModifications.DamageExtra;
 
 public class DamageExtraSumOfAllBonusesAndPenalties : Effect
 {
@@ -16,17 +16,20 @@ public class DamageExtraSumOfAllBonusesAndPenalties : Effect
     {
         int bonuses = 0;
         int penalties = 0;
+        Unit rival = unit.Rival;
         List<string> statNames = new List<string>() { "Atk", "Def", "Res", "Spd" }; //ENCAPSULAR EN STATCALCULATOR, models?
         foreach (string statName in statNames)
         {
             Stat stat = unit.Stats.GetStat(statName);
             if (!stat.AreBonusesNeutralized)
             {
-                bonuses += stat.Bonus + stat.FirstAttackBonus + stat.FollowUpBonus;
+                bonuses += stat.Bonus;
             }
-            if (!stat.ArePenaltiesNeutralized)
+
+            Stat rivalStat = rival.Stats.GetStat(statName);
+            if (!rivalStat.ArePenaltiesNeutralized)
             {
-                penalties += stat.Penalty + stat.FirstAttackPenalty + stat.FollowUpPenalty;
+                penalties -= rivalStat.Penalty;
             }
         }
         double percentageBonuses = bonuses * _percentage;
@@ -34,6 +37,6 @@ public class DamageExtraSumOfAllBonusesAndPenalties : Effect
         double percentagePenalties = penalties * _percentage;
         int truncatedPenalties = TrueTruncator.Truncate(percentagePenalties);
         int damageExtra = truncatedBonuses + truncatedPenalties;
-        unit.DamageEffects.BaseDamageBonus = damageExtra;
+        unit.DamageEffects.BaseDamageBonus += damageExtra;
     }
 }

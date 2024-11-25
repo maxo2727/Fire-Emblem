@@ -813,7 +813,7 @@ public class SkillCatalog
                 return conditionalEffects;
             
             case "Lunar Brace":
-                priority = 1;
+                priority = 2;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
@@ -1114,7 +1114,14 @@ public class SkillCatalog
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
-                    new RivalEffect( new PenaltyEffect("Spd", 4) ),
+                    new RivalEffect( new PenaltyEffect("Spd", 4) )
+                    
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>()
+                {
                     new DamageExtraPercentageByRivalStatEffect("Atk", 0.15)
                     
                 };
@@ -1329,7 +1336,7 @@ public class SkillCatalog
                 conditions = new List<ICondition>() { new StartsCombatCondition(),  };
                 effects = new List<Effect>() { new HealAfterAttackEffect(0.5) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
-                priority = 1;
+                priority = 2;
                 conditions = new List<ICondition>()
                 {
                     new StartsCombatCondition(),
@@ -1467,7 +1474,7 @@ public class SkillCatalog
                 return conditionalEffects;
             
             case "Scendscale":
-                priority = 1;
+                priority = 2;
                 conditions = new List<ICondition>() { new EmptyCondition() };
                 effects = new List<Effect>()
                 {
@@ -1503,7 +1510,13 @@ public class SkillCatalog
                 effects = new List<Effect>()
                 {
                     new BonusEffect("Atk", 9),
-                    new BonusEffect("Spd", 9),
+                    new BonusEffect("Spd", 9)
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                priority = 2;
+                conditions = new List<ICondition>() { new StartsCombatCondition() };
+                effects = new List<Effect>()
+                {
                     new DamageExtraSumOfAllBonusesAndPenalties(0.8)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
