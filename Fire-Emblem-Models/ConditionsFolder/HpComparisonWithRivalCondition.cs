@@ -12,6 +12,6 @@ public class HpComparisonWithRivalCondition : ICondition
     public bool IsMet(Unit unit)
     {
         Unit rival = unit.Rival;
-        return unit.GetCurrentHP() >= rival.GetCurrentHP() + _difference;
+        return unit.Hp.GetCurrentHP() >= rival.Hp.GetCurrentHP() + _difference;
     }
 }

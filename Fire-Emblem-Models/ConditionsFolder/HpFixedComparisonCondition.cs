@@ -13,6 +13,6 @@ public class HpFixedComparisonCondition : ICondition
 
     public bool IsMet(Unit unit)
     {
-        return _comparison(unit.GetCurrentHP(), _value);
+        return _comparison(unit.Hp.GetCurrentHP(), _value);
     }
 }

@@ -8,7 +8,7 @@ public class HpBetweenCombatManager
 {
     private FireEmblemView _view;
     private GameInfo _gameInfo;
-    private int _modificationAfterCombat;
+    private int _hpModification;
 
     public HpBetweenCombatManager(FireEmblemView view, GameInfo gameInfo)
     {
@@ -35,13 +35,16 @@ public class HpBetweenCombatManager
 
     public void ApplyHpModificationsBeforeCombat(Unit unit)
     {
+        _hpModification = 0;
         ApplyDamageBeforeCombat(unit);
     }
     
     private void ApplyDamageBeforeCombat(Unit unit)
     {
-        unit.TakeDamageBeforeCombat();
-        if (unit.DamageBeforeCombat > 0)
+        _hpModification -= unit.DamageBeforeCombat;
+        int damage = -_hpModification;
+        unit.Hp.TakeDamageBetweenCombat(damage);
+        if (damage > 0)
             _view.PrintDamageBeforeCombat(unit);
     }
 
@@ -54,8 +57,8 @@ public class HpBetweenCombatManager
     // HpModificationsAfterCombatCalculator nueva clase mas cohesiva (atributo _modificationAfterCombat)
     public void ApplyHpModificationsAfterCombat(Unit unit)
     {
-        _modificationAfterCombat = 0;
-        if (unit.IsAlive())
+        _hpModification = 0;
+        if (unit.IsAlive)
         {
             AddHealAfterCombat(unit);
             AddDamageAfterCombat(unit);
@@ -65,29 +68,29 @@ public class HpBetweenCombatManager
     
     private void AddHealAfterCombat(Unit unit)
     {
-        _modificationAfterCombat += unit.HealingAfterCombat;
+        _hpModification += unit.HealingAfterCombat;
     }
 
     private void AddDamageAfterCombat(Unit unit)
     {
-        _modificationAfterCombat -= unit.DamageAfterCombat;
+        _hpModification -= unit.DamageAfterCombat;
         if (unit.HasMadeFirstAttack)
         {
-            _modificationAfterCombat -= unit.DamageAfterCombatIfHasAttacked;
+            _hpModification -= unit.DamageAfterCombatIfHasAttacked;
         }
     }
 
     private void ApplyModification(Unit unit)
     {
-        if (_modificationAfterCombat > 0)
+        if (_hpModification > 0)
         {
-            int healing = _modificationAfterCombat;
+            int healing = _hpModification;
             unit.Hp.Heal(healing);
             _view.PrintHealingAfterCombat(unit, healing);
         }
-        else if (_modificationAfterCombat < 0)
+        else if (_hpModification < 0)
         {
-            int damage = -_modificationAfterCombat;
+            int damage = -_hpModification;
             unit.Hp.TakeDamageBetweenCombat(damage);
             _view.PrintDamageAfterCombat(unit, damage);
         }

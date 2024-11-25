@@ -85,7 +85,7 @@ public class FireEmblemView
 
     public void ShowFinishedRoundStatus(GameInfo gameInfo)
     {
-        _view.WriteLine($"{gameInfo.AttackingUnit.Name} ({gameInfo.AttackingUnit.GetCurrentHP()}) : {gameInfo.DefendingUnit.Name} ({gameInfo.DefendingUnit.GetCurrentHP()})");
+        _view.WriteLine($"{gameInfo.AttackingUnit.Name} ({gameInfo.AttackingUnit.Hp.GetCurrentHP()}) : {gameInfo.DefendingUnit.Name} ({gameInfo.DefendingUnit.Hp.GetCurrentHP()})");
     }
 
     public void PrintHealBonus(Unit unit, int healBonus)
@@ -105,7 +105,7 @@ public class FireEmblemView
 
     public void PrintDamageBeforeCombat(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} recibe {unit.DamageBeforeCombat} de daño antes de iniciar el combate y queda con {unit.GetCurrentHP()} HP");
+        _view.WriteLine($"{unit.Name} recibe {unit.DamageBeforeCombat} de daño antes de iniciar el combate y queda con {unit.Hp.GetCurrentHP()} HP");
     }
 
     public void PrintHealingAfterCombat(Unit unit, int healing)

@@ -66,9 +66,9 @@ public class HP
             _currentHP = value;
     }
     
-    public bool IsAlive()
+    public bool IsHpBelowOrEqualToCero()
     {
-        return _currentHP > 0;
+        return _currentHP <= 0;
     }
     
     public void TakeDamage(int damage)

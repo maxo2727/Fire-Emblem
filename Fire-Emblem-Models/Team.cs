@@ -19,7 +19,7 @@ public class Team
     {
         List<Unit> AliveUnitsInCombat = new List<Unit>();
         foreach (Unit unit in _team)
-            if (unit.IsAlive())
+            if (unit.IsAlive)
                 AliveUnitsInCombat.Add(unit);
         return AliveUnitsInCombat;
     }
@@ -27,7 +27,7 @@ public class Team
     public bool HasLostAllItsUnits()
     {
         foreach (Unit unit in _team)
-            if (unit.IsAlive())
+            if (unit.IsAlive)
                 return false;
         return true;
     }
@@ -45,18 +45,6 @@ public class Team
         {
             if (!uniqueUnitNames.Add(unit.Name))
                 return true;
-        }
-        return false;
-    }
-
-    public bool IsThereAnyUnitInTeamWithWeaponType(string weaponType)
-    {
-        foreach (Unit unit in _team)
-        {
-            if (unit.IsWeaponNameEqualTo(weaponType))
-            {
-                return true;
-            }
         }
         return false;
     }

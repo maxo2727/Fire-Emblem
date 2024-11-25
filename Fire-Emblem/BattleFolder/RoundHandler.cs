@@ -14,6 +14,7 @@ public class RoundHandler
     private SkillController _skillController;
     private AdvantageHandler _advantageHandler;
     private HpBetweenCombatManager _hpBetweenCombatManager;
+    private UnitStateManager _unitStateManager;
     
 
     public RoundHandler(FireEmblemView view, GameInfo gameInfo)
@@ -25,6 +26,7 @@ public class RoundHandler
         _advantageHandler = new AdvantageHandler(_view, _gameInfo);
         _hpBetweenCombatManager = new HpBetweenCombatManager(_view, _gameInfo);
         _combatSequencer = new CombatSequencer(view, _gameInfo, _hpBetweenCombatManager);
+        _unitStateManager = new UnitStateManager(view);
     }
     
     public void BeginNewRound()
@@ -40,7 +42,7 @@ public class RoundHandler
         _view.ShowInitialRoundStatus(_gameInfo);
         _advantageHandler.CheckAdvantage();
         _skillController.UseSkills();
-        CheckForCounterDenial();
+        _unitStateManager.CheckForCounterDenial(_gameInfo.DefendingUnit);
         _hpBetweenCombatManager.ApplyHpModificationsBeforeCombatForAllUnits();
     }
 
@@ -61,7 +63,7 @@ public class RoundHandler
         _gameInfo.AttackingUnit.IsStartingCombat = true;
         _gameInfo.AttackingUnit.Rival = _gameInfo.DefendingUnit;
         _gameInfo.DefendingUnit.Rival = _gameInfo.AttackingUnit;
-        UpdateUnitCombatStatus();
+        UpdateCombatStatusForAllUnits();
     }
 
     private void SelectUnitsForAllPlayers()
@@ -76,7 +78,7 @@ public class RoundHandler
         ChangeTurns();
         UpdateFirstCombatStatusForAllunits();
         _gameInfo.IncreaseRoundNumber();
-        _gameInfo.ResetUnitRoundActions();
+        ResetRoundActionsForAllUnits(_gameInfo);
         _gameInfo.SetMostRecentRivalForThisCombat();
     }
     
@@ -88,28 +90,22 @@ public class RoundHandler
             _gameInfo.SetPlayerTurns(1,2);
     }
     
-    private void UpdateUnitCombatStatus()
+    private void UpdateCombatStatusForAllUnits()
     {
-        _gameInfo.AttackingUnit.UpdateAttackingCombatStatus();
-        _gameInfo.DefendingUnit.UpdateDefendingCombatStatus();
+        _unitStateManager.UpdateAttackingCombatStatus(_gameInfo.AttackingUnit);
+        _unitStateManager.UpdateDefendingCombatStatus(_gameInfo.DefendingUnit);
+        
     }
     
     private void UpdateFirstCombatStatusForAllunits()
     {
-        _gameInfo.AttackingUnit.UpdateFirstAttackingCombatStatus(); 
-        _gameInfo.DefendingUnit.UpdateFirstDefendingCombatStatus();
+        _unitStateManager.UpdateFirstAttackingCombatStatus(_gameInfo.AttackingUnit);
+        _unitStateManager.UpdateFirstDefendingCombatStatus(_gameInfo.DefendingUnit);
     }
-
-    private void CheckForCounterDenial()
+    
+    public void ResetRoundActionsForAllUnits(GameInfo gameInfo)
     {
-        if (_gameInfo.DefendingUnit.IsCounterDeniedAndDenialAnnulled())
-        {
-            _view.PrintCounterDenialAnnulled(_gameInfo.DefendingUnit);
-        }
-
-        if (_gameInfo.DefendingUnit.IsCounterDeniedButNotDenialAnnulled())
-        {
-            _view.PrintCounterDenied(_gameInfo.DefendingUnit);
-        }
+        _unitStateManager.ResetUnitRoundActions(gameInfo.AttackingUnit);
+        _unitStateManager.ResetUnitRoundActions(gameInfo.DefendingUnit);
     }
 }

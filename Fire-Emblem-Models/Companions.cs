@@ -13,15 +13,19 @@ public class Companions
     {
         foreach (Unit unit in _companions)
         {
-            if (unit.IsAlive())
+            if (unit.IsAlive)
             {
-                if (unit.IsWeaponNameEqualTo(weaponName))
+                if (IsWeaponNameEqualTo(unit, weaponName))
                 {
                     return true;
                 }
             }
-            
         }
         return false;
+    }
+    
+    public bool IsWeaponNameEqualTo(Unit unit, string weaponName)
+    {
+        return unit.Weapon.Name == weaponName;
     }
 }

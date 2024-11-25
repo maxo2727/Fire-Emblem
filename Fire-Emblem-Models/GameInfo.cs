@@ -3,9 +3,7 @@ namespace Fire_Emblem_Models;
 public class GameInfo
 {
     public Players Players;
-    // RoundState?
     public int RoundTurn;
-    // TurnManager?
     public int AttackingPlayerNumber;
     public int DefendingPlayerNumber;
     public Unit AttackingUnit;
@@ -31,12 +29,6 @@ public class GameInfo
     {
         AttackingUnit = Players.GetPlayerById(AttackingPlayerNumber).GetSelectedUnit();
         DefendingUnit = Players.GetPlayerById(DefendingPlayerNumber).GetSelectedUnit();
-    }
-    
-    public void ResetUnitRoundActions()
-    {
-        AttackingUnit.ResetRoundActions();
-        DefendingUnit.ResetRoundActions();
     }
 
     public void SetMostRecentRivalForThisCombat()

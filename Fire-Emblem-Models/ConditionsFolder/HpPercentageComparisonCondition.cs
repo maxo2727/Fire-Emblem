@@ -13,7 +13,7 @@ public class HpPercentageComparisonCondition : ICondition
 
     public bool IsMet(Unit unit)
     {
-        int currentHP = unit.GetCurrentHP();
+        int currentHP = unit.Hp.GetCurrentHP();
         int maxHP = unit.Hp.GetMaxHP();
         return _fractionalComparison(currentHP, maxHP, _percentage);
     }

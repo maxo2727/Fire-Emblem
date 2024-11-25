@@ -17,6 +17,7 @@ public class CombatSequencer
     private FollowUpHandler _followUpHandler;
     private GameInfo _gameInfo;
     private HpBetweenCombatManager _hpBetweenCombatManager;
+    private UnitStateManager _unitStateManager;
 
     public CombatSequencer(FireEmblemView view, GameInfo gameInfo, HpBetweenCombatManager hpBetweenCombatManager)
     {
@@ -24,7 +25,8 @@ public class CombatSequencer
         _gameInfo = gameInfo;
         _hpBetweenCombatManager = hpBetweenCombatManager;
         _damageHandler = new DamageHandler(_view, _gameInfo);
-        _followUpHandler = new FollowUpHandler(_gameInfo);
+        _followUpHandler = new FollowUpHandler(_view, _gameInfo);
+        _unitStateManager = new UnitStateManager(_view);
     }
     
     public void CombatSequence()
@@ -55,19 +57,31 @@ public class CombatSequencer
     private void DoCombatEventBetween(Unit attacker, Unit defender)
     {
         int damage = _damageHandler.CalculateDamage(attacker, defender);
-        defender.TakeDamage(damage);
+        defender.Hp.TakeDamage(damage);
         attacker.HasMadeFirstAttack = true;
         _hpBetweenCombatManager.ApplyHealingAfterAttack(attacker, damage);
+        SetAliveStatusForAllUnits();
+    }
+
+    private void SetAliveStatusForAllUnits()
+    {
+        _unitStateManager.SetAliveUnitStatus(_gameInfo.AttackingUnit);
+        _unitStateManager.SetAliveUnitStatus(_gameInfo.DefendingUnit);
     }
     
     private void CounterAttack()
     {
         Unit attacker = _gameInfo.DefendingUnit;
         Unit defender = _gameInfo.AttackingUnit;
-        if (attacker.CanDoCounter())
+        if (CanUnitDoCounter(attacker))
         {
             DoCombatEventBetween(attacker, defender);
         }
+    }
+
+    private bool CanUnitDoCounter(Unit unit)
+    {
+        return _unitStateManager.CanDoCounter(unit);
     }
     
     private void FollowUp()
@@ -93,6 +107,6 @@ public class CombatSequencer
     {
         Unit attacker = _gameInfo.AttackingUnit;
         Unit defender = _gameInfo.DefendingUnit;
-        return (!attacker.IsAlive() || !defender.IsAlive());
+        return (!attacker.IsAlive || !defender.IsAlive);
     }
 }

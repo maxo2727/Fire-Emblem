@@ -1,5 +1,6 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_Models.Exceptions;
+using Fire_Emblem_View;
 
 namespace Fire_Emblem;
 
@@ -12,10 +13,14 @@ public class FollowUpHandler
     private Unit _followUpDefender;
     private GameInfo _gameInfo;
     private int _followUpSpdDifference = 4;
+    private UnitStateManager _unitStateManager;
+    private FireEmblemView _view;
 
-    public FollowUpHandler(GameInfo gameInfo)
+    public FollowUpHandler(FireEmblemView view, GameInfo gameInfo)
     {
+        _view = view;
         _gameInfo = gameInfo;
+        _unitStateManager = new UnitStateManager(_view);
     }
     
     public void SetFollowUp()
@@ -33,7 +38,7 @@ public class FollowUpHandler
     {
         if (!IsThereAFollowUp(attacker, defender))
         {
-            if (!defender.CanDoCounter())
+            if (!_unitStateManager.CanDoCounter(defender))
             {
                 throw new NoFollowUpForAttackerException();
             }
@@ -48,7 +53,7 @@ public class FollowUpHandler
     
     private void CheckForCounterDenial(Unit followUpDefender)
     {
-        if (!followUpDefender.CanDoCounter())
+        if (!_unitStateManager.CanDoCounter(followUpDefender))
             throw new NoFollowUpForAttackerException();
     }
 
