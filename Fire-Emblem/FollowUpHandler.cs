@@ -1,18 +1,16 @@
 using Fire_Emblem_Models;
 using Fire_Emblem_Models.Exceptions;
+using Fire_Emblem_Models.StatsFolder;
 using Fire_Emblem_View;
 
 namespace Fire_Emblem;
 
 public class FollowUpHandler
 {
-    // Esta bien que almacene como privados estos valores, y después los rescate por afuera? No sería un objeto?
-    // Dejar como diccionario?
-    // Usar _gameInfo?
     private Unit _followUpAttacker;
     private Unit _followUpDefender;
     private GameInfo _gameInfo;
-    private int _followUpSpdDifference = 4;
+    private int _followUpSpdDifferenceMin = 4;
     private UnitStateManager _unitStateManager;
     private FireEmblemView _view;
 
@@ -22,63 +20,84 @@ public class FollowUpHandler
         _gameInfo = gameInfo;
         _unitStateManager = new UnitStateManager(_view);
     }
-    
-    public void SetFollowUp()
-    {
-        Unit attacker = _gameInfo.AttackingUnit;
-        Unit defender = _gameInfo.DefendingUnit;
-        CheckFollowUp(attacker, defender);
-        SetFollowUpUnits(attacker, defender);
-        CheckForCounterDenial(_followUpAttacker);
-        _followUpAttacker.InFollowUp = true;
-        _followUpDefender.InFollowUp = true;
-    }
 
-    private void CheckFollowUp(Unit attacker, Unit defender)
+    public void SetFollowUpForAllUnits()
     {
-        if (!IsThereAFollowUp(attacker, defender))
+        CheckFollowUp(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
+        CheckFollowUp(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
+        CheckCanDoFollowUpStateForUnits(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
+        SetUnitsInFollowUp();
+    }
+    
+    public void CheckFollowUp(Unit unit, Unit rival)
+    {
+        try
         {
-            if (!_unitStateManager.CanDoCounter(defender))
-            {
-                throw new NoFollowUpForAttackerException();
-            }
-            throw new NoFollowUpForAllUnitsException();  
+            CheckForDefendingCounterDenial(unit);
+            CheckForNaturalFollowUp(unit, rival);
+            CheckIfUnitCanDoFollowUp(unit);
+        }
+        catch (CanDoFollowUpException)
+        {
+            unit.CanDoFollowUp = true;
+        }
+        catch (CounterDeniedException)
+        {
+            
         }
     }
-        
-    private bool IsThereAFollowUp(Unit attacker, Unit defender)
+    
+    public void CheckForNaturalFollowUp(Unit unit, Unit rival)
     {
-        return Math.Abs(attacker.Stats.GetStat("Spd").GetStatWithEffects() - defender.Stats.GetStat("Spd").GetStatWithEffects()) > _followUpSpdDifference;
+        if (CanUnitDoNaturalFollowUp(unit, rival))
+        {
+            throw new CanDoFollowUpException();
+        }
     }
     
-    private void CheckForCounterDenial(Unit followUpDefender)
+    public bool CanUnitDoNaturalFollowUp(Unit attacker, Unit defender)
     {
-        if (!_unitStateManager.CanDoCounter(followUpDefender))
+        Stat attackerSpd = attacker.Stats.GetStat("Spd");
+        Stat defenderSpd = defender.Stats.GetStat("Spd");
+        int combatSpdDifference = attackerSpd.GetStatWithEffects() - defenderSpd.GetStatWithEffects();
+        return combatSpdDifference > _followUpSpdDifferenceMin;
+    }
+    
+    public void CheckIfUnitCanDoFollowUp(Unit unit)
+    {
+        if (unit.NumberOfGuaranteedFollowUps > 0)
+        {
+            throw new CanDoFollowUpException();
+        }
+    }
+    
+    private void CheckForDefendingCounterDenial(Unit followUpDefender)
+    {
+        if (!_unitStateManager.CanDoCounter(followUpDefender) && followUpDefender.IsDefending)
+            throw new CounterDeniedException();
+    }
+    
+    public void CheckCanDoFollowUpStateForUnits(Unit attacker, Unit defender)
+    {
+        if (IsThereAFollowUp(attacker, defender))
+        {
+            return;
+        }
+        if (!_unitStateManager.CanDoCounter(defender))
+        {
             throw new NoFollowUpForAttackerException();
-    }
-
-    private void SetFollowUpUnits(Unit attacker, Unit defender)
-    {
-        if (attacker.Stats.GetStat("Spd").GetStatWithEffects() >
-            defender.Stats.GetStat("Spd").GetStatWithEffects())
-        {
-            _followUpAttacker = attacker; 
-            _followUpDefender = defender;
         }
-        else
-        {
-            _followUpAttacker = defender; 
-            _followUpDefender = attacker;
-        }
+        throw new NoFollowUpForAllUnitsException(); 
     }
-
-    public Unit GetFollowUpAttacker()
+    
+    public bool IsThereAFollowUp(Unit unit, Unit rival)
     {
-        return _followUpAttacker;
+        return unit.CanDoFollowUp || rival.CanDoFollowUp;
     }
-
-    public Unit GetFollowUpDefender()
+    
+    public void SetUnitsInFollowUp()
     {
-        return _followUpDefender;
+        _gameInfo.AttackingUnit.InFollowUp = true;
+        _gameInfo.DefendingUnit.InFollowUp = true;
     }
 }

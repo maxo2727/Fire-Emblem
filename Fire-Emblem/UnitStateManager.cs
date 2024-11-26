@@ -60,6 +60,8 @@ public class UnitStateManager
         unit.HealingAfterCombat = 0;
         unit.DamageAfterCombat = 0;
         unit.DamageAfterCombatIfHasAttacked = 0;
+        unit.CanDoFollowUp = false;
+        unit.NumberOfGuaranteedFollowUps = 0;
     }
     
     public void CheckForCounterDenial(Unit defender)
@@ -88,12 +90,12 @@ public class UnitStateManager
         return true;
     }
 
-    public bool IsCounterDeniedAndDenialAnnulled(Unit unit)
+    private bool IsCounterDeniedAndDenialAnnulled(Unit unit)
     {
         return unit.IsCounterDenied && unit.IsCounterDenialAnnulled;
     }
 
-    public bool IsCounterDeniedButNotDenialAnnulled(Unit unit)
+    private bool IsCounterDeniedButNotDenialAnnulled(Unit unit)
     {
         return unit.IsCounterDenied && !unit.IsCounterDenialAnnulled;
     }

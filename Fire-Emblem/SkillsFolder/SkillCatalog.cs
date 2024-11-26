@@ -1568,6 +1568,17 @@ public class SkillCatalog
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
+            case "Quick Riposte":
+                priority = 1;
+                conditions = new List<ICondition>()
+                {
+                    new HpPercentageComparisonCondition(0.6, FractionalGreaterThanOrEqualTo),
+                    new RivalCondition( new StartsCombatCondition() )
+                };
+                effects = new List<Effect>() {  };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
             default:
                 priority = 1;
                 conditions = new List<ICondition>() {  };

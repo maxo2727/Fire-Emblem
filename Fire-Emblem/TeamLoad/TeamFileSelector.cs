@@ -26,6 +26,7 @@ public class TeamFileSelector
     private void GetAvailableTeamsInOrder(string teamsFolder)
     {
         _teamPaths = Directory.GetFiles(teamsFolder, "*.txt");
+        Array.Sort(_teamPaths);
     }
 
     private void ShowAvailableTeamsInOrder()
@@ -37,9 +38,13 @@ public class TeamFileSelector
     private void ParseTeamPathsIntoTeamFileNames()
     {
         List<string> teamFiles = new List<string>();
-        for (int i = 0; i < _teamPaths.Count(); i++)
+        foreach (string teamPath in _teamPaths)
         {
-            teamFiles.Add(_teamPaths[i].Split('\\')[2]);
+            string teamFileName = Path.GetFileName(teamPath);
+            if (!string.IsNullOrEmpty(teamFileName))
+            {
+                teamFiles.Add(teamFileName);
+            }
         }
         _teamFiles = teamFiles.ToArray();
     }

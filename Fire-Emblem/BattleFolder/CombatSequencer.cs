@@ -88,10 +88,9 @@ public class CombatSequencer
     {
         try
         {
-            _followUpHandler.SetFollowUp();
-            Unit followUpAttacker = _followUpHandler.GetFollowUpAttacker();
-            Unit followUpDefender = _followUpHandler.GetFollowUpDefender();
-            DoCombatEventBetween(followUpAttacker, followUpDefender);
+            _followUpHandler.SetFollowUpForAllUnits();
+            ExecuteFollowUp(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
+            ExecuteFollowUp(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
         }
         catch (NoFollowUpForAllUnitsException)
         {
@@ -100,6 +99,14 @@ public class CombatSequencer
         catch (NoFollowUpForAttackerException)
         {
             _view.PrintNoFollowUpForAttacker(_gameInfo.AttackingUnit);
+        }
+    }
+
+    private void ExecuteFollowUp(Unit attacker, Unit defender)
+    {
+        if (attacker.CanDoFollowUp)
+        {
+            DoCombatEventBetween(attacker, defender);
         }
     }
     
