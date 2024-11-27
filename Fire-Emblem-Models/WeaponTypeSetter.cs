@@ -2,7 +2,7 @@ namespace Fire_Emblem_Models;
 
 public static class WeaponTypeSetter
 {
-    public static Dictionary<string, string> WeaponTypes = new Dictionary<string, string>
+    private static readonly Dictionary<string, string> WeaponTypes = new Dictionary<string, string>
     {
         { "Sword", "Physical" },
         { "Axe", "Physical" },

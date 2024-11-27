@@ -7,8 +7,6 @@ namespace Fire_Emblem;
 
 public class FollowUpHandler
 {
-    private Unit _followUpAttacker;
-    private Unit _followUpDefender;
     private GameInfo _gameInfo;
     private int _followUpSpdDifferenceMin = 4;
     private UnitStateManager _unitStateManager;
@@ -37,21 +35,14 @@ public class FollowUpHandler
             CheckForNaturalFollowUp(unit, rival);
             CheckIfUnitCanDoFollowUp(unit);
         }
-        catch (CanDoFollowUpException)
-        {
-            unit.CanDoFollowUp = true;
-        }
-        catch (CounterDeniedException)
-        {
-            
-        }
+        catch (FollowUpDeniedException) {}
     }
     
     public void CheckForNaturalFollowUp(Unit unit, Unit rival)
     {
         if (CanUnitDoNaturalFollowUp(unit, rival))
         {
-            throw new CanDoFollowUpException();
+            unit.CanDoFollowUp = true;
         }
     }
     
@@ -65,16 +56,20 @@ public class FollowUpHandler
     
     public void CheckIfUnitCanDoFollowUp(Unit unit)
     {
+        if (unit.CanDoFollowUp)
+        {
+            return;
+        }
         if (unit.NumberOfGuaranteedFollowUps > 0)
         {
-            throw new CanDoFollowUpException();
+            unit.CanDoFollowUp = true;
         }
     }
     
     private void CheckForDefendingCounterDenial(Unit followUpDefender)
     {
         if (!_unitStateManager.CanDoCounter(followUpDefender) && followUpDefender.IsDefending)
-            throw new CounterDeniedException();
+            throw new FollowUpDeniedException();
     }
     
     public void CheckCanDoFollowUpStateForUnits(Unit attacker, Unit defender)

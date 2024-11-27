@@ -63,6 +63,17 @@ public class UnitStateManager
         unit.CanDoFollowUp = false;
         unit.NumberOfGuaranteedFollowUps = 0;
     }
+
+    public void SetAliveUnitStatus(Unit unit)
+    {
+        if (unit.Hp.IsHpBelowOrEqualToCero())
+        {
+            unit.IsAlive = false;
+        }
+    }
+    
+    
+    
     
     public void CheckForCounterDenial(Unit defender)
     {
@@ -98,13 +109,5 @@ public class UnitStateManager
     private bool IsCounterDeniedButNotDenialAnnulled(Unit unit)
     {
         return unit.IsCounterDenied && !unit.IsCounterDenialAnnulled;
-    }
-
-    public void SetAliveUnitStatus(Unit unit)
-    {
-        if (unit.Hp.IsHpBelowOrEqualToCero())
-        {
-            unit.IsAlive = false;
-        }
     }
 }

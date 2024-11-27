@@ -54,4 +54,10 @@ public class Game
 //  - Tener un HealingManager y un OutsideCombatDamageManager?
 
 // PARA CHEQUEAR:
-//  - ta bien unitStatManager? o dividirlo en mas clases
+//  - ta bien unitStateManager? o dividirlo en mas clases -> Clase CounterHandler
+//  - DamageEffects metodos estaticos?
+//  - Ta bien DamageHandler que almacene damage y dsp lo devuelva?
+//  - functions y actions
+
+// Happy paths son para recorrerlos enteros, excepctions para caminos malos, no para decidir
+// Polimorfismo en Exception, podría pasarle una instancia View al NoFollowUpException para que tenga un handle y sea distinto para clases hijas? Sigue MVC?

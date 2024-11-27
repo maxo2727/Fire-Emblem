@@ -2,7 +2,7 @@ namespace Fire_Emblem_Models;
 
 public class WeaponDefenseGetter
 {
-    public static Dictionary<string, string> WeaponDefenses = new Dictionary<string, string>
+    private static readonly Dictionary<string, string> WeaponDefenses = new Dictionary<string, string>
     {
         { "Physical", "Def" },
         { "Magical", "Res" }

@@ -32,6 +32,9 @@ public class DamageEffects
         FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - newReduction);
     }
     
+    
+    
+    // Clase Calculate
     public int CalculateModifiedBaseDamage(int damage)
     {
         _modifiedDamage = damage;

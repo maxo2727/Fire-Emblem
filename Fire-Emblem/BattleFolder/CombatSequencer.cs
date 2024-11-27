@@ -89,17 +89,18 @@ public class CombatSequencer
         try
         {
             _followUpHandler.SetFollowUpForAllUnits();
-            ExecuteFollowUp(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit);
-            ExecuteFollowUp(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
+            ExecuteFollowUpForAllUnits();
         }
-        catch (NoFollowUpForAllUnitsException)
+        catch (NoFollowUpForAllUnitsException e)
         {
-            _view.PrintNoFollowUpForAllUnits();
+            HandleNoFollowUpException(e);
         }
-        catch (NoFollowUpForAttackerException)
-        {
-            _view.PrintNoFollowUpForAttacker(_gameInfo.AttackingUnit);
-        }
+    }
+
+    private void ExecuteFollowUpForAllUnits()
+    {
+        ExecuteFollowUp(_gameInfo.AttackingUnit, _gameInfo.DefendingUnit); 
+        ExecuteFollowUp(_gameInfo.DefendingUnit, _gameInfo.AttackingUnit);
     }
 
     private void ExecuteFollowUp(Unit attacker, Unit defender)
@@ -109,6 +110,23 @@ public class CombatSequencer
             DoCombatEventBetween(attacker, defender);
         }
     }
+
+    private void HandleNoFollowUpException(NoFollowUpForAllUnitsException e)
+    {
+        if (e.IsDefenderCounterDenied)
+        {
+            _view.PrintNoFollowUpForAttacker(_gameInfo.AttackingUnit);
+        }
+        else
+        {
+            _view.PrintNoFollowUpForAllUnits();
+        }
+    }
+
+    // private void HandleNoFollowUpException(NoFollowUpForAllUnitsException e)
+    // {
+    //     e.Handle(_view, _gameInfo.AttackingUnit);
+    // }
     
     private bool IsThereAnyUnitDead()
     {

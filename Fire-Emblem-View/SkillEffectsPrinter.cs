@@ -32,6 +32,7 @@ public class SkillEffectsPrinter
         PrintFollowUpDamagePercentageReductionToRival();
         PrintBaseDamageReduction();
         PrintHealBonusAfterAttacks();
+        PrintGuaranteedFollowUps();
     }
     
     public void PrintBonuses()
@@ -189,6 +190,14 @@ public class SkillEffectsPrinter
         if (_unit.HealingPercentageAfterAttack > 0)
         {
             _view.WriteLine($"{_unit.Name} recuperará HP igual al {healBonus}% del daño realizado en cada ataque");
+        }
+    }
+
+    public void PrintGuaranteedFollowUps()
+    {
+        if (_unit.NumberOfGuaranteedFollowUps > 0)
+        {
+            _view.WriteLine($"{_unit.Name} tiene {_unit.NumberOfGuaranteedFollowUps} efecto(s) que garantiza(n) su follow up activo(s)");
         }
     }
 }
