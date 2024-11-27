@@ -1,6 +1,4 @@
-using Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
-
-namespace Fire_Emblem_Models.ConditionsFolder;
+namespace Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
 
 public class HpPercentageComparisonCondition : ComparisonCondition
 {
@@ -12,11 +10,11 @@ public class HpPercentageComparisonCondition : ComparisonCondition
         _percentage = percentage;
     }
     
-    public HpPercentageComparisonCondition(double percentage, Func<int, int, double, bool> fractionalComparison)
-    {
-        _percentage = percentage;
-        _fractionalComparison = fractionalComparison;
-    }
+    // public HpPercentageComparisonCondition(double percentage, Func<int, int, double, bool> fractionalComparison)
+    // {
+    //     _percentage = percentage;
+    //     _fractionalComparison = fractionalComparison;
+    // }
 
     public override bool IsMet(Unit unit)
     {

@@ -18,7 +18,7 @@ public class HpBetweenCombanBewitchingTomeEffect : Effect
         double damage = rivalAtkValue * percentageDamage;
         int truncatedDamage = TrueTruncator.Truncate(damage);
         Console.WriteLine($"{rival.Name}: {rivalAtkValue} * {percentageDamage} = {truncatedDamage}");
-        rival.DamageBeforeCombat = truncatedDamage;
+        rival.DamageBeforeCombat += truncatedDamage;
     }
 
     private bool BewitchingTomeDamageConditionsAreMet(Unit unit, Unit rival)

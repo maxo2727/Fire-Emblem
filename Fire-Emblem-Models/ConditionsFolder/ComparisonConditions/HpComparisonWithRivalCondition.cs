@@ -1,4 +1,4 @@
-namespace Fire_Emblem_Models.ConditionsFolder;
+namespace Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
 
 public class HpComparisonWithRivalCondition : ICondition
 {

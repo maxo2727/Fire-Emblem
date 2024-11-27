@@ -1,6 +1,4 @@
-using Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
-
-namespace Fire_Emblem_Models.ConditionsFolder;
+namespace Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
 
 public class HpFixedComparisonCondition : ComparisonCondition
 {
