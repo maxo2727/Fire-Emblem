@@ -1,9 +1,16 @@
+using Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
+
 namespace Fire_Emblem_Models.ConditionsFolder;
 
-public class HpPercentageComparisonCondition : ICondition
+public class HpPercentageComparisonCondition : ComparisonCondition
 {
     private double _percentage;
     private Func<int, int, double, bool> _fractionalComparison;
+    
+    public HpPercentageComparisonCondition(double percentage)
+    {
+        _percentage = percentage;
+    }
     
     public HpPercentageComparisonCondition(double percentage, Func<int, int, double, bool> fractionalComparison)
     {
@@ -11,10 +18,10 @@ public class HpPercentageComparisonCondition : ICondition
         _fractionalComparison = fractionalComparison;
     }
 
-    public bool IsMet(Unit unit)
+    public override bool IsMet(Unit unit)
     {
         int currentHP = unit.Hp.GetCurrentHP();
         int maxHP = unit.Hp.GetMaxHP();
-        return _fractionalComparison(currentHP, maxHP, _percentage);
+        return _comparisonMethod.Compare(currentHP, maxHP, _percentage);
     }
 }

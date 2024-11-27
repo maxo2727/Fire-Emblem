@@ -1,18 +1,18 @@
+using Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
+
 namespace Fire_Emblem_Models.ConditionsFolder;
 
-public class HpFixedComparisonCondition : ICondition
+public class HpFixedComparisonCondition : ComparisonCondition
 {
     private int _value;
-    private Func<int, int, bool> _comparison;
-
-    public HpFixedComparisonCondition(int value, Func<int, int, bool> comparison)
+    
+    public HpFixedComparisonCondition(int value)
     {
         _value = value;
-        _comparison = comparison;
     }
 
-    public bool IsMet(Unit unit)
+    public override bool IsMet(Unit unit)
     {
-        return _comparison(unit.Hp.GetCurrentHP(), _value);
+        return _comparisonMethod.Compare(unit.Hp.GetCurrentHP(), _value);
     }
 }

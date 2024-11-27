@@ -2,7 +2,7 @@ using Fire_Emblem_Models.ConditionsFolder;
 
 namespace Fire_Emblem_Models.Functions.ComparisonMethods;
 
-public class GreaterThanOrEqualToMethod : ComparisonMethod
+public class GreaterThanOrEqualToMethod : FixedComparisonMethod
 {
     public override bool Compare(int a, int b)
     {

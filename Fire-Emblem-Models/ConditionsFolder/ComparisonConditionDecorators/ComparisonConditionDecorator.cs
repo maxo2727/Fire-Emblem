@@ -6,9 +6,9 @@ namespace Fire_Emblem_Models.ConditionsFolder.ComparisonConditionsDecorators;
 public class ComparisonConditionDecorator : ICondition
 {
     protected ComparisonCondition _innerCondition;
-    protected ComparisonMethod _comparisonMethod; 
+    protected IComparisonMethod _comparisonMethod; 
 
-    public ComparisonConditionDecorator(ComparisonCondition innerCondition, ComparisonMethod comparisonMethod)
+    public ComparisonConditionDecorator(ComparisonCondition innerCondition, IComparisonMethod comparisonMethod)
     {
         _innerCondition = innerCondition;
         _comparisonMethod = comparisonMethod;

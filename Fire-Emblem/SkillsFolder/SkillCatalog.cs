@@ -1356,7 +1356,7 @@ public class SkillCatalog
                 conditions = new List<ICondition>()
                 {
                     new WeaponNameCondition("Magic"),
-                    new HpFixedComparisonCondition(2, GreaterThanOrEqualTo)
+                    new GreaterThanOrEqualToCondition( new HpFixedComparisonCondition(2) ),
                 };
                 effects = new List<Effect>()
                 {
@@ -1504,7 +1504,8 @@ public class SkillCatalog
             
             case "Mastermind":
                 priority = 1;
-                conditions = new List<ICondition>() { new HpFixedComparisonCondition(2, GreaterThanOrEqualTo) };
+                conditions = new List<ICondition>()
+                    { new GreaterThanOrEqualToCondition(new HpFixedComparisonCondition(2)) };
                 effects = new List<Effect>() { new HpBetweenCombatModificationEffect(1, DamageBeforeCombat) };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 1;
@@ -1574,7 +1575,7 @@ public class SkillCatalog
                 priority = 1;
                 conditions = new List<ICondition>()
                 {
-                    new HpPercentageComparisonCondition(0.6, FractionalGreaterThanOrEqualTo),
+                    new FractionalGreaterThanOrEqualToCondition( new HpPercentageComparisonCondition(0.6) ),
                     new RivalCondition( new StartsCombatCondition() )
                 };
                 effects = new List<Effect>() { new GuaranteedFollowUpEffect() };

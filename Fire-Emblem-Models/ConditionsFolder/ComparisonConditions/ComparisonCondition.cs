@@ -4,11 +4,11 @@ namespace Fire_Emblem_Models.ConditionsFolder.ComparisonConditions;
 
 public abstract class ComparisonCondition : ICondition
 {
-    protected ComparisonMethod _comparisonMethod;
+    protected IComparisonMethod _comparisonMethod;
 
     public abstract bool IsMet(Unit unit);
 
-    public void SetConditionMethod(ComparisonMethod comparisonMethod)
+    public void SetConditionMethod(IComparisonMethod comparisonMethod)
     {
         _comparisonMethod = comparisonMethod;
     }
