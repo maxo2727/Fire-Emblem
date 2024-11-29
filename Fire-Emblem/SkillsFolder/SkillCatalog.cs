@@ -8,9 +8,9 @@ using Fire_Emblem_Models.EffectsFolder.CounterDenial;
 using Fire_Emblem_Models.EffectsFolder.DamageModifications.DamageExtra;
 using Fire_Emblem_Models.EffectsFolder.DamageModifications.DamageReduction;
 using Fire_Emblem_Models.EffectsFolder.DamageModifications.DamageReductionPercentage;
+using Fire_Emblem_Models.EffectsFolder.HpBetweenCombatModificationEffects;
 using Fire_Emblem_Models.EffectsFolder.Neutralizations;
 using Fire_Emblem_Models.EffectsFolder.PenaltyEffects;
-using static Fire_Emblem_Models.Actions.HpInCombatActions;
 
 namespace Fire_Emblem.SkillsFolder;
 
@@ -1359,7 +1359,7 @@ public class SkillCatalog
                 };
                 effects = new List<Effect>()
                 {
-                    new HpBetweenCombatModificationEffect(1, DamageBeforeCombat),
+                    new DamageBeforeCombatEffect(1),
                     new DamageExtraEffect(3)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
@@ -1385,7 +1385,7 @@ public class SkillCatalog
                     new BonusEffect("Spd", 4),
                     new BonusEffect("Def", 4),
                     new BonusEffect("Res", 4),
-                    new HpBetweenCombatModificationEffect(8, DamageAfterCombat)
+                    new DamageAfterCombatEffect(8),
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1396,7 +1396,7 @@ public class SkillCatalog
                 effects = new List<Effect>()
                 {
                     new RivalEffect( new PenaltyEffect("Atk", 5) ),
-                    new HpBetweenCombatModificationEffect(10, HealingAfterCombat)
+                    new HealingAfterCombatEffect(10),
                     
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
@@ -1409,7 +1409,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Atk", 7),
                     new BonusEffect("Spd", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1421,7 +1421,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Atk", 7),
                     new BonusEffect("Def", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1433,7 +1433,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Atk", 7),
                     new BonusEffect("Res", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1445,7 +1445,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Spd", 7),
                     new BonusEffect("Def", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1457,7 +1457,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Spd", 7),
                     new BonusEffect("Res", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1469,7 +1469,7 @@ public class SkillCatalog
                 {
                     new BonusEffect("Def", 7),
                     new BonusEffect("Res", 7),
-                    new HpBetweenCombatModificationEffect(5, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(5)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1480,7 +1480,7 @@ public class SkillCatalog
                 effects = new List<Effect>()
                 {
                     new DamageExtraPercentageByStatEffect("Atk", 0.25),
-                    new HpBetweenCombatModificationEffect(7, DamageAfterCombatIfHasAttacked)
+                    new DamageAfterCombatIfHasAttacked(7)
                         
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
@@ -1489,7 +1489,10 @@ public class SkillCatalog
             case "True Dragon Wall":
                 priority = 1;
                 conditions = new List<ICondition>() { new IsWeaponInUnitCompanions("Magic") };
-                effects = new List<Effect>() { new HpBetweenCombatModificationEffect(7, HealingAfterCombat) };
+                effects = new List<Effect>()
+                {
+                    new HealingAfterCombatEffect(7)
+                };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 2;
                 conditions = new List<ICondition>() { new GreaterThanCondition(new StatComparisonCondition("Res")) };
@@ -1504,7 +1507,11 @@ public class SkillCatalog
             case "Mastermind":
                 priority = 1;
                 conditions = new List<ICondition>() { new GreaterThanOrEqualToCondition(new HpFixedComparisonCondition(2)) };
-                effects = new List<Effect>() { new HpBetweenCombatModificationEffect(1, DamageBeforeCombat) };
+                effects = new List<Effect>()
+                {
+                    new DamageBeforeCombatEffect(1)
+                    
+                };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 1;
                 conditions = new List<ICondition>() { new StartsCombatCondition() };
@@ -1546,7 +1553,7 @@ public class SkillCatalog
                     new BonusEffectPercentageOfStat("Atk", 0.2, "Spd"),
                     new BonusEffectPercentageOfStat("Spd", 0.2, "Spd"),
                     new RivalEffect( new DamageReductionPercentageFirstAttackEffect(0.3) ),
-                    new HpBetweenCombatModificationEffect(7, HealingAfterCombat)
+                    new HealingAfterCombatEffect(7)
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 priority = 2;
@@ -1564,7 +1571,7 @@ public class SkillCatalog
                 };
                 effects = new List<Effect>()
                 {
-                    new HpBetweenCombanBewitchingTomeEffect()
+                    new HpBetweenCombatBewitchingTomeEffect()
                 };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
@@ -1580,10 +1587,43 @@ public class SkillCatalog
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
             
+            case "Follow-Up Ring":
+                priority = 1;
+                conditions = new List<ICondition>() { new FractionalGreaterThanOrEqualToCondition( new HpPercentageComparisonCondition(0.5)) };
+                effects = new List<Effect>() { new GuaranteedFollowUpEffect() };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Wary Fighter":
+                priority = 1;
+                conditions = new List<ICondition>() { new FractionalGreaterThanOrEqualToCondition( new HpPercentageComparisonCondition(0.5) ) };
+                effects = new List<Effect>()
+                {
+                    new DeniedFollowUpEffect(),
+                    new RivalEffect( new DeniedFollowUpEffect() )
+                };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Piercing Tribute":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new RivalEffect( new NullFollowUpGuaranteeEffect()) };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+            
+            case "Mjölnir":
+                priority = 1;
+                conditions = new List<ICondition>() { new EmptyCondition() };
+                effects = new List<Effect>() { new NullFollowUpDenialEffect() };
+                conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
+                return conditionalEffects;
+                
+            
             default:
                 priority = 1;
-                conditions = new List<ICondition>() {  };
-                effects = new List<Effect>() {  };
+                conditions = new List<ICondition>() { };
+                effects = new List<Effect>() { };
                 conditionalEffects.Add(new ConditionalEffect(conditions, effects, priority));
                 return conditionalEffects;
         }

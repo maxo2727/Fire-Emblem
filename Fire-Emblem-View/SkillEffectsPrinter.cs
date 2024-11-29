@@ -33,6 +33,9 @@ public class SkillEffectsPrinter
         PrintBaseDamageReduction();
         PrintHealBonusAfterAttacks();
         PrintGuaranteedFollowUps();
+        PrintDeniedFollowUps();
+        PrintNullFollowUpDenial();
+        PrintNullFollowUpGuarantee();
     }
     
     public void PrintBonuses()
@@ -198,6 +201,30 @@ public class SkillEffectsPrinter
         if (_unit.NumberOfGuaranteedFollowUps > 0)
         {
             _view.WriteLine($"{_unit.Name} tiene {_unit.NumberOfGuaranteedFollowUps} efecto(s) que garantiza(n) su follow up activo(s)");
+        }
+    }
+
+    public void PrintDeniedFollowUps()
+    {
+        if (_unit.NumberOfDeniedFollowUps > 0)
+        {
+            _view.WriteLine($"{_unit.Name} tiene {_unit.NumberOfDeniedFollowUps} efecto(s) que neutraliza(n) su follow up activo(s)");
+        }
+    }
+
+    public void PrintNullFollowUpDenial()
+    {
+        if (_unit.IsFollowUpDenialAnnulled)
+        {
+            _view.WriteLine($"{_unit.Name} es inmune a los efectos que neutralizan su follow up");
+        }
+    }
+
+    public void PrintNullFollowUpGuarantee()
+    {
+        if (_unit.IsFollowUpGuaranteeAnnulled)
+        {
+            _view.WriteLine($"{_unit.Name} es inmune a los efectos que garantizan su follow up");
         }
     }
 }

@@ -1,9 +1,9 @@
 using Fire_Emblem_Models.Functions;
 using Fire_Emblem_Models.StatsFolder;
 
-namespace Fire_Emblem_Models.EffectsFolder;
+namespace Fire_Emblem_Models.EffectsFolder.HpBetweenCombatModificationEffects;
 
-public class HpBetweenCombanBewitchingTomeEffect : Effect
+public class HpBetweenCombatBewitchingTomeEffect : Effect
 {
     public override void Apply(Unit unit)
     {

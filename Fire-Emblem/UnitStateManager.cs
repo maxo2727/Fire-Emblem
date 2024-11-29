@@ -1,4 +1,5 @@
 using Fire_Emblem_Models;
+using Fire_Emblem_Models.Exceptions;
 using Fire_Emblem_View;
 
 namespace Fire_Emblem;
@@ -62,6 +63,9 @@ public class UnitStateManager
         unit.DamageAfterCombatIfHasAttacked = 0;
         unit.CanDoFollowUp = false;
         unit.NumberOfGuaranteedFollowUps = 0;
+        unit.NumberOfDeniedFollowUps = 0;
+        unit.IsFollowUpDenialAnnulled = false;
+        unit.IsFollowUpGuaranteeAnnulled = false;
     }
 
     public void SetAliveUnitStatus(Unit unit)
@@ -70,6 +74,23 @@ public class UnitStateManager
         {
             unit.IsAlive = false;
         }
+    }
+
+    public bool IsUnitAbleToDoFollowUp(Unit unit)
+    {
+        if (unit.IsFollowUpGuaranteeAnnulled)
+        {
+            unit.NumberOfGuaranteedFollowUps = 0;
+        }
+        if (unit.IsFollowUpDenialAnnulled)
+        {
+            unit.NumberOfDeniedFollowUps = 0;
+        }
+        if (unit.NumberOfDeniedFollowUps > unit.NumberOfGuaranteedFollowUps)
+        {
+            throw new FollowUpDeniedException();
+        }
+        return unit.NumberOfGuaranteedFollowUps > 0;
     }
     
     

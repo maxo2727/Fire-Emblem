@@ -32,14 +32,33 @@ public class FollowUpHandler
         try
         {
             CheckForDefendingCounterDenial(unit);
-            CheckForNaturalFollowUp(unit, rival);
             CheckIfUnitCanDoFollowUp(unit);
+            CheckForNaturalFollowUp(unit, rival);
         }
-        catch (FollowUpDeniedException) {}
+        catch (FollowUpDeniedException) 
+        {}
+    }
+    
+    private void CheckForDefendingCounterDenial(Unit followUpDefender)
+    {
+        if (!_unitStateManager.CanDoCounter(followUpDefender) && followUpDefender.IsDefending)
+            throw new FollowUpDeniedException();
+    }
+    
+    public void CheckIfUnitCanDoFollowUp(Unit unit)
+    {
+        if (_unitStateManager.IsUnitAbleToDoFollowUp(unit))
+        {
+            unit.CanDoFollowUp = true;
+        }
     }
     
     public void CheckForNaturalFollowUp(Unit unit, Unit rival)
     {
+        if (unit.CanDoFollowUp)
+        {
+            return;
+        }
         if (CanUnitDoNaturalFollowUp(unit, rival))
         {
             unit.CanDoFollowUp = true;
@@ -52,24 +71,6 @@ public class FollowUpHandler
         Stat defenderSpd = defender.Stats.GetStat("Spd");
         int combatSpdDifference = attackerSpd.GetStatWithEffects() - defenderSpd.GetStatWithEffects();
         return combatSpdDifference > _followUpSpdDifferenceMin;
-    }
-    
-    public void CheckIfUnitCanDoFollowUp(Unit unit)
-    {
-        if (unit.CanDoFollowUp)
-        {
-            return;
-        }
-        if (unit.NumberOfGuaranteedFollowUps > 0)
-        {
-            unit.CanDoFollowUp = true;
-        }
-    }
-    
-    private void CheckForDefendingCounterDenial(Unit followUpDefender)
-    {
-        if (!_unitStateManager.CanDoCounter(followUpDefender) && followUpDefender.IsDefending)
-            throw new FollowUpDeniedException();
     }
     
     public void CheckCanDoFollowUpStateForUnits(Unit attacker, Unit defender)

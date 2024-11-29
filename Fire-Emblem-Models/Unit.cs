@@ -40,6 +40,9 @@ public class Unit
     public double HealingPercentageAfterAttack;
 
     public int NumberOfGuaranteedFollowUps;
+    public int NumberOfDeniedFollowUps;
+    public bool IsFollowUpGuaranteeAnnulled;
+    public bool IsFollowUpDenialAnnulled;
     public bool CanDoFollowUp;
     
     
